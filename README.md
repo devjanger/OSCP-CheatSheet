@@ -2,7 +2,7 @@
 
 [Enumeration](#Enumeration)
 
-#Enumeration
+# Enumeration
 
 ## Initial scan
 
