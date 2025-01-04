@@ -4,6 +4,9 @@
 * [Fuzzing](#Fuzzing)
 * [SNMP - 161](#snmp---161)
 * [RDP - 3389](#rdp---3389)
+* [Password crack](#password-crack)
+  * [john](#john)
+  * [hashcat](#hashcat)
 
 # Enumeration
 
@@ -44,4 +47,30 @@ snmpbulkwalk -c public -v2c $target
 ~~~ bash
 xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 ~~~
+
+# Password crack
+
+## john
+
+### cracking htpasswd using mask
+
+~~~ bash
+john htpasswd -1=[0-9a-z] --mask='G4HeulB?1' --max-length=11
+~~~
+
+### cracking /etc/shadow
+
+~~~ bash
+john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+~~~
+
+## hashcat
+
+### MD5 cracking
+
+~~~ bash
+hashcat -m 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt.gz --show
+hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
+~~~
+
 
