@@ -2,7 +2,7 @@
 
 * [Enumeration](#Enumeration)
 * [Fuzzing](#Fuzzing)
-* [RDP - tcp/3389](#RDP-tcp/3389)
+* [RDP - tcp/3389](#rdp-tcp/3389)
 
 # Enumeration
 
