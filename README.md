@@ -5,8 +5,8 @@
 * [SNMP - 161](#snmp---161)
 * [RDP - 3389](#rdp---3389)
 * [Password crack](#password-crack)
-  * [john](#john)
-  * [hashcat](#hashcat)
+  * [John](#john)
+  * [Hashcat](#hashcat)
 
 # Enumeration
 
@@ -50,7 +50,7 @@ xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 
 # Password crack
 
-## john
+## John
 
 ### cracking htpasswd using mask
 
@@ -64,7 +64,7 @@ john htpasswd -1=[0-9a-z] --mask='G4HeulB?1' --max-length=11
 john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
 ~~~
 
-## hashcat
+## Hashcat
 
 ### MD5 cracking
 
