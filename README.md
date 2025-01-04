@@ -2,7 +2,8 @@
 
 * [Enumeration](#Enumeration)
 * [Fuzzing](#Fuzzing)
-* [RDP-3389](#rdp-3389)
+* [SNMP - 161](#snmp---161)
+* [RDP - 3389](#rdp---3389)
 
 # Enumeration
 
@@ -27,8 +28,16 @@ ffuf -w /usr/share/wordlists/wfuzz/general/common.txt -u http://target.com/FUZZ 
 ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.target.com" -mc 200
 ~~~
 
+# SNMP - 161
 
-# RDP-3389
+## snmpbulkwalk
+
+~~~ bash
+snmpbulkwalk -c public -v2c $target
+~~~
+
+
+# RDP - 3389
 
 ## Connection
 
