@@ -28,7 +28,7 @@ ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.
 ~~~
 
 
-# RDP - tcp/3389
+# RDP-tcp/3389
 
 ## Connection
 
