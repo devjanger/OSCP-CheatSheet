@@ -2,7 +2,7 @@
 
 * [Enumeration](#Enumeration)
 * [Fuzzing](#Fuzzing)
-* [RDP - tcp/3389](#rdp-tcp/3389)
+* [RDP-3389](#rdp-3389)
 
 # Enumeration
 
@@ -28,7 +28,7 @@ ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.
 ~~~
 
 
-# RDP-tcp/3389
+# RDP-3389
 
 ## Connection
 
