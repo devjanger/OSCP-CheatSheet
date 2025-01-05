@@ -13,7 +13,7 @@
 ## Nmap Initial scan
 
 ~~~ bash
-nmap -sSCV -Pn $target --open --min-rate 3000 -oA output
+nmap -sCV -Pn $target --open --min-rate 3000 -oA output
 ~~~
 
 
