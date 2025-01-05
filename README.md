@@ -13,7 +13,7 @@
 ## Nmap Initial scan
 
 ~~~ bash
-nmap -sSCV -Pn $target
+nmap -sSCV -Pn $target --open
 ~~~
 
 
