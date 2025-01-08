@@ -80,5 +80,6 @@ hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
 ## Error Based SQL Injection
 
 ~~~ sql
+--- MSSQL
 if (@@VERSION)=9 select 1 else select 2;
 ~~~
