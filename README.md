@@ -102,6 +102,20 @@ hashcat -m 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt
 hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
 ~~~
 
+### Linux password
+
+~~~ bash
+hashcat -m 1800 -a 0 hash.txt rockyou.txt
+~~~
+
+
+### Windows password
+
+~~~ bash
+hashcat -m 1000 -a 0 hash.txt rockyou.txt
+~~~
+
+
 # SQL Injection
 
 ## Error Based SQL Injection
