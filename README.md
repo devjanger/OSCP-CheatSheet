@@ -7,6 +7,8 @@
 * [Password crack](#password-crack)
   * [John](#john)
   * [Hashcat](#hashcat)
+* [SQL Injection](#SQL-Injection)
+  * [Error based SQL Injection](#error-based-sql-injection)
 
 # Enumeration
 
@@ -73,4 +75,10 @@ hashcat -m 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt
 hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
 ~~~
 
+# SQL Injection
 
+## Error Based SQL Injection
+
+~~~ sql
+if (@@VERSION)=9 select 1 else select 2;
+~~~
