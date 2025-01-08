@@ -27,7 +27,7 @@ nmap -sCV -Pn $target --open --min-rate 3000 -oA output
 ## FFUF path fuzzing
 
 ~~~ bash
-ffuf -w /usr/share/wordlists/wfuzz/general/common.txt -u http://target.com/FUZZ -mc 200
+ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
 ~~~
 
 ## FUFF subdomain fuzzing
