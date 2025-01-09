@@ -7,6 +7,7 @@
 * [SNMP - 161](#snmp---161)
 * [NFS - 2049](#NFS---2049)
 * [SMB - 445](#smb---445)
+* [MySQL - 3306](#mysql---3306)
 * [RDP - 3389](#rdp---3389)
 * [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
@@ -75,6 +76,12 @@ nmap --script=nfs-showmount -oN mountable_shares <IP>
 sudo mount -v -t nfs <IP>:<SHARE> /mnt/test
 ~~~
 
+## Nmap script scan
+
+~~~ bash
+sudo nmap -p 111,2049 -Pn -n --open -sV --script="nfs-*" <IP>
+~~~
+
 
 # SMB - 445
 
@@ -91,6 +98,16 @@ smbclient -N -L <IP>
 ## Connection
 ~~~ bash
 smbclient -N \\\\{IP}\\backups
+~~~
+
+
+
+# MySQL - 3306
+
+## Nmap script scan
+
+~~~ bash
+sudo nmap -p 3306 -Pn -n --open -sV -sC --script="mysql-*" <IP>
 ~~~
 
 
