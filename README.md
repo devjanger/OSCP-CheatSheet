@@ -111,6 +111,12 @@ sudo nmap -p 3306 -Pn -n --open -sV -sC --script="mysql-*" <IP>
 ~~~
 
 
+## Brute force
+
+~~~ bash
+hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mysql -vV -I -u
+~~~
+
 
 # RDP - 3389
 
