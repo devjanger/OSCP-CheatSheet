@@ -5,6 +5,7 @@
   * [Brute force](#brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SNMP - 161](#snmp---161)
+* [NFS - 2049](#NFS---2049)
 * [SMB - 445](#smb---445)
 * [RDP - 3389](#rdp---3389)
 * [Fuzzing](#Fuzzing)
@@ -55,6 +56,23 @@ ssh -i <FILENAME> <USER>@<IP>
 
 ~~~ bash
 snmpbulkwalk -c public -v2c $target
+~~~
+
+
+
+# NFS - 2049
+
+## Show Mountable NFS Shares
+
+~~~ bash
+showmount -e <IP>
+nmap --script=nfs-showmount -oN mountable_shares <IP>
+~~~
+
+## Mount a share
+
+~~~ bash
+sudo mount -v -t nfs <IP>:<SHARE> /mnt/test
 ~~~
 
 
