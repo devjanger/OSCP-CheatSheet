@@ -86,6 +86,13 @@ xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 ~~~
 
 
+## Brute force
+
+~~~ bash
+hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
+~~~
+
+
 
 # Fuzzing
 
