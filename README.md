@@ -1,13 +1,13 @@
 # OSCP Cheatsheet
 
 * [Enumeration](#Enumeration)
-* [Fuzzing](#Fuzzing)
 * [SSH - 22](#ssh---21)
   * [Brute force](#brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SNMP - 161](#snmp---161)
 * [SMB - 445](#smb---445)
 * [RDP - 3389](#rdp---3389)
+* [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
   * [John](#john)
   * [Hashcat](#hashcat)
@@ -24,20 +24,6 @@
 nmap -sCV -Pn $target --open --min-rate 3000 -oA output
 ~~~
 
-
-# Fuzzing
-
-## FFUF path fuzzing
-
-~~~ bash
-ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
-~~~
-
-## FUFF subdomain fuzzing
-
-~~~ bash
-ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.target.com" -mc 200
-~~~
 
 # SSH - 21
 
@@ -98,6 +84,25 @@ smbclient -N \\\\{IP}\\backups
 ~~~ bash
 xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 ~~~
+
+
+
+# Fuzzing
+
+## FFUF path fuzzing
+
+~~~ bash
+ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
+~~~
+
+## FUFF subdomain fuzzing
+
+~~~ bash
+ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.target.com" -mc 200
+~~~
+
+
+
 
 # Password crack
 
