@@ -6,6 +6,7 @@
   * [Brute force](#brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SNMP - 161](#snmp---161)
+* [SMB - 445](#smb---445)
 * [RDP - 3389](#rdp---3389)
 * [Password crack](#password-crack)
   * [John](#john)
@@ -69,6 +70,25 @@ ssh -i <FILENAME> <USER>@<IP>
 ~~~ bash
 snmpbulkwalk -c public -v2c $target
 ~~~
+
+
+# SMB - 445
+
+## Get share files list
+
+~~~ bash
+smbclient -N -L <IP>
+~~~
+
+```-N``` --no-pass
+
+```-L``` --list=HOST
+
+## Connection
+~~~ bash
+smbclient -N \\\\{IP}\\backups
+~~~
+
 
 
 # RDP - 3389
