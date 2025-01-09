@@ -122,6 +122,8 @@ hashcat -m 1000 -a 0 hash.txt rockyou.txt
 
 # SQL Injection
 
+reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https://pentestmonkey.net/category/cheat-sheet/sql-injection)
+
 ## Examining the database
 
 ~~~ sql
