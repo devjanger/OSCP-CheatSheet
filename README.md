@@ -1,7 +1,8 @@
 # OSCP Cheatsheet
 
 * [Enumeration](#Enumeration)
-* [SSH - 22](#ssh---21)
+* [FTP - 21](#ftp---21)
+* [SSH - 22](#ssh---22)
   * [Brute force](#brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SNMP - 161](#snmp---161)
@@ -26,8 +27,16 @@
 nmap -sCV -Pn $target --open --min-rate 3000 -oA output
 ~~~
 
+# FTP - 21
 
-# SSH - 21
+## Brute force
+
+~~~ bash
+hydra -V -f -L users.txt -P passwords.txt ftp://target.com -u -vV
+~~~
+
+
+# SSH - 22
 
 ## Brute force
 
