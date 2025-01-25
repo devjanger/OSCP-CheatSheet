@@ -142,6 +142,12 @@ sudo nmap -p 3306 -Pn -n --open -sV -sC --script="mysql-*" <IP>
 hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mysql -vV -I -u
 ~~~
 
+## Dumping
+
+~~~ bash
+mysqldump -u root -p 'password' -P 3389 -h hostname dbname tablename > mysqldump.sql
+~~~
+
 
 # RDP - 3389
 
