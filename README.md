@@ -211,14 +211,14 @@ hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
 
 ```--show``` 옵션을 붙일 경우 이전에 나왔던 결과를 출력하고 크래킹 작업은 생략
 
-### Linux password
+### Linux password cracking
 
 ~~~ bash
 hashcat -m 1800 -a 0 hash.txt rockyou.txt
 ~~~
 
 
-### Windows password
+### Windows password cracking
 
 ~~~ bash
 hashcat -m 1000 -a 0 hash.txt rockyou.txt
