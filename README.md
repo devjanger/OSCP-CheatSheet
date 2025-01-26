@@ -188,6 +188,13 @@ ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.
 
 ## John
 
+### Basically
+
+~~~ bash
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --format=Raw-MD5 --pot=john.output
+~~~
+
+
 ### cracking htpasswd using mask
 
 ~~~ bash
