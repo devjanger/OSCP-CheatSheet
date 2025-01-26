@@ -162,6 +162,7 @@ xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 
 ~~~ bash
 hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
+hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 ~~~
 
 
