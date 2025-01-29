@@ -37,6 +37,15 @@ hydra -V -f -L users.txt -P passwords.txt ftp://target.com -u -vV
 ~~~
 
 
+## Anonymous access
+
+~~~ bash
+ftp $ip
+ftp> USER anonymous
+ftp> PASS anonymous
+~~~
+
+
 # SSH - 22
 
 ## Brute force
