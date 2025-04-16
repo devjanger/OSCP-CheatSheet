@@ -296,4 +296,6 @@ script /dev/null -c bash
 # Ctrl + z
 stty -raw echo; fg
 # Enter (Return) x2
+reset
+xterm-256color
 ```
