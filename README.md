@@ -19,6 +19,7 @@
   * [Examining the database](#examining-the-database)
   * [Error based SQL Injection](#error-based-sql-injection)
   * [Filter bypass](#filter-bypass)
+* [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 
 # Enumeration
 
@@ -287,3 +288,12 @@ Quote bypass: [https://www.rapidtables.com/convert/number/ascii-to-hex.html](htt
 
 reference: [https://portswigger.net/support/sql-injection-bypassing-common-filters](https://portswigger.net/support/sql-injection-bypassing-common-filters)
 
+
+# Dumb Shell to Fully Interactive Shell
+
+``` bash
+script /dev/null -c bash
+# Ctrl + z
+stty -raw echo; fg
+# Enter (Return) x2
+```
