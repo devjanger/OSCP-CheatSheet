@@ -11,6 +11,7 @@
 * [SMB - 445](#smb---445)
 * [MySQL - 3306](#mysql---3306)
 * [RDP - 3389](#rdp---3389)
+* [WINRM - 5985 - 5986](#WINRM---5985---5986)
 * [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
   * [John](#john)
@@ -188,6 +189,20 @@ hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
 hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 ~~~
 
+# WINRM - 5985 - 5986
+
+## Brute force
+
+~~~ bash
+crackmapexec winrm <IP> -u <USERS_LIST> -p <PASSWORDS_LIST>
+~~~
+
+## Connecting
+
+~~~ bash
+evil-winrm -i <IP> -u <USER> -p <PASSWORD>
+evil-winrm -i <IP> -u <USER> -H <HASH>
+~~~
 
 
 # Fuzzing
