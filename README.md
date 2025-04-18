@@ -204,6 +204,13 @@ evil-winrm -i <IP> -u <USER> -p <PASSWORD>
 evil-winrm -i <IP> -u <USER> -H <HASH>
 ~~~
 
+## Interactive
+
+~~~ bash
+*Evil-WinRM* PS C:\Users\support\Desktop> upload <filename>
+*Evil-WinRM* PS C:\Users\support\Desktop> download <filename>
+~~~
+
 
 # Fuzzing
 
