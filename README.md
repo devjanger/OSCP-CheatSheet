@@ -35,6 +35,10 @@ cat txt.txt | grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" > ips.txt
 nmap -iL ips.txt -v -p 139,445 --script smb-os-discovery -oG results.txt
 ~~~
 
+~~~ bash
+ll /usr/share/nmap/scripts | grep smb | awk '{ print $9 }'
+~~~
+
 # FTP - 21
 
 ## Brute force
