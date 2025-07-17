@@ -30,6 +30,11 @@
 nmap -sCV -Pn $target --open --min-rate 3000 -oA output
 ~~~
 
+~~~ bash
+cat txt.txt | grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" > ips.txt
+nmap -iL ips.txt -v -p 139,445 --script smb-os-discovery -oG results.txt
+~~~
+
 # FTP - 21
 
 ## Brute force
@@ -91,6 +96,12 @@ wpscan --url http://target.com:8081 --passwords pass.txt
 
 ## snmpbulkwalk
 
+## Scanning opened snmp
+
+~~~ bash
+sudo nmap -iL ips.txt -sU -p 161 --open -oG open-snmap.txt
+~~~
+
 ~~~
 1.3.6.1.2.1.25.1.6.0 : 시스템 프로세스
 1.3.6.1.2.1.25.4.2.1.2 : 프로그램 실행
@@ -108,7 +119,6 @@ snmpbulkwalk -c public -v2c $target
 ~~~ bash
 snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
 ~~~
-
 
 
 # NFS - 2049
