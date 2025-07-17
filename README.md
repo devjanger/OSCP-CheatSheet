@@ -175,7 +175,11 @@ smbclient -N -L <IP>
 
 ## Connection
 ~~~ bash
-smbclient -N \\\\{IP}\\backups
+smbclient -N \\\\<IP>\\backups
+~~~
+
+~~~ bash
+smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
 ~~~
 
 ## PsExec
