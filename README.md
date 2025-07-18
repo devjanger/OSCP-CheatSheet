@@ -324,6 +324,11 @@ hashcat -m 1800 -a 0 hash.txt rockyou.txt
 hashcat -m 1000 -a 0 hash.txt rockyou.txt
 ~~~
 
+### Get cracked passwords
+
+~~~
+cat ~/.local/share/hashcat/hashcat.potfile
+~~~
 
 # SQL Injection
 
