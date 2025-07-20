@@ -398,7 +398,7 @@ xterm-256color
 
 # Webshell
 
-## Wordpress plugin
+## Webshell upload via Wordpress plugin
 
 ~~~ php
 // wordpress-webshell.php
