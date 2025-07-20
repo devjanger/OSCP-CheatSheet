@@ -263,13 +263,14 @@ evil-winrm -i <IP> -u <USER> -H <HASH>
 
 # Fuzzing
 
-## FFUF path fuzzing
+## Path fuzzing
 
 ~~~ bash
 ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
+gobuster dir -u 192.168.50.20 -w /usr/share/wordlists/dirb/common.txt -t 5
 ~~~
 
-## FUFF subdomain fuzzing
+## Subdomain fuzzing
 
 ~~~ bash
 ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.target.com" -mc 200
