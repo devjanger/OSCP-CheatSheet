@@ -413,6 +413,11 @@ xterm-256color
 
 # Webshell
 
+## PHP Simple Webshell
+~~~ shell
+/usr/share/webshells/php/simple-backdoor.php
+~~~
+
 ## One line(User-Agent, log poisoning)
 
 ~~~ php
@@ -441,6 +446,11 @@ zip wordpress-webshell.zip wordpress-webshell.php
 
 
 # ReverseShell
+
+## PHP ReverseShell
+~~~ shell
+/usr/share/webshells/php/php-reverse-shell.php
+~~~
 
 ## Attacker Listener
 ~~~ shell
