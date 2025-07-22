@@ -218,6 +218,12 @@ impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 
 # MySQL - 3306
 
+## MySQL Connection
+
+~~~ bash
+mysql -uroot -p'root' -h192.168.248.16 -P 3306 --skip-ssl
+~~~
+
 ## Nmap script scan
 
 ~~~ bash
