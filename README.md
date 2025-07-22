@@ -7,8 +7,9 @@
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [HTTP, HTTPS - 80, 443](#http-https---80-443)
 * [SNMP - 161](#snmp---161)
-* [NFS - 2049](#NFS---2049)
 * [SMB - 445](#smb---445)
+* [MSSQL - 1433](#MSSQL---1433)
+* [NFS - 2049](#NFS---2049)
 * [MySQL - 3306](#mysql---3306)
 * [RDP - 3389](#rdp---3389)
 * [WINRM - 5985 - 5986](#WINRM---5985---5986)
@@ -156,28 +157,6 @@ snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
 ~~~
 
 
-# NFS - 2049
-
-## Show Mountable NFS Shares
-
-~~~ bash
-showmount -e <IP>
-nmap --script=nfs-showmount -oN mountable_shares <IP>
-~~~
-
-## Mount a share
-
-~~~ bash
-sudo mount -v -t nfs <IP>:<SHARE> /mnt/test
-~~~
-
-## Nmap script scan
-
-~~~ bash
-sudo nmap -p 111,2049 -Pn -n --open -sV --script="nfs-*" <IP>
-~~~
-
-
 # SMB - 445
 
 ## Get share files list
@@ -215,6 +194,40 @@ impacket-psexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 ~~~
 
+# MSSQL - 1433
+
+## MSSQL Connection
+
+~~~ bash
+impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
+~~~
+
+~~~ sql
+SELECT @@version;
+SELECT name FROM sys.databases;
+SELECT * FROM {databaseName}.information_schema.tables;
+~~~
+
+# NFS - 2049
+
+## Show Mountable NFS Shares
+
+~~~ bash
+showmount -e <IP>
+nmap --script=nfs-showmount -oN mountable_shares <IP>
+~~~
+
+## Mount a share
+
+~~~ bash
+sudo mount -v -t nfs <IP>:<SHARE> /mnt/test
+~~~
+
+## Nmap script scan
+
+~~~ bash
+sudo nmap -p 111,2049 -Pn -n --open -sV --script="nfs-*" <IP>
+~~~
 
 # MySQL - 3306
 
@@ -222,6 +235,12 @@ impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 
 ~~~ bash
 mysql -uroot -p'root' -h192.168.248.16 -P 3306 --skip-ssl
+~~~
+
+~~~ sql
+select version();
+select system_user();
+show databases;
 ~~~
 
 ## Nmap script scan
@@ -360,29 +379,10 @@ hashcat -m 1400 -a 0 hash.txt rockyou.txt
 cat ~/.local/share/hashcat/hashcat.potfile
 ~~~
 
+
 # SQL Injection
 
 reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https://pentestmonkey.net/category/cheat-sheet/sql-injection)
-
-## MySQL
-
-~~~ sql
-select version();
-select system_user();
-show databases;
-~~~
-
-## MSSQL
-
-~~~ bash
-impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
-~~~
-
-~~~ sql
-SELECT @@version;
-SELECT name FROM sys.databases;
-SELECT * FROM {databaseName}.information_schema.tables;
-~~~
 
 
 ## Examining the database
