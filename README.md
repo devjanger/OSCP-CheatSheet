@@ -358,6 +358,14 @@ cat ~/.local/share/hashcat/hashcat.potfile
 
 reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https://pentestmonkey.net/category/cheat-sheet/sql-injection)
 
+
+~~~ sql
+select version();
+select system_user();
+show databases;
+~~~
+
+
 ## Examining the database
 
 ~~~ sql
