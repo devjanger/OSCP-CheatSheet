@@ -358,11 +358,24 @@ cat ~/.local/share/hashcat/hashcat.potfile
 
 reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https://pentestmonkey.net/category/cheat-sheet/sql-injection)
 
+## MySQL
 
 ~~~ sql
 select version();
 select system_user();
 show databases;
+~~~
+
+## MSSQL
+
+~~~ bash
+impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
+~~~
+
+~~~ sql
+SELECT @@version;
+SELECT name FROM sys.databases;
+SELECT * FROM {databaseName}.information_schema.tables;
 ~~~
 
 
