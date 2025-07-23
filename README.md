@@ -3,7 +3,7 @@
 * [Enumeration](#Enumeration)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
-  * [Brute force](#brute-force)
+  * [Login Brute force](#login-brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [HTTP, HTTPS - 80, 443](#http-https---80-443)
 * [SNMP - 161](#snmp---161)
@@ -47,7 +47,7 @@ ll /usr/share/nmap/scripts | grep smb | awk '{ print $9 }'
 
 # FTP - 21
 
-## Brute force
+## Login Brute force
 
 ~~~ bash
 hydra -V -f -L users.txt -P passwords.txt ftp://target.com -u -vV
@@ -65,7 +65,7 @@ ftp> PASS anonymous
 
 # SSH - 22
 
-## Brute force
+## Login Brute force
 
 ~~~ bash
 hydra -V -f -L users.txt -P passwords.txt ssh://target.com -u -vV
@@ -89,17 +89,22 @@ ssh -i <FILENAME> <USER>@<IP>
 
 # HTTP, HTTPS - 80, 443
 
-## Brute force(hydra)
+## Login Brute force(hydra)
 
 ~~~ bash
 hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid" -V
 ~~~
 
-## Brute force(wpscan)
+## WordPress Security Scanner(wpscan)
 
 ~~~ bash
-wpscan --url http://target.com:8081 --passwords pass.txt
+wpscan --url https://<RHOST> --enumerate u,t,p
+wpscan --url https://<RHOST> --plugins-detection aggressive
+wpscan --url https://<RHOST> --disable-tls-checks
+wpscan --url https://<RHOST> --disable-tls-checks --enumerate u,t,p
+wpscan --url http://<RHOST> -U <USERNAME> -P passwords.txt -t 50
 ~~~
+
 
 ## GitTools
 
@@ -271,7 +276,7 @@ sudo nmap -p 3306 -Pn -n --open -sV -sC --script="mysql-*" <IP>
 ~~~
 
 
-## Brute force
+## Login Brute force
 
 ~~~ bash
 hydra -L <USERS_LIST> -P <PASSWORDS_LIST> <IP> mysql -vV -I -u
@@ -293,7 +298,7 @@ xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 ~~~
 
 
-## Brute force
+## Login Brute force
 
 ~~~ bash
 hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
@@ -302,7 +307,7 @@ hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 
 # WINRM - 5985 - 5986
 
-## Brute force
+## Login Brute force
 
 ~~~ bash
 crackmapexec winrm <IP> -u <USERS_LIST> -p <PASSWORDS_LIST>
