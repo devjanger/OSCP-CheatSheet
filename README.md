@@ -375,7 +375,7 @@ hashcat -m 1400 -a 0 hash.txt rockyou.txt
 
 ### Get cracked passwords
 
-~~~
+~~~ bash
 cat ~/.local/share/hashcat/hashcat.potfile
 ~~~
 
