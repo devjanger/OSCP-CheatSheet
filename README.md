@@ -159,7 +159,7 @@ python3 photon.py -u http://<RHOST> -l 3 -t 10 -v --wayback
 
 ```-u```, ```--url```: root url
 
-```-t```, ```--threads```: number of threads
+```-t```, ```--threads```: number of threads(default: 2)
 
 ```-l```, ```--level``` : levels to crawl(default: 2)
 
