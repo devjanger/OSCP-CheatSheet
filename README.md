@@ -335,7 +335,8 @@ evil-winrm -i <IP> -u <USER> -H <HASH>
 
 ~~~ bash
 ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
-gobuster dir -u 192.168.50.20 -w /usr/share/wordlists/dirb/common.txt -t 5
+gobuster dir -u https://<RHOST> -w /usr/share/wordlists/dirb/common.txt -t 5
+dirsearch -u https://<RHOST>
 ~~~
 
 ## Subdomain fuzzing
