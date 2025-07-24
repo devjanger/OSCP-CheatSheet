@@ -127,7 +127,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 # Crawler
 
 ~~~ bash
-python3 photon.py -u http://<RHOST> -l 3 -t 10 -v
+python3 photon.py -u http://<RHOST> -l 3 -t 10 -v --wayback
 ~~~
 
 
@@ -138,6 +138,8 @@ python3 photon.py -u http://<RHOST> -l 3 -t 10 -v
 ```-l```, ```--level``` : levels to crawl(default: 2)
 
 ```-v```, ```--verbose``` : verbose output
+
+```--wayback``` : Use URLs from archive.org as seeds
 
 
 
