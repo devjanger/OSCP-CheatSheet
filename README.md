@@ -42,7 +42,7 @@
 * [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
   * [Hash identifier](#Hash-identifier)
-  * [John](#john)
+  * [John the Ripper](#John-the-Ripper)
   * [Hashcat](#hashcat)
 * [SQL Injection](#SQL-Injection)
   * [Examining the database](#examining-the-database)
@@ -404,7 +404,7 @@ hashid '$P$BINTaLa8QLMqeXbQtzT2Qfizm2P/nI0'
 ~~~
 
 
-## John
+## John the Ripper
 
 ### Basically
 
