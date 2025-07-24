@@ -1,4 +1,4 @@
-# OSCP Cheatsheet
+# OSCP CheatSheet
 
 ~~~
 ..............                                     
