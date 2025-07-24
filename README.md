@@ -130,10 +130,15 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 python3 photon.py -u http://<RHOST> -l 3 -t 10 -v
 ~~~
 
+
 ```-u```, ```--url```: root url
+
 ```-t```, ```--threads```: number of threads
+
 ```-l```, ```--level``` : levels to crawl(default: 2)
+
 ```-v```, ```--verbose``` : verbose output
+
 
 
 # SNMP - 161
