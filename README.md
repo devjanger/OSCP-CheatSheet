@@ -58,8 +58,10 @@
 
 # Tools
 
-[https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
-
+- OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
+- The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
+- list of Unix binaries for post-exploitation [https://gtfobins.github.io/](https://gtfobins.github.io/)
+- Reverse Shell Generator [https://www.revshells.com/](https://www.revshells.com/)
 
 
 
