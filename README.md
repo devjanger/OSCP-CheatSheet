@@ -1,5 +1,31 @@
 # OSCP Cheatsheet
 
+~~~
+..............                                     
+            ..,;:ccc,.                             
+          ......''';lxO.                           
+.....''''..........,:ld;                           
+           .';;;:::;,,.x,                          
+      ..'''.            0Xxoc:,.  ...              
+  ....                ,ONkc;,;cokOdc',.            
+ .                   OMo           ':ddo.          
+                    dMc               :OO;         
+                    0M.                 .:o.       
+                    ;Wd                            
+                     ;XO,                          
+                       ,d0Odlc;,..                 
+                           ..',;:cdOOd::,.         
+                                    .:d;.':;.      
+                                       'd,  .'     
+                                         ;l   ..   
+                                          .o       
+                                            c      
+                                            .'
+                                             . 
+~~~
+
+
+
 * [Enumeration](#Enumeration)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
