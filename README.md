@@ -127,7 +127,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 # Crawler
 
 ~~~ bash
-photon.py -u http://<RHOST> -l 3 -t 10 -v
+python3 photon.py -u http://<RHOST> -l 3 -t 10 -v
 ~~~
 
 ```-u```, ```--url```: root url
