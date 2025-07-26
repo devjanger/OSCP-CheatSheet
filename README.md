@@ -400,7 +400,7 @@ evil-winrm -i <IP> -u <USER> -H <HASH>
 ## Path fuzzing
 
 ~~~ bash
-ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ
+ffuf -w /usr/share/wordlists/dirb/common.txt -u http://target.com/FUZZ [-e .txt,.pdf,.bak,.old,.zip]
 gobuster dir -u https://<RHOST> -w /usr/share/wordlists/dirb/common.txt -t 5 [-x php]
 dirsearch -u https://<RHOST>
 ~~~
