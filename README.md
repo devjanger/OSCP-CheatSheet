@@ -235,6 +235,7 @@ smbclient -N -L <IP>
 
 ## Connection
 ~~~ bash
+smbclient \\<IP>\share
 smbclient -N \\\\<IP>\\backups
 ~~~
 
