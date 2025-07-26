@@ -243,6 +243,12 @@ smbclient -N \\\\<IP>\\backups
 smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
 ~~~
 
+
+~~~ bash
+enum4linux -a <IP>
+~~~
+
+
 ## PsExec
 
 ### 전제 조건
