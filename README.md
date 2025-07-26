@@ -460,11 +460,9 @@ john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
 ### MD5(-m 0) cracking
 
 ~~~ bash
-hashcat -m 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt.gz --show
-hashcat -m 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz --show
+hashcat -m 0 -a 0 "412dd4759978acfcc81deab01b382403" /usr/share/wordlists/rockyou.txt.gz
+hashcat -m 0 -a 0 hashfile.txt /usr/share/wordlists/rockyou.txt.gz
 ~~~
-
-```--show``` 옵션을 붙일 경우 이전에 나왔던 결과를 출력하고 크래킹 작업은 생략
 
 ### Linux/Unix SHA512(-m 1800) cracking
 
