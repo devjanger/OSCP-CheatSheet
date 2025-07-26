@@ -233,6 +233,14 @@ smbclient -N -L <IP>
 
 ```-L``` --list=HOST
 
+
+## enum
+
+~~~ bash
+enum4linux -a <IP>
+~~~
+
+
 ## Connection
 ~~~ bash
 smbclient \\<IP>\share
@@ -241,11 +249,6 @@ smbclient -N \\\\<IP>\\backups
 
 ~~~ bash
 smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
-~~~
-
-
-~~~ bash
-enum4linux -a <IP>
 ~~~
 
 
