@@ -128,7 +128,7 @@ ssh -i <FILENAME> <USER>@<IP>
 
 # SMTP - 25
 
-## Send Email
+## Send Email(with attachment)
 
 ~~~ bash
 swaks --to target@example.com --from attacker@example.com --server example.com --auth LOGIN --auth-user attacker@example.com --auth-password password123 --header 'Subject: Test email' --body "This email contains an attachment." --attach @filename.bat
