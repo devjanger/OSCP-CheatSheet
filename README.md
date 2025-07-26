@@ -388,7 +388,7 @@ hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 
 ## PostgreSQL Cracking (md5 password + username)
 
-~~~ bash
+~~~ python
 import hashlib
 
 target_hash = "md5ae8c67affdb169a42c9631c02fc67ede"
