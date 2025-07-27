@@ -86,6 +86,13 @@ nmap -iL ips.txt -v -p 139,445 --script smb-os-discovery -oG results.txt
 ll /usr/share/nmap/scripts | grep smb | awk '{ print $9 }'
 ~~~
 
+## RustScan
+
+~~~ bash
+rustscan -a $target -- -sC -sV -oN rust_full.txt
+~~~
+
+
 # FTP - 21
 
 ## Login Brute force
