@@ -71,7 +71,7 @@
 
 # Enumeration
 
-## Nmap Initial scan
+## Nmap
 
 ~~~ bash
 nmap -sCV -Pn $target --open --min-rate 3000 -oA output
