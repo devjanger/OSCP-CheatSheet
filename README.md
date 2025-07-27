@@ -28,8 +28,6 @@
 * [Enumeration](#Enumeration)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
-  * [Login Brute force](#login-brute-force)
-  * [SSH backdoor - post exploitation](#ssh-backdoor---post-exploitation)
 * [SMTP - 25](#smtp---25)
 * [HTTP, HTTPS - 80, 443](#http-https---80-443)
 * [SNMP - 161](#snmp---161)
