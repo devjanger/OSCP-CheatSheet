@@ -238,7 +238,7 @@ snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
 ## Get share files list
 
 ~~~ bash
-smbclient -N -L <IP>
+smbclient -N -L \\\\<IP>
 ~~~
 
 ```-N``` --no-pass
@@ -255,7 +255,7 @@ enum4linux -a <IP>
 
 ## Connection
 ~~~ bash
-smbclient \\<IP>\share
+smbclient \\\\<IP>\\share
 smbclient -N \\\\<IP>\\backups
 ~~~
 
