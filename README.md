@@ -200,6 +200,22 @@ python3 photon.py -u http://<RHOST> -l 3 -t 10 -v --wayback
 
 ### katana
 
+| Field  | Describe                          | Example                                                                 |
+|--------|-----------------------------------|-------------------------------------------------------------------------|
+| url    | URL endpoint                      | https://admin.projectdiscovery.io/admin/login?user=admin&password=admin |
+| qurl   | URL containing query parameters   | https://admin.projectdiscovery.io/admin/login.php?user=admin&password=admin |
+| qpath  | Path containing query parameters  | /login?user=admin&password=admin                                        |
+| path   | URL path                          | https://admin.projectdiscovery.io/admin/login                           |
+| fqdn   | Fully qualified domain name       | admin.projectdiscovery.io                                               |
+| rdn    | Root domain                       | projectdiscovery.io                                                     |
+| rurl   | Root URL                          | https://admin.projectdiscovery.io                                       |
+| file   | Filename in URL                   | login.php                                                               |
+| key    | Parameter keys in URLs            | user,password                                                           |
+| value  | Parameter values in the URL       | admin,admin                                                             |
+| kv     | Keys = values in the URL          | user=admin&password=admin                                               |
+| dir    | URL Directory Name                | /admin/                                                                 |
+| udir   | URL with directory                | https://admin.projectdiscovery.io/admin/                                |
+
 ~~~ bash
 katana -u https://tesla.com -f qurl -silent
 
