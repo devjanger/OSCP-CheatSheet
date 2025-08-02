@@ -964,19 +964,13 @@ PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 
 # PowerShell commands
 
-## Base64 encoding
+## Base64 encoding/decoding
 
 ~~~ bash
 $ pwsh
 PS> [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("TEST"))
 VABFAFMAVAA=
-~~~
-
-
-## Base64 decoding
-
-~~~ bash
-$ pwsh
 PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMAVAA="))
 TEST
 ~~~
+
