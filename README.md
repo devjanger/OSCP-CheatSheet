@@ -59,6 +59,7 @@
 * [Exiftool](#Exiftool)
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
+* [PowerShell commands](#PowerShell commands)
 
 # Tools
 
@@ -958,4 +959,23 @@ mimikatz # misc::memssp
 Injected =)
 
 PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
+~~~
+
+# PowerShell commands
+
+## Base64 encoding
+
+~~~ bash
+$ pwsh
+PS> [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("TEST"))
+VABFAFMAVAA=
+~~~
+
+
+## Base64 decoding
+
+~~~ bash
+$ pwsh
+PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMAVAA="))
+TEST
 ~~~
