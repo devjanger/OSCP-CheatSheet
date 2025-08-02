@@ -970,6 +970,7 @@ PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 $ pwsh
 PS> [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("TEST"))
 VABFAFMAVAA=
+
 PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMAVAA="))
 TEST
 ~~~
