@@ -59,7 +59,7 @@
 * [Exiftool](#Exiftool)
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
-* [PowerShell commands](#PowerShell commands)
+* [PowerShell commands](#PowerShell-commands)
 
 # Tools
 
