@@ -975,3 +975,10 @@ PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMA
 TEST
 ~~~
 
+## Installed applications
+
+~~~ bash
+PS> Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+PS> Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+~~~
+
