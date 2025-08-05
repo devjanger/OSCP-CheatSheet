@@ -60,6 +60,7 @@
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
 * [PowerShell commands](#PowerShell-commands)
+* [Command Prompt commands](#Command-Prompt-commands)
 
 # Tools
 
@@ -994,5 +995,22 @@ PS> Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\
 
 ~~~ powershell
 PS> Get-Process NonStandardProcess | Select-Object Path
+~~~
+
+## Files searching
+
+~~ powershell
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+~~~
+
+
+# Command Prompt commands
+
+## Run as other user
+
+~~~ cmd
+runas /user:backupadmin cmd
 ~~~
 
