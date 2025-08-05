@@ -982,3 +982,9 @@ PS> Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersio
 PS> Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ~~~
 
+## Get Process's path
+
+~~~ bash
+PS> Get-Process NonStandardProcess | Select-Object Path
+~~~
+
