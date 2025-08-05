@@ -966,7 +966,7 @@ PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 
 ## Base64 encoding/decoding
 
-~~~ bash
+~~~ powershell
 $ pwsh
 PS> [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("TEST"))
 VABFAFMAVAA=
@@ -975,16 +975,24 @@ PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMA
 TEST
 ~~~
 
+## Get Local Users/Groups
+
+~~~ powershell
+PS> Get-LocalUser
+PS> Get-LocalGroup
+PS> Get-LocalGroupMember Administrators
+~~~
+
 ## Installed applications
 
-~~~ bash
+~~~ powershell
 PS> Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 PS> Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ~~~
 
 ## Get Process's path
 
-~~~ bash
+~~~ powershell
 PS> Get-Process NonStandardProcess | Select-Object Path
 ~~~
 
