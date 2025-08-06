@@ -1214,6 +1214,13 @@ Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description
 ~~~
 
 
+#### checking our current privileges
+
+~~~ powershell
+whoami /priv
+~~~
+
+
 #### Elevating our privileges to SYSTEM
 
 ~~~ powershell
