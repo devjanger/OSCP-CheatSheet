@@ -1221,7 +1221,7 @@ whoami /priv
 ~~~
 
 
-#### Elevating our privileges to SYSTEM
+#### Elevating our privileges to SYSTEM([CVE-2023-29360](https://github.com/sickn3ss/exploits/tree/master/CVE-2023-29360/x64/Release))
 
 ~~~ powershell
 .\CVE-2023-29360.exe
