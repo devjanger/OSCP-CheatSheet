@@ -60,6 +60,8 @@
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
+  * [Enumerating Windows](#Enumerating-Windows)
+  * [Leveraging Windows Services](#Leveraging-Windows-Services)
 
 # Tools
 
