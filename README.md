@@ -1006,6 +1006,13 @@ Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.doc
 ~~~
 
 
+## PowerShell History
+
+~~~ powershell
+type (Get-PSReadLineOption).HistorySavePath
+~~~
+
+
 # Command Prompt commands
 
 ## Run as other user
