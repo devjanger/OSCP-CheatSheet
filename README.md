@@ -62,6 +62,7 @@
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
+  * [Abusing Other Windows Components](#Abusing-Other-Windows-Components)
 
 # Tools
 
@@ -1189,5 +1190,20 @@ msfvenom -p windows/x64/exec CMD="net user redteam password123! /add && net loca
 Restart-Service AbyssWebServer
 ~~~
 
+
+## Abusing Other Windows Components
+
+### Scheduled Tasks
+
+#### Display a list of all scheduled tasks
+
+~~~ powershell
+schtasks /query /fo LIST /v
+~~~
+
+
+
+
+### Using Exploits
 
 
