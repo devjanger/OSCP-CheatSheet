@@ -1006,6 +1006,13 @@ Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.doc
 ~~~
 
 
+## Select String(grep)
+
+~~~ powershell
+type result.txt | select-string master
+~~~
+
+
 ## Get PowerShell History
 
 ~~~ powershell
