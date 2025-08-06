@@ -1198,7 +1198,7 @@ Restart-Service AbyssWebServer
 #### Display a list of all scheduled tasks
 
 ~~~ powershell
-schtasks /query /fo LIST /v
+schtasks /query /fo LIST /v | findstr C:\Users
 ~~~
 
 
