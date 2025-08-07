@@ -1343,3 +1343,17 @@ echo 'kali ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 
 
+### Inspecting Service Footprints
+
+#### Harvesting Active Processes for Credentials
+
+~~~ bash
+watch -n 1 "ps -aux | grep pass"
+~~~
+
+#### Using tcpdump to Perform Password Sniffing
+
+~~~ bash
+sudo tcpdump -i lo -A | grep "pass"
+~~~
+
