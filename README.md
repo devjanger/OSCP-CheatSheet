@@ -1300,3 +1300,42 @@ find / -perm -u=s -type f 2>/dev/null
 - [HackTricks - Linux Privilege Escalation](https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html)
 
 
+
+### Automated Enumeration
+
+
+#### Running unix_privesc_check
+
+~~~ bash
+./unix-privesc-check standard > output.txt
+~~~
+
+
+## Exposed Confidential Information
+
+### Inspecting User Trails
+
+#### Inspecting Environment Variables
+
+~~~ bash
+env
+~~~
+
+
+#### Inspecting .bashrc
+
+~~~ bash
+cat .bashrc
+~~~
+
+
+#### Inspecting sudo capabilities
+
+~~~ bash
+sudo -l
+~~~
+
+
+
+
+
