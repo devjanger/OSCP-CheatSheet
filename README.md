@@ -64,6 +64,8 @@
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
   * [Abusing Other Windows Components](#Abusing-Other-Windows-Components)
 * [Linux Privilege Escalation](#Linux-Privilege-Escalation)
+  * [Enumerating Linux](#Enumerating-Linux)
+  * [Exposed Confidential Information](#Exposed-Confidential-Information)
 
 # Tools
 
