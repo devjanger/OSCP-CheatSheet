@@ -1428,3 +1428,45 @@ joe@debian-privesc:~$ /usr/sbin/getcap -r / 2>/dev/null
 
 
 
+
+### Abusing Sudo
+
+#### Inspecting current user's sudo permissions
+
+~~~ bash
+joe@debian-privesc:~$ sudo -l
+[sudo] password for joe:
+Matching Defaults entries for joe on debian-privesc:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User joe may run the following commands on debian-privesc:
+    (ALL) (ALL) /usr/bin/crontab -l, /usr/sbin/tcpdump, /usr/bin/apt-get
+~~~
+
+
+### Exploiting Kernel Vulnerabilities
+
+#### Gathering general information on the target system
+
+~~~ bash
+joe@ubuntu-privesc:~$ cat /etc/issue
+Ubuntu 16.04.4 LTS \n \l
+~~~
+
+
+#### Gathering kernel and architecture information from our Linux target
+
+~~~ bash
+joe@ubuntu-privesc:~$ uname -r 
+4.4.0-116-generic
+
+joe@ubuntu-privesc:~$ arch 
+x86_64
+~~~
+
+
+#### Using searchsploit to find privilege escalation exploits for our target
+
+~~~ bash
+searchsploit "linux kernel Ubuntu 16 Local Privilege Escalation"   | grep  "4." | grep -v " < 4.4.0" | grep -v "4.8"
+~~~
