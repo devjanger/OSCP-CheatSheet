@@ -1250,6 +1250,15 @@ wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPo
 ### Manual Enumeration
 
 
+#### Getting the version of the running operating system and architecture
+
+~~~ bash
+cat /etc/issue
+cat /etc/os-release
+uname -a
+~~~
+
+
 #### Listing all cron jobs
 
 ~~~ bash
