@@ -454,6 +454,24 @@ hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 psql -h 192.168.50.63 -p 5432 -U postgres
 ~~~
 
+## List the available databases
+
+~~~ bash
+postgres=# \l
+~~~
+
+## Connect to the database
+
+~~~ bash
+postgres=# \c databasename
+~~~
+
+## List tables in the current database
+
+~~~ bash
+postgres=# \dt;
+~~~
+
 
 ## PostgreSQL Cracking (md5 password + username)
 
