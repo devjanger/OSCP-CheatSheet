@@ -1348,7 +1348,7 @@ echo 'kali ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 #### SetUID to /bin/bash
 
 ~~~ bash
-echo "chmod u+s /bin/bash"
+chmod u+s /bin/bash
 ~~~
 
 
