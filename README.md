@@ -63,6 +63,7 @@
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
   * [Abusing Other Windows Components](#Abusing-Other-Windows-Components)
+* [Linux Privilege Escalation](#Linux-Privilege-Escalation)
 
 # Tools
 
@@ -1241,5 +1242,52 @@ wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPo
 .\SigmaPotato "net localgroup Administrators dave4 /add"
 ~~~
 
+
+# Linux Privilege Escalation
+
+## Enumerating Linux
+
+### Manual Enumeration
+
+
+#### Listing all cron jobs
+
+~~~ bash
+ls -lah /etc/cron*
+~~~
+
+
+#### Listing cron jobs for the current user
+
+~~~ bash
+crontab -l
+~~~
+
+
+#### Listing cron jobs for the root user
+
+~~~ bash
+sudo crontab -l
+~~~
+
+
+#### Listing all world writable directories
+
+~~~ bash
+find / -writable -type d 2>/dev/null
+~~~
+
+
+#### Searching for SUID files
+
+~~~ bash
+find / -perm -u=s -type f 2>/dev/null
+~~~
+
+#### list of Linux privilege escalation techniques:
+
+- [compendium](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation) by g0tmi1k
+- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md)
+- [HackTricks - Linux Privilege Escalation](https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html)
 
 
