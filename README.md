@@ -446,6 +446,13 @@ hydra -f -l admin -p 1q2w3e4r rdp://<IP> -u -vV
 
 # PostgreSQL - 5432
 
+## PostgreSQL Connection
+
+~~~ bash
+psql -h 192.168.50.63 -p 5432 -U postgres
+~~~
+
+
 ## PostgreSQL Cracking (md5 password + username)
 
 ~~~ python
