@@ -24,7 +24,7 @@
                                              . 
 ~~~
 
-* [Tools](#Tools)
+* [Useful](#Useful)
 * [Enumeration](#Enumeration)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
@@ -69,7 +69,7 @@
   * [Insecure File Permissions](#Insecure-File-Permissions)
   * [Insecure System Components](#Insecure-System-Components)
 
-# Tools
+# Useful
 
 - OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
