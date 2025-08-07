@@ -1411,7 +1411,7 @@ uid=0(root) gid=0(root) groups=0(root)
 ### Abusing Setuid Binaries and Capabilities
 
 #### GTFOBins (list of Unix binaries for post-exploitation): 
-[https://gtfobins.github.io/](#https://gtfobins.github.io/)
+[https://gtfobins.github.io/](https://gtfobins.github.io/)
 
 
 
