@@ -1410,6 +1410,19 @@ uid=0(root) gid=0(root) groups=0(root)
 
 ### Abusing Setuid Binaries and Capabilities
 
+
+#### Manually Enumerating Capabilities
+
+~~~ bash
+joe@debian-privesc:~$ /usr/sbin/getcap -r / 2>/dev/null
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/perl = cap_setuid+ep
+/usr/bin/perl5.28.1 = cap_setuid+ep
+/usr/bin/gnome-keyring-daemon = cap_ipc_lock+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep
+~~~
+
+
 #### GTFOBins (list of Unix binaries for post-exploitation): 
 [https://gtfobins.github.io/](https://gtfobins.github.io/)
 
