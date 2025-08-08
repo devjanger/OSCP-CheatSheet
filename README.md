@@ -1597,6 +1597,12 @@ sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
 ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
 ~~~
 
+#### Check bounding ports
+
+~~~ bash
+ss -ntplu
+~~~
+
 #### Resources
 
 - [ssh_remote_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/2e345e06246bd4465204327a6d6892a5-ssh_remote_client)
