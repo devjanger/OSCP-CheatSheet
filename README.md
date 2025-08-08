@@ -70,6 +70,7 @@
   * [Insecure System Components](#Insecure-System-Components)
 * [Port Redirection and SSH Tunneling](#Port-Redirection-and-SSH-Tunneling)
   * [Port Forwarding with Linux Tools](#Port-Forwarding-with-Linux-Tools)
+  * [SSH Tunneling](#SSH-Tunneling)
 
 # Useful
 
@@ -1524,5 +1525,28 @@ chmod +x ./PwnKit || exit
 # socat -ddd TCP-LISTEN:<LPORT>,fork TCP:<RHOST:RPORT>
 socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
 ~~~
+
+
+
+## SSH Tunneling
+
+### SSH Local Port Forwarding
+
+#### Running the local port forward command
+
+~~~ bash
+ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
+~~~
+
+#### Resources
+
+- [ssh_local_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/1e4c3abaa24721e69c1359811673c91f-ssh_local_client)
+- [ssh_local_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/3517f72efa170f849974e84a250497d6-ssh_local_client_aarch64)
+
+
+
+
+
+
 
 
