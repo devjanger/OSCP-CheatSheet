@@ -1586,3 +1586,21 @@ sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
 - [ssh_dynamic_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/218cf66c8276ce6b350b6174e2cf70b1-ssh_dynamic_client)
 - [ssh_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/23988ed48288d3a3f8118fe1e6495483-ssh_dynamic_client_aarch64)
 
+
+
+
+### SSH Remote Port Forwarding
+
+#### The SSH remote port forward being set up, connecting to the Kali machine.
+
+~~~ bash
+ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
+~~~
+
+#### Resources
+
+- [ssh_remote_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/2e345e06246bd4465204327a6d6892a5-ssh_remote_client)
+- [ssh_remote_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/dfdadb5afb5a697c6cf8fd8568835443-ssh_remote_client_aarch64)
+
+
+
