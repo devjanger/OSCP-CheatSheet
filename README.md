@@ -1549,8 +1549,33 @@ ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
 
 
 
+### SSH Dynamic Port Forwarding
+
+#### Opening the SSH dynamic port forward on port 9999
+
+~~~ bash
+ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
+~~~
 
 
+#### The Proxychains configuration file, pointing towards the SOCKS proxy set up
 
+~~~ bash
+kali@kali:~$ tail /etc/proxychains4.conf
+#       proxy types: http, socks4, socks5, raw
+#         * raw: The traffic is simply forwarded to the proxy without modification.
+#        ( auth types supported: "basic"-http  "user/pass"-socks )
+#
+[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+socks5 192.168.50.63 9999
+~~~
 
+#### connection through the SOCKS proxy using Proxychains
 
+~~~ bash
+proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234
+sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
+~~~
