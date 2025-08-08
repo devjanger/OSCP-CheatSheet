@@ -1579,3 +1579,10 @@ socks5 192.168.50.63 9999
 proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234
 sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
 ~~~
+
+
+#### Resources
+
+- [ssh_dynamic_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/218cf66c8276ce6b350b6174e2cf70b1-ssh_dynamic_client)
+- [ssh_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/23988ed48288d3a3f8118fe1e6495483-ssh_dynamic_client_aarch64)
+
