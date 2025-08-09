@@ -1639,5 +1639,12 @@ socks5 127.0.0.1 9998
 - [ssh_remote_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/0bf514c2878bd2de5beff60f580fdf0c-ssh_remote_dynamic_client_aarch64)
 
 
+### Using sshuttle
+
+#### Running sshuttle from our Kali machine
+
+~~~ bash
+kali@kali:~$ sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.50.0/24
+~~~
 
 
