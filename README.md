@@ -1591,7 +1591,7 @@ sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
 
 ### SSH Remote Port Forwarding
 
-#### The SSH remote port forward being set up, connecting to the Kali machine.
+#### The SSH remote port forward being set up, connecting to the Kali machine
 
 ~~~ bash
 ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
@@ -1607,6 +1607,37 @@ ss -ntplu
 
 - [ssh_remote_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/2e345e06246bd4465204327a6d6892a5-ssh_remote_client)
 - [ssh_remote_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/dfdadb5afb5a697c6cf8fd8568835443-ssh_remote_client_aarch64)
+
+
+### SSH Remote Dynamic Port Forwarding
+
+#### Making the SSH connection with the remote dynamic port forwarding option
+
+~~~ bash
+ssh -N -R 9998 kali@192.168.118.4
+~~~
+
+#### Editing the Proxychains configuration file to point to the new SOCKS proxy on port 9998
+
+~~~ bash
+kali@kali:~$ tail /etc/proxychains4.conf
+#       proxy types: http, socks4, socks5, raw
+#         * raw: The traffic is simply forwarded to the proxy without modification.
+#        ( auth types supported: "basic"-http  "user/pass"-socks )
+#
+[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+socks5 127.0.0.1 9998
+~~~
+
+
+#### Resources
+
+- [ssh_remote_dynamic_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/ffeb2f612236b516f854380ff9b73ee2-ssh_remote_dynamic_client)
+- [ssh_remote_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/0bf514c2878bd2de5beff60f580fdf0c-ssh_remote_dynamic_client_aarch64)
+
 
 
 
