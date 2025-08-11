@@ -1685,4 +1685,69 @@ C:\Windows\Temp\plink.exe -ssh -l kali -pw <YOUR PASSWORD HERE> -R 127.0.0.1:983
 [https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe](https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe)
 
 
+### Netsh
+
+#### The portproxy command being run
+
+~~~ bash
+netsh interface portproxy add v4tov4 listenport=2222 listenaddress=192.168.50.64 connectport=22 connectaddress=10.4.50.215
+~~~
+
+#### netstat showing that TCP/2222 is listening on the external interface
+
+~~~ bash
+C:\Windows\system32>netstat -anp TCP | find "2222"
+  TCP    192.168.50.64:2222     0.0.0.0:0              LISTENING
+
+C:\Windows\system32>
+~~~
+
+#### Listing all the portproxy port forwarders set up with Netsh
+
+~~~ bash
+C:\Windows\system32>netsh interface portproxy show all
+
+Listen on ipv4:             Connect to ipv4:
+
+Address         Port        Address         Port
+--------------- ----------  --------------- ----------
+192.168.50.64   2222        10.4.50.215     22
+~~~
+
+
+#### Poking a hole in the Windows Firewall with Netsh
+
+~~~ bash
+C:\Windows\system32> netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP dir=in localip=192.168.50.64 localport=2222 action=allow
+Ok.
+
+C:\Windows\system32>
+~~~
+
+
+#### Deleting the firewall rule with Netsh
+
+~~~ bash
+C:\Users\Administrator>netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
+
+Deleted 1 rule(s).
+Ok.
+~~~
+
+
+#### Deleting the port forwarding rule with Netsh
+
+~~~ bash
+C:\Windows\Administrator> netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
+
+C:\Windows\Administrator>
+~~~
+
+#### Resources
+
+- [netsh_exercise_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/60440b10bbd0b9c9c71bf678ddd8e8ce-netsh_exercise_client)
+- [netsh_exercise_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/e6c394f1fca11fe5fa5ef9ee4833a08b-netsh_exercise_client_aarch64)
+
+
+
 
