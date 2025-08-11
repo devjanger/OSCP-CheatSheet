@@ -1543,12 +1543,6 @@ socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
 ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
 ~~~
 
-#### Resources
-
-- [ssh_local_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/1e4c3abaa24721e69c1359811673c91f-ssh_local_client)
-- [ssh_local_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/3517f72efa170f849974e84a250497d6-ssh_local_client_aarch64)
-
-
 
 ### SSH Dynamic Port Forwarding
 
@@ -1582,13 +1576,6 @@ sudo proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
 ~~~
 
 
-#### Resources
-
-- [ssh_dynamic_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/218cf66c8276ce6b350b6174e2cf70b1-ssh_dynamic_client)
-- [ssh_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/23988ed48288d3a3f8118fe1e6495483-ssh_dynamic_client_aarch64)
-
-
-
 
 ### SSH Remote Port Forwarding
 
@@ -1603,11 +1590,6 @@ ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
 ~~~ bash
 ss -ntplu
 ~~~
-
-#### Resources
-
-- [ssh_remote_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/2e345e06246bd4465204327a6d6892a5-ssh_remote_client)
-- [ssh_remote_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/dfdadb5afb5a697c6cf8fd8568835443-ssh_remote_client_aarch64)
 
 
 ### SSH Remote Dynamic Port Forwarding
@@ -1634,12 +1616,6 @@ socks5 127.0.0.1 9998
 ~~~
 
 
-#### Resources
-
-- [ssh_remote_dynamic_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/ffeb2f612236b516f854380ff9b73ee2-ssh_remote_dynamic_client)
-- [ssh_remote_dynamic_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/0bf514c2878bd2de5beff60f580fdf0c-ssh_remote_dynamic_client_aarch64)
-
-
 ### Using sshuttle
 
 #### Running sshuttle from our Kali machine
@@ -1664,12 +1640,6 @@ C:\Windows\System32\OpenSSH\ssh.exe
 
 C:\Users\rdp_admin>
 ~~~
-
-#### Resources
-
-- [ssh_exe_exercise_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/294665d279db5d8f79695e7d9dfc0986-ssh_exe_exercise_client)
-- [ssh_exe_exercise_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/d5a2ba960124f3cf5089951b99445af5-ssh_exe_exercise_client_aarch64)
-
 
 
 ### Plink
@@ -1742,11 +1712,6 @@ C:\Windows\Administrator> netsh interface portproxy del v4tov4 listenport=2222 l
 
 C:\Windows\Administrator>
 ~~~
-
-#### Resources
-
-- [netsh_exercise_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/60440b10bbd0b9c9c71bf678ddd8e8ce-netsh_exercise_client)
-- [netsh_exercise_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/e6c394f1fca11fe5fa5ef9ee4833a08b-netsh_exercise_client_aarch64)
 
 
 
