@@ -1826,4 +1826,10 @@ host            origin          service       public  private    realm  private_
 ~~~
 
 
+## use exploit/multi/handler
+
+~~~ bash
+msf6 > search multi/handler
+msf6 > use exploit/multi/handler
+~~~
 
