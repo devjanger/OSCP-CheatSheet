@@ -151,6 +151,16 @@ echo <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
 ssh -i <FILENAME> <USER>@<IP>
 ~~~
 
+## Secure Copy Protocol(SCP)
+
+~~~ bash
+# local to remote
+scp filename kali@192.168.0.17:/home/kali/
+
+# remote to local
+scp kali@192.168.0.17:/home/kali/filename filename
+~~~
+
 
 # SMTP - 25
 
