@@ -2028,7 +2028,18 @@ Foreach($obj in $result)
 ~~~
 
 
+### AD Enumeration with PowerView
 
+[https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon](https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon)
+
+~~~ powershell
+powershell -ep bypass
+Import-Module .\PowerView.ps1
+Get-NetDomain
+Get-NetUser | select cn,pwdlastset,lastlogon
+Get-NetGroup | select cn
+Get-NetGroup "Domain Admins" | select member
+~~~
 
 
 
