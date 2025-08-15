@@ -75,7 +75,7 @@
 * [Tunneling Through Deep Packet Inspection](#Tunneling-Through-Deep-Packet-Inspection)
   * [DNS Tunneling Theory and Practice](#DNS-Tunneling-Theory-and-Practice)
 * [The Metasploit Framework](#The-Metasploit-Framework)
-
+* [Active Directory](#Active-Directory)
 
 # Useful
 
@@ -1979,4 +1979,67 @@ sudo msfconsole -r listener.rc
 ~~~ bash
 ls -l /usr/share/metasploit-framework/scripts/resource
 ~~~
+
+
+
+
+
+# Active Directory
+
+## Active Directory - Manual Enumeration
+
+### Enumeration Using Legacy Windows Tools
+
+~~~ powershell
+net user /domain
+net group /domain
+~~~
+
+
+### Enumerating Active Directory using PowerShell and .NET Classes
+
+#### LDAP path format
+
+~~~
+LDAP://HostName[:PortNumber][/DistinguishedName]
+~~~
+
+~~~ powershell
+$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$PDC = $domainObj.PdcRoleOwner.Name
+$DN = ([adsi]'').distinguishedName 
+$LDAP = "LDAP://$PDC/$DN"
+
+$direntry = New-Object System.DirectoryServices.DirectoryEntry($LDAP)
+
+$dirsearcher = New-Object System.DirectoryServices.DirectorySearcher($direntry)
+$dirsearcher.filter="samAccountType=805306368"
+$result = $dirsearcher.FindAll()
+
+Foreach($obj in $result)
+{
+    Foreach($prop in $obj.Properties)
+    {
+        $prop
+    }
+
+    Write-Host "-------------------------------"
+}
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
