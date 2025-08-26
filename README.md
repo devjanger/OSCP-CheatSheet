@@ -2043,12 +2043,26 @@ Get-NetGroup "Domain Admins" | select member
 
 
 
+## Manual Enumeration - Expanding our Repertoire
+
+### Enumerating Operating Systems
+
+~~~ powershell
+Get-NetComputer | select operatingsystem,operatingsystemversion,dnshostname,distinguishedname
+~~~
 
 
 
 
+### Getting an Overview - Permissions and Logged on Users
 
+~~~ powershell
+PS C:\Tools> Find-LocalAdminAccess
 
+PS C:\Tools\PSTools> Get-NetSession -ComputerName web04
+
+PS C:\Tools\PSTools> .\PsLoggedon.exe \\web04
+~~~
 
 
 
