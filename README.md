@@ -2201,8 +2201,6 @@ Import-Module .\Sharphound.ps1
 Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
 ~~~
 
-```-CollectionMethods``` ```-CollectionMethod``` 차이 주의~~~
-
 ### Enumerating Domain Shares
 
 #### Domain Share Query
@@ -2226,6 +2224,12 @@ kali@kali:~$ gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
 P@$$w0rd
 ~~~
 
+#### Find-InterestingDomainAcl
+
+~~~ powershell
+PS C:\Tools> Find-InterestingDomainAcl | select identityreferencename,activedirectoryrights,AceType,ObjectDN
+~~~
+
 
 ## Active Directory - Automated Enumeration
 
@@ -2243,9 +2247,6 @@ Import-Module .\Sharphound.ps1
 ~~~ powershell
 Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
 ~~~
-
-※ Caution about the difference between ```-CollectionMethod``` and ```-CollectionMethods```!
-
 
 #### Analysing Data using BloodHound
 
