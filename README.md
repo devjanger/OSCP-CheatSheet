@@ -2183,3 +2183,36 @@ kali@kali:~$ gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
 P@$$w0rd
 ~~~
 
+
+## Active Directory - Automated Enumeration
+
+### Collecting Data with SharpHound
+
+#### Importing the SharpHound script to memory
+
+~~~ powershell
+powershell -ep bypass
+Import-Module .\Sharphound.ps1
+~~~
+
+#### Running SharpHound to collect domain data
+
+~~~ powershell
+Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
+~~~
+
+
+#### Analysing Data using BloodHound
+
+~~~ bash
+kali@kali:~$ sudo neo4j start
+~~~
+
+
+#### Starting BloodHound in Kali Linux
+
+~~~ bash
+kali@kali:~$ bloodhound
+~~~
+
+
