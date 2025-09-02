@@ -78,6 +78,7 @@
 * [Active Directory](#Active-Directory)
 * [Attacking Active Directory Authentication](#Attacking-Active-Directory-Authentication)
 * [Lateral Movement in Active Directory](#Lateral-Movement-in-Active-Directory)
+* [Enumerating AWS Cloud Infrastructure](#Enumerating-AWS-Cloud-Infrastructure)
 
 # Useful
 
@@ -3435,4 +3436,350 @@ krbtgt:des-cbc-md5:683bdcba9e7c5de9
 ...
 [*] Cleaning up...
 ~~~
+
+
+# Enumerating AWS Cloud Infrastructure
+
+## Using dnsenum to Automate DNS Reconnaissance of offseclab.io Domain
+
+~~~ bash
+dnsenum offseclab.io --threads 100
+~~~
+
+## Running Quick Scan Against offseclab-assets-public-axevtewi Bucket Using cloud_enum in AWS
+
+~~~ bash
+cloud_enum -k offseclab-assets-public-axevtewi --quickscan --disable-azure --disable-gcp
+~~~
+
+## Making a Dictionary of Keywords to Search S3 Buckets
+
+~~~ bash
+for key in "public" "private" "dev" "prod" "development" "production"; do echo "offseclab-assets-$key-axevtewi"; done | tee /tmp/keyfile.txt
+~~~
+
+## Running cloud_enum Against The Generated keyfile.txt File
+
+~~~ bash
+cloud_enum -kf /tmp/keyfile.txt -qs --disable-azure --disable-gcp
+~~~
+
+
+### Reconnaissance via Cloud Service Provider's API
+---
+
+#### Installing AWS CLI in Kali Linux
+
+~~~ bash
+sudo apt update
+sudo apt install -y awscli
+~~~
+
+#### Configuring Profile and Validating Communication with AWS API
+
+~~~ bash
+kali@kali:~$ aws configure --profile attacker
+AWS Access Key ID []: AKIAQO...
+AWS Secret Access Key []: cOGzm...
+Default region name []: us-east-1
+Default output format []: json
+
+kali@kali:~$ aws --profile attacker sts get-caller-identity
+{
+    "UserId": "AIDAQOMAIGYU5VFQCHOI4",
+    "Account": "123456789012",
+    "Arn": "arn:aws:iam::123456789012:user/attacker"
+}
+~~~
+
+#### Listing All Public AMIs Owned by Amazon AWS
+
+~~~ bash
+aws --profile attacker ec2 describe-images --owners amazon --executable-users all
+~~~
+
+#### Getting the Name of the Public Bucket with curl
+
+~~~ bash
+kali@kali:~$ curl -s www.offseclab.io | grep -o -P 'offseclab-assets-public-\w{8}'
+offseclab-assets-public-kaykoour
+offseclab-assets-public-kaykoour
+offseclab-assets-public-kaykoour
+offseclab-assets-public-kaykoour
+~~~
+
+
+#### Listing the Public Bucket as the attacker
+
+~~~ bash
+kali@kali:~$ aws --profile attacker s3 ls offseclab-assets-public-kaykoour
+                           PRE sites/
+~~~
+
+#### Creating the IAM User "enum" and Generating AccessKeyId and SecretAccessKey for that User
+
+~~~ bash
+kali@kali:~$ aws --profile attacker iam create-user --user-name enum
+{
+    "User": {
+        "Path": "/",
+        "UserName": "enum",
+        "UserId": "AIDAQOMAIGYU4HTPEJ32K",
+        "Arn": "arn:aws:iam::123456789012:user/enum",
+    }
+}
+
+kali@kali:~$ aws --profile attacker iam create-access-key --user-name enum
+{
+    "AccessKey": {
+        "UserName": "enum",
+        "AccessKeyId": "[AccessKeyId]",
+        "Status": "Active",
+        "SecretAccessKey": "[SecretAccessKey]",
+    }
+}
+~~~
+
+#### Configuring AWS CLI with Profile "enum"
+
+~~~ bash
+kali@kali:~$ aws configure --profile enum
+AWS Access Key ID [None]: AKIAQOMAIGYURE7QCUXU
+AWS Secret Access Key [None]: [AWS Secret Access Key]
+Default region name [None]: us-east-1
+Default output format [None]: json
+
+kali@kali:~$ aws sts get-caller-identity --profile enum
+{
+    "UserId": "AIDAQOMAIGYU4HTPEJ32K",
+    "Account": "123456789012",
+    "Arn": "arn:aws:iam::123456789012:user/enum"
+}
+~~~
+
+#### Listing the Private Bucket with the enum User
+
+~~~ bash
+kali@kali:~$ aws --profile enum s3 ls offseclab-assets-private-kaykoour
+
+An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied  
+~~~
+
+#### Policy to Allow Listing Buckets and Reading Objects
+
+~~~ bash
+# policy-s3-read.json
+{
+     "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowResourceAccount",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {"s3:ResourceAccount": ["0*"]}
+            }
+        }
+    ]
+}
+~~~
+
+#### Creating the policy document file
+
+~~~ bash
+kali@kali:~$ nano policy-s3-read.json
+
+kali@kali:~$ cat -n policy-s3-read.json 
+     1  {
+     2      "Version": "2012-10-17",
+     3      "Statement": [
+     4          {
+     5              "Sid": "AllowResourceAccount",
+     6              "Effect": "Allow",
+     7              "Action": [
+     8                  "s3:ListBucket",
+     9                  "s3:GetObject"
+    10              ],
+    11              "Resource": "*",
+    12              "Condition": {
+    13                  "StringLike": {"s3:ResourceAccount": ["0*"]}
+    14              }
+    15          }
+    16      ]
+    17  }
+
+~~~
+
+#### Attaching the s3-read Inline Policy to the enum IAM User
+
+~~~ bash
+kali@kali:~$ aws --profile attacker iam put-user-policy \
+--user-name enum \
+--policy-name s3-read \
+--policy-document file://policy-s3-read.json
+
+kali@kali:~$ aws --profile attacker iam list-user-policies --user-name enum
+{
+    "PolicyNames": [
+        "s3-read"
+    ]
+}
+~~~
+
+#### Changing the Condition in the Policy and Testing Again
+
+~~~ bash
+kali@kali:~$ aws --profile enum s3 ls offseclab-assets-private-kaykoour
+
+An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied  
+
+kali@kali:~$ nano policy-s3-read.json
+
+kali@kali:~$ cat -n policy-s3-read.json 
+     1  {
+     2      "Version": "2012-10-17",
+     3      "Statement": [
+     4          {
+     5              "Sid": "AllowResourceAccount",
+     6              "Effect": "Allow",
+     7              "Action": [
+     8                  "s3:ListBucket",
+     9                  "s3:GetObject"
+    10              ],
+    11              "Resource": "*",
+    12              "Condition": {
+    13                  "StringLike": {"s3:ResourceAccount": ["1*"]}
+    14              }
+    15          }
+    16      ]
+    17  }
+
+kali@kali:~$ aws --profile attacker iam put-user-policy \
+--user-name enum \
+--policy-name s3-read \
+--policy-document file://policy-s3-read.json
+
+kali@kali:~$ aws --profile enum s3 ls offseclab-assets-private-kaykoour
+                           PRE sites/
+~~~
+
+
+#### Creating a S3 Bucket in the attacker's Account
+
+~~~ bash
+kali@kali:~$ aws --profile attacker s3 mb s3://offseclab-dummy-bucket-$RANDOM-$RANDOM-$RANDOM
+make_bucket: offseclab-dummy-bucket-28967-25641-13328
+~~~
+
+#### Policy Granting Permission to List the Bucket to a Single IAM User
+
+~~~ bash
+kali@kali:~$ nano grant-s3-bucket-read.json
+
+kali@kali:~$ cat grant-s3-bucket-read.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowUserToListBucket",
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::offseclab-dummy-bucket-28967-25641-13328",
+            "Principal": {
+                "AWS": ["arn:aws:iam::123456789012:user/cloudadmin"]
+            },
+            "Action": "s3:ListBucket"
+
+        }
+    ]
+}
+~~~
+
+#### Attaching the Resource Based Policy to the Test Bucket
+
+~~~ bash
+kali@kali:~$ aws --profile attacker s3api put-bucket-policy --bucket offseclab-dummy-bucket-28967-25641-13328 --policy file://grant-s3-bucket-read.json 
+
+kali@kali:~$ 
+~~~
+
+
+
+#### Creating a List of Roles to Search in the Account
+
+~~~ bash
+kali@kali:~$ echo -n "lab_admin
+security_auditor
+content_creator
+student_access
+lab_builder
+instructor
+network_config
+monitoring_logging
+backup_restore
+content_editor" > /tmp/role-names.txt
+~~~
+
+#### Installing pacu in Kali Linux Using the Package Manager
+
+~~~ bash
+kali@kali:~$ sudo apt update
+
+kali@kali:~$ sudo apt install pacu
+~~~
+
+#### Starting pacu in Interactive Mode
+
+~~~ bash
+kali@kali:~$ pacu
+
+....
+Database created at /root/.local/share/pacu/sqlite.db
+
+What would you like to name this new session? offseclab
+Session offseclab created.
+
+...
+
+Pacu (offseclab:No Keys Set) > 
+~~~
+
+
+
+#### Importing the attacker Profile Credentials in pacu
+
+~~~ bash
+Pacu (offseclab:No Keys Set) > import_keys attacker
+  Imported keys as "imported-attacker"
+Pacu (offseclab:imported-attacker) > 
+~~~
+
+
+#### Listing Modules in pacu
+
+~~~ bash
+Pacu (offseclab:imported-attacker) > ls
+...
+[Category: RECON_UNAUTH]
+
+  iam__enum_roles
+  iam__enum_users
+
+...
+~~~
+
+
+#### Running the enum_roles Module in pacu
+
+~~~ bash
+Pacu (offseclab:imported-attacker) > run iam__enum_roles --word-list /tmp/role-names.txt --account-id 123456789012
+  Running module iam__enum_roles...
+...
+~~~
+
+
+
 
