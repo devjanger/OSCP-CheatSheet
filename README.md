@@ -591,6 +591,14 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --format=Raw-MD5 --pot
 ~~~
 
 
+### cracking SSH private key
+
+~~~ bash
+ssh2john id_rsa > ssh.hash
+john --wordlist=/usr/share/wordlists/rockyou.txt ssh.hash
+~~~
+
+
 ### cracking htpasswd using mask
 
 ~~~ bash
