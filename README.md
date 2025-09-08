@@ -989,6 +989,28 @@ wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /PATH/TO/DIRECTORY/webd
 
 # Mimikatz
 
+~~~ bash
+root@kali:~# mimikatz -h
+
+> mimikatz ~ Uses admin rights on Windows to display passwords in plaintext
+
+/usr/share/windows-resources/mimikatz
+|-- Win32
+|   |-- mimidrv.sys
+|   |-- mimikatz.exe
+|   |-- mimilib.dll
+|   |-- mimilove.exe
+|   `-- mimispool.dll
+|-- kiwi_passwords.yar
+|-- mimicom.idl
+`-- x64
+    |-- mimidrv.sys
+    |-- mimikatz.exe
+    |-- mimilib.dll
+    `-- mimispool.dll
+~~~
+
+
 ~~~ powershell
 PS C:\tools> .\mimikatz.exe
 
