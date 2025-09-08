@@ -59,6 +59,7 @@
 * [Exiftool](#Exiftool)
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
+* [LinPEAS](#LinPEAS)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
@@ -1086,6 +1087,17 @@ Injected =)
 
 PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 ~~~
+
+
+# LinPEAS
+
+## Serving the linpeas enumeration script
+
+~~~ bash
+cp /usr/share/peass/linpeas/linpeas.sh .
+python3 -m http.server 80
+~~~
+
 
 # Windows Privilege Escalation
 
