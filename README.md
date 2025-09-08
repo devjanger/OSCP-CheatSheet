@@ -177,6 +177,12 @@ swaks --to target@example.com --from attacker@example.com --server example.com -
 
 # HTTP, HTTPS - 80, 443
 
+## WhatWeb scan
+
+~~~ bash
+whatweb http://target.com
+~~~
+
 ## Login Brute force(hydra)
 
 ~~~ bash
