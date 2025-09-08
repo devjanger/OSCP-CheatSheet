@@ -200,6 +200,7 @@ git.offseclab.io http-get /api/v1/user
 ## WordPress Security Scanner(wpscan)
 
 ~~~ bash
+wpscan --url https://<RHOST> --enumerate p --plugins-detection aggressive
 wpscan --url https://<RHOST> --enumerate u,t,p
 wpscan --url https://<RHOST> --plugins-detection aggressive
 wpscan --url https://<RHOST> --disable-tls-checks
