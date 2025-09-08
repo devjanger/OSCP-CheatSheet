@@ -61,7 +61,7 @@
 * [Mimikatz](#Mimikatz)
 * [LinPEAS](#LinPEAS)
 * [Git](#Git)
-* [BloodHound)(#BloodHound)
+* [BloodHound](#BloodHound)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
