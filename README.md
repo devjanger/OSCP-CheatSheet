@@ -500,6 +500,24 @@ mysqldump -u root -p 'password' -P 3389 -h hostname dbname tablename > mysqldump
 
 # RDP - 3389
 
+## Enable RDP from cmd.exe
+[https://cheatsheet.haax.fr/windows-systems/exploitation/rdp_exploitation/](https://cheatsheet.haax.fr/windows-systems/exploitation/rdp_exploitation/)
+
+~~~ cmd
+# Enable RDP from cmd.exe
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+# Disable RDP from cmd.exe
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 1 /f
+
+# Disable NLA (Network Layer Authentication) requirement
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v UserAuthentication /t REG_DWORD /d 0 /f
+
+# You can also do it through the firewall
+netsh firewall set service remoteadmin enable
+netsh firewall set service remotedesktop enable
+~~~
+
 ## Connection
 
 ~~~ bash
