@@ -189,10 +189,10 @@ ftp> PASS anonymous
 ## SSH Private Key List
 
 ~~~
-id_rsa
-id_dsa
-id_ecdsa
-id_ed25519
+/home/offsec/.ssh/id_rsa
+/home/offsec/.ssh/id_dsa
+/home/offsec/.ssh/id_ecdsa
+/home/offsec/.ssh/id_ed25519
 ~~~
 
 ## Login Brute force
