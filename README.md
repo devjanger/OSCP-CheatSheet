@@ -96,7 +96,7 @@
 
 # Enumeration
 
-## Nmap
+## Port Scan - Nmap
 
 ~~~ bash
 nmap -sCV -Pn $target --open --min-rate 3000 -oA output
@@ -111,11 +111,52 @@ nmap -iL ips.txt -v -p 139,445 --script smb-os-discovery -oG results.txt
 ll /usr/share/nmap/scripts | grep smb | awk '{ print $9 }'
 ~~~
 
-## RustScan
+## Port Scan - RustScan
 
 ~~~ bash
 rustscan -a $target -- -sC -sV -oN rust_full.txt
 ~~~
+
+## Initial Enumeration - Windows
+
+~~~ cmd
+Get-ChildItem -Path C:\Users\ -Include proof.txt,local.txt -File -Recurse
+dir /s local.txt
+dir /s proof.txt
+systeminfo
+ipconfig /all
+
+whoami /priv
+net localgroup administrators
+Get-Process | Where-Object {$_.Path -notlike "C:\Windows*"}
+~~~
+
+## Initial Enumeration - Linux
+
+~~~ bash
+uname -a
+cat /etc/os-release
+id
+whoami
+hostname
+
+ifconfig -a
+ip route
+netstat -tulnp
+ss -tulnp
+
+sudo -l
+
+find / -name local.txt 2>/dev/null
+find / -name proof.txt 2>/dev/null
+find / -perm -4000 2>/dev/null
+
+systemctl list-units --type=service --state=running
+
+env
+cat ~/.bash_history
+~~~
+
 
 
 # FTP - 21
