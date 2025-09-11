@@ -126,8 +126,8 @@ rustscan -a $target -r 1-20000 -- -sC -sV -oN rust_full.txt
 
 ~~~ cmd
 Get-ChildItem -Path C:\Users\ -Include proof.txt,local.txt -File -Recurse
-dir /s local.txt
-dir /s proof.txt
+cmd /c dir c:\local.txt /s/b
+cmd /c dir c:\proof.txt /s/b
 systeminfo
 ipconfig /all
 
