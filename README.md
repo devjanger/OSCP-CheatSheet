@@ -186,6 +186,15 @@ ftp> PASS anonymous
 
 # SSH - 22
 
+## SSH Private Key List
+
+~~~
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+~~~
+
 ## Login Brute force
 
 ~~~ bash
