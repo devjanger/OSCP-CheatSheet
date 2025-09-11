@@ -125,7 +125,7 @@ rustscan -a $target -r 1-20000 -- -sC -sV -oN rust_full.txt
 ## Initial Enumeration - Windows
 
 ~~~ cmd
-Get-ChildItem -Path C:\Users\ -Include proof.txt,local.txt -File -Recurse
+Get-ChildItem -Path C:\ -Include proof.txt,local.txt -File -Recurse
 cmd /c dir c:\local.txt /s/b
 cmd /c dir c:\proof.txt /s/b
 systeminfo
