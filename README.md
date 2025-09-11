@@ -189,6 +189,7 @@ ftp> PASS anonymous
 ## SSH Private Key List
 
 ~~~
+# chmod 600 id_*
 /home/offsec/.ssh/id_rsa
 /home/offsec/.ssh/id_dsa
 /home/offsec/.ssh/id_ecdsa
