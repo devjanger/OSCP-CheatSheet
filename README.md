@@ -134,6 +134,7 @@ whoami /priv
 net localgroup administrators
 Get-Process | Where-Object {$_.Path -notlike "C:\Windows*"}
 ls env:
+type (Get-PSReadLineOption).HistorySavePath
 ~~~
 
 ## Initial Enumeration - Linux
