@@ -133,6 +133,7 @@ ipconfig /all
 whoami /priv
 net localgroup administrators
 Get-Process | Where-Object {$_.Path -notlike "C:\Windows*"}
+ls env:
 ~~~
 
 ## Initial Enumeration - Linux
