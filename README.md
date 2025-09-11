@@ -1575,6 +1575,11 @@ schtasks /query /fo LIST /v | findstr C:\Users
 
 ~~~ powershell
 systeminfo
+
+...
+OS Version:                10.0.22621 N/A Build 22621
+...
+
 Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description -eq "Security Update" }
 ~~~
 
@@ -1583,16 +1588,6 @@ Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description
 
 ~~~ powershell
 whoami /priv
-~~~
-
-#### Enumerating the Windows version
-
-~~~ powershell
-systeminfo
-
-...
-OS Version:                10.0.22621 N/A Build 22621
-...
 ~~~
 
 
