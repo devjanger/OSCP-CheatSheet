@@ -1267,6 +1267,12 @@ chmod a+x ./linpeas.sh
 
 # Git
 
+## Find .git
+
+~~~ cmd
+dir /s /b /ah C:\.git
+~~~
+
 ## Examining the Git repository
 
 ~~~ bash
