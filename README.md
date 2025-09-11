@@ -119,6 +119,7 @@ ll /usr/share/nmap/scripts | grep smb | awk '{ print $9 }'
 
 ~~~ bash
 rustscan -a $target -- -sC -sV -oN rust_full.txt
+rustscan -a $target -r 1-20000 -- -sC -sV -oN rust_full.txt
 ~~~
 
 ## Initial Enumeration - Windows
