@@ -24,7 +24,7 @@
                                              . 
 ~~~
 
-* [Useful](#Useful)
+* [Start](#Start)
 * [Enumeration](#Enumeration)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
@@ -89,12 +89,33 @@
 * [Enumerating AWS Cloud Infrastructure](#Enumerating-AWS-Cloud-Infrastructure)
 * [Attacking AWS Cloud Infrastructure](#Attacking-AWS-Cloud-Infrastructure)
 
-# Useful
+# Start
+
+## Useful tools
 
 - OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
 - GTFOBins (list of Unix binaries for post-exploitation) [https://gtfobins.github.io/](https://gtfobins.github.io/)
 - Reverse Shell Generator [https://www.revshells.com/](https://www.revshells.com/)
+
+## Project Folder Layout
+
+~~~
+project/
+├── share/
+│   ├── linpeas.sh
+│   ├── mimikatz.exe
+│   ├── SigmaPotato.exe
+│   └── WinPEASx64.exe
+├── usernames.txt
+├── passwords.txt
+├── memo.txt
+├── internal_ips.txt
+└── external_ips.txt
+~~~
+
+## Port Number Reference for OSCP Exam
+
 
 
 
