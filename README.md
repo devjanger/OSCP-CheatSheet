@@ -114,10 +114,14 @@ project/
 └── external_ips.txt
 ~~~
 
-## Port Number Reference for OSCP Exam
+## My Port Number Reference for OSCP Exam
 
-
-
+| Category               | Ports                  |
+|------------------------|------------------------|
+| SOCKS Proxy            | 1080                   |
+| Reverse Shell          | 4000, 4001, 4002, 4003 |
+| HttpServer(Python)     | 8000                   |
+| SimpleFileServer(HTTP) | 8001                   |
 
 # Enumeration
 
