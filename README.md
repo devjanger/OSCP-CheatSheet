@@ -2625,7 +2625,7 @@ kali@kali:~$ sudo neo4j start
 
 ~~~ bash
 chmod +x ./BloodHound
-./BloodHound --disable-gpu
+./BloodHound --disable-gpu --no-sandbox
 ~~~
 
 ~~~ powershell
