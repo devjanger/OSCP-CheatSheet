@@ -1432,6 +1432,7 @@ type result.txt | select-string master
 
 ~~~ powershell
 type (Get-PSReadLineOption).HistorySavePath
+# C:\Users\username\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
 ~~~
 
 ### Invoke Web Request(File download)
