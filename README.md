@@ -1748,6 +1748,15 @@ find / -perm -u=s -type f 2>/dev/null
 ### Automated Enumeration
 
 
+#### linux-exploit-suggester
+
+[https://github.com/The-Z-Labs/linux-exploit-suggester](https://github.com/The-Z-Labs/linux-exploit-suggester)
+
+~~~ bash
+./linux-exploit-suggester.sh
+~~~
+
+
 #### Running unix_privesc_check
 
 ~~~ bash
