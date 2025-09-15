@@ -107,6 +107,7 @@ project/
 │   ├── mimikatz.exe
 │   ├── SigmaPotato.exe
 │   └── WinPEASx64.exe
+│   └── Rubeus.exe
 ├── usernames.txt
 ├── passwords.txt
 ├── memo.txt
