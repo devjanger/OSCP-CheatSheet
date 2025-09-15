@@ -1430,7 +1430,7 @@ root@kali:~# pspy-binaries -h
 ## print both commands and file system events and scan procfs every 1000 ms (=1sec)
 
 ~~~ bash
-./pspy64 -pf -i 1000|grep borg
+./pspy64 -pf -i 1000 | grep borg
 ~~~
 
 
