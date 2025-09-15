@@ -67,6 +67,7 @@
 * [Git](#Git)
 * [BloodHound](#BloodHound)
 * [Chisel](#Chisel)
+* [Pspy](#Pspy)
 * [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
@@ -1409,6 +1410,29 @@ chmod a+x chisel
 [ProxyList]
 socks5  127.0.0.1 1080
 ~~~
+
+# Pspy
+
+## Monitor linux processes without root permissions
+
+~~~ bash
+root@kali:~# pspy-binaries -h
+
+> pspy ~ Monitor Linux processes without root permissions
+
+/usr/share/pspy
+|-- pspy32
+|-- pspy32s
+|-- pspy64
+`-- pspy64s
+~~~
+
+## print both commands and file system events and scan procfs every 1000 ms (=1sec)
+
+~~~ bash
+./pspy64 -pf -i 1000|grep borg
+~~~
+
 
 # Windows Privilege Escalation
 
