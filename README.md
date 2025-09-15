@@ -106,7 +106,7 @@ project/
 │   ├── linpeas.sh
 │   ├── mimikatz.exe
 │   ├── SigmaPotato.exe
-│   └── WinPEASx64.exe
+│   ├── WinPEASx64.exe
 │   └── Rubeus.exe
 ├── usernames.txt
 ├── passwords.txt
