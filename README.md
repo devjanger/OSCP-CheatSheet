@@ -99,7 +99,7 @@
 - GTFOBins (list of Unix binaries for post-exploitation) [https://gtfobins.github.io/](https://gtfobins.github.io/)
 - Reverse Shell Generator [https://www.revshells.com/](https://www.revshells.com/)
 - Hacktricks Wiki [https://book.hacktricks.wiki/ko/index.html](https://book.hacktricks.wiki/ko/index.html)
-- [https://github.com/0xsyr0/OSCP](https://github.com/0xsyr0/OSCP](https://github.com/0xsyr0/OSCP)
+- (https://github.com/0xsyr0/OSCP](https://github.com/0xsyr0/OSCP)
 - [https://github.com/saisathvik1/OSCP-Cheatsheet](https://github.com/saisathvik1/OSCP-Cheatsheet)
 - [https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html](https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html)
 
