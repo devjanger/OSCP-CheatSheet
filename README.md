@@ -98,6 +98,7 @@
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
 - GTFOBins (list of Unix binaries for post-exploitation) [https://gtfobins.github.io/](https://gtfobins.github.io/)
 - Reverse Shell Generator [https://www.revshells.com/](https://www.revshells.com/)
+- reverse-shell.sh [https://reverse-shell.sh/](https://reverse-shell.sh/)
 - Hacktricks Wiki [https://book.hacktricks.wiki/ko/index.html](https://book.hacktricks.wiki/ko/index.html)
 - [https://github.com/0xsyr0/OSCP](https://github.com/0xsyr0/OSCP)
 - [https://github.com/saisathvik1/OSCP-Cheatsheet](https://github.com/saisathvik1/OSCP-Cheatsheet)
