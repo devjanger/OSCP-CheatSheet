@@ -3251,7 +3251,7 @@ ProcessId ReturnValue PSComputerName
      3712           0 192.168.50.73
 ~~~
 
-#### Executing the WMI PowerShell payload
+#### Base64 encoder Python script
 
 ~~~ python
 import sys
