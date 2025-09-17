@@ -126,7 +126,7 @@ project/
 | Category               | Ports                  |
 |------------------------|------------------------|
 | SOCKS Proxy            | 1080                   |
-| Reverse Shell          | 4000, 4001, 4002, 4003 |
+| Reverse Shell          | 443                    |
 | HttpServer(Python)     | 8000                   |
 | SimpleFileServer(HTTP) | 8001                   |
 
