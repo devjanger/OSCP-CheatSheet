@@ -1,5 +1,6 @@
 # Port Scan
 ``` bash
+nmap -Pn <IP> -oN nmap_<IP>.txt
 rustscan -a $target -r 1-10000 -- -sC -sV -oN rust_full.txt
 nmap -sC -sV <IP> -v
 nmap -T4 -A -p- <IP> -v
