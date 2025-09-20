@@ -436,7 +436,17 @@ snmpbulkwalk -c public -v2c $target
 ~~~
 
 ~~~ bash
-snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
+snmpwalk -c public -v1 <RHOST>
+snmpwalk -v2c -c public <RHOST> 1.3.6.1.2.1.4.34.1.3
+snmpwalk -v2c -c public <RHOST> .1
+snmpwalk -v2c -c public <RHOST> nsExtendObjects
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.4.1.77.1.2.25
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.2.1.25.4.2.1.2
+snmpwalk -c public -v1 <RHOST> .1.3.6.1.2.1.1.5
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.4.1.77.1.2.3.1.1
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.4.1.77.1.2.27
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.2.1.6.13.1.3
+snmpwalk -c public -v1 <RHOST> 1.3.6.1.2.1.25.6.3.1.2
 ~~~
 
 
