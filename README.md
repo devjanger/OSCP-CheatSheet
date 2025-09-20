@@ -399,6 +399,12 @@ https://www.tesla.com/findus/list?redirect=no
 
 # SNMP - 161
 
+## snmp-check
+
+~~~ bash
+snmp-check 192.168.247.149 -c public
+~~~
+
 ## snmpbulkwalk
 
 ## Scanning opened snmp
