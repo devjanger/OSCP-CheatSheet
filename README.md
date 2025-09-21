@@ -429,23 +429,52 @@ onesixtyone -c /home/liodeus/wordlist/SecLists/Discovery/SNMP/common-snmp-commun
 ~~~
 
 
-> Windows SNMP MIB Values
+> Windows/Linux SNMP MIB Values
+
+https://cheatsheet.haax.fr/network/services-enumeration/161_162_snmp/
 
 
-| OID               | 설명             |
-|:------------------|:-----------------|
-| 1.3.6.1.2.1.25.1.6.0 | 시스템 프로세스  |
-| 1.3.6.1.2.1.25.4.2.1.2 | 프로그램 실행    |
-| 1.3.6.1.2.1.25.4.2.1.4 | 프로세스 경로    |
-| 1.3.6.1.2.1.25.2.3.1.4 | 보관 유닛        |
-| 1.3.6.1.2.1.25.6.3.1.2 | 소프트웨어 이름  |
-| 1.3.6.1.4.1.77.1.2.25 | 사용자 계정      |
-| 1.3.6.1.2.1.6.13.1.3 | TCP 로컬 포트    |
+~~~
+Windows	RUNNING PROCESSES	1.3.6.1.2.1.25.4.2.1.2
+Windows	INSTALLED SOFTWARE	1.3.6.1.2.1.25.6.3.1.2
+Windows	SYSTEM INFO		1.3.6.1.2.1.1.1
+Windows	HOSTNAME		1.3.6.1.2.1.1.5
+Windows	DOMAIN			1.3.6.1.4.1.77.1.4.1
+Windows	UPTIME			1.3.6.1.2.1.1.3
+Windows	USERS			1.3.6.1.4.1.77.1.2.25
+Windows	SHARES			1.3.6.1.4.1.77.1.2.27
+Windows	DISKS			1.3.6.1.2.1.25.2.3.1.3
+Windows	SERVICES		1.3.6.1.4.1.77.1.2.3.1.1
+Windows	LISTENING TCP PORTS	1.3.6.1.2.1.6.13.1.3.0.0.0.0
+Windows	LISTENING UDP PORTS	1.3.6.1.2.1.7.5.1.2.0.0.0.0
 
+
+Linux	RUNNING PROCESSES	1.3.6.1.2.1.25.4.2.1.2
+Linux	SYSTEM INFO		1.3.6.1.2.1.1.1
+Linux	HOSTNAME		1.3.6.1.2.1.1.5
+Linux	UPTIME			1.3.6.1.2.1.1.3
+Linux	MOUNTPOINTS		1.3.6.1.2.1.25.2.3.1.3
+Linux	RUNNING SOFTWARE PATHS	1.3.6.1.2.1.25.4.2.1.4
+Linux	LISTENING UDP PORTS	1.3.6.1.2.1.7.5.1.2.0.0.0.0
+Linux	LISTENING TCP PORTS	1.3.6.1.2.1.6.13.1.3.0.0.0.0
+~~~
+
+> Community
+
+~~~
+admin
+manager
+public
+private
+~~~
+
+## snmpbulkwalk
 
 ~~~ bash
 snmpbulkwalk -c public -v2c $target
 ~~~
+
+## snmpwalk
 
 ~~~ bash
 snmpwalk -c public -v1 <RHOST>
