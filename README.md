@@ -103,6 +103,7 @@
 - [https://github.com/0xsyr0/OSCP](https://github.com/0xsyr0/OSCP)
 - [https://github.com/saisathvik1/OSCP-Cheatsheet](https://github.com/saisathvik1/OSCP-Cheatsheet)
 - [https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html](https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html)
+- OSCP Privilege Escalation [https://github.com/C0nd4/OSCP-Priv-Esc](https://github.com/C0nd4/OSCP-Priv-Esc)
 
 ## Project Folder Layout
 
