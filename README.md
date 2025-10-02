@@ -68,7 +68,7 @@
 * [BloodHound](#BloodHound)
 * [Chisel](#Chisel)
 * [Pspy](#Pspy)
-* [](#Windows-Privilege-Escalation)
+* [Windows Privilege Escalation](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
   * [Abusing Other Windows Components](#Abusing-Other-Windows-Components)
