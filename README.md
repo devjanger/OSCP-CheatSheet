@@ -474,7 +474,7 @@ snmpbulkwalk -c public -v2c $target
 snmpwalk -c public -v1 <RHOST>
 snmpwalk -v2c -c public <RHOST> 1.3.6.1.2.1.4.34.1.3
 snmpwalk -v2c -c public <RHOST> .1
-snmpwalk -v2c -c public <RHOST> nsExtendObjects
+snmpwalk -v2c -c public <RHOST> NET-SNMP-EXTEND-MIB::nsExtendObjects
 snmpwalk -c public -v1 <RHOST> 1.3.6.1.4.1.77.1.2.25
 snmpwalk -c public -v1 <RHOST> 1.3.6.1.2.1.25.4.2.1.2
 snmpwalk -c public -v1 <RHOST> .1.3.6.1.2.1.1.5
