@@ -86,6 +86,7 @@ find /var/log -group adm
 grep -ri password
 find / -perm -u=s -type f 2>/dev/null
 ./pspy64 -pf -i 1000
+ls -lah /etc/cron*
 ```
 
 # Pivoting
