@@ -76,6 +76,7 @@ winPEASx64.exe
 .\Rubeus.exe kerberoast /outfile:hashes.kerberoast
 dir /s SAM
 dir /s SYSTEM
+type (Get-PSReadLineOption).HistorySavePath
 ```
 
 # Linux Enumeration & Privesc
