@@ -68,7 +68,7 @@
 * [BloodHound](#BloodHound)
 * [Chisel](#Chisel)
 * [Pspy](#Pspy)
-* [Windows Privilege Escalation](#Windows-Privilege-Escalation)
+* [](#Windows-Privilege-Escalation)
   * [Enumerating Windows](#Enumerating-Windows)
   * [Leveraging Windows Services](#Leveraging-Windows-Services)
   * [Abusing Other Windows Components](#Abusing-Other-Windows-Components)
@@ -1502,6 +1502,8 @@ root@kali:~# pspy-binaries -h
 
 # Windows Privilege Escalation
 
+[https://nagasaikiran.com/windows-privilege-escalation/](https://nagasaikiran.com/windows-privilege-escalation/)
+
 ## Enumerating Windows
 
 ### Base64 encoding/decoding
@@ -1792,6 +1794,8 @@ wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPo
 
 
 # Linux Privilege Escalation
+
+[https://nagasaikiran.com/linux-privilege-escalation/](https://nagasaikiran.com/linux-privilege-escalation/)
 
 ## Enumerating Linux
 
