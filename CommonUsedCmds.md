@@ -140,6 +140,6 @@ impacket-secretsdump -system SYSTEM -sam SAM LOCAL
 
 ``` shell
 .\busybox.exe httpd
-
+.\busybox.exe nc -lp 4444
 ```
 
