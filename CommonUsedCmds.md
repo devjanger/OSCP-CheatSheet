@@ -64,7 +64,7 @@ xfreerdp3 /u:zachary /p:'Th3R@tC@tch3r' /v:192.168.202.145 /dynamic-resolution
 ```
 
 
-# Windows Enumeration & Privesc
+# Windows Enumeration
 ``` powershell
 whoami /all
 net localgroup administrators
@@ -80,7 +80,7 @@ dir /s SYSTEM
 type (Get-PSReadLineOption).HistorySavePath
 ```
 
-# Linux Enumeration & Privesc
+# Linux Enumeration
 ``` bash
 find /var/log -group adm
 grep -ri password
