@@ -26,6 +26,10 @@
 
 * [Start](#Start)
 * [Enumeration](#Enumeration)
+	* [Port Scan - Nmap](#port-scan---nmap)
+ 	* [Port Scan - RustScan](#port-scan---rustscan)
+  	* [Initial Enumeration - Windows](#initial-enumeration---windows)
+  	* [Initial Enumeration - Linux](#initial-enumeration---linux)
 * [FTP - 21](#ftp---21)
 * [SSH - 22](#ssh---22)
 * [SMTP - 25](#smtp---25)
