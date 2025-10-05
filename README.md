@@ -144,6 +144,10 @@ nmap -sCV -Pn $target --open --min-rate 3000 -oN result.txt
 ~~~
 
 ~~~ bash
+nmap -sS -Pn --top-port 50 $target
+~~~
+
+~~~ bash
 cat txt.txt | grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" > ips.txt
 nmap -iL ips.txt -v -p 139,445 --script smb-os-discovery -oG results.txt
 ~~~
