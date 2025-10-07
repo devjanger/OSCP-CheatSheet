@@ -520,7 +520,7 @@ smbclient -N \\\\<IP>\\backups
 ~~~
 
 ~~~ bash
-smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash <NTLM_HASH>
+smbclient \\\\<IP>\\secrets -U Administrator --pw-nt-hash=<NTLM_HASH>
 ~~~
 
 ## File transfer(Win to Kali) with impacket-smbserver
