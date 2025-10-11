@@ -107,7 +107,7 @@
 
 ## Useful tools & Cheat sheets
 
-| Tool            | Name          |
+| Category        | Name          |
 |-----------------|---------------|
 | Memo, Notepad   | CherryTree    |
 | Screenshot      | 픽픽(PicPick), Lightshot |
