@@ -1548,7 +1548,8 @@ root@kali:~# pspy-binaries -h
 
 # Windows Privilege Escalation
 
-[https://nagasaikiran.com/windows-privilege-escalation/](https://nagasaikiran.com/windows-privilege-escalation/)
+- [https://nagasaikiran.com/windows-privilege-escalation/](https://nagasaikiran.com/windows-privilege-escalation/)
+- [https://www.hackingarticles.in/category/privilege-escalation/](https://www.hackingarticles.in/category/privilege-escalation/)
 
 ## Enumerating Windows
 
@@ -1841,7 +1842,8 @@ wget https://github.com/tylerdotrar/SigmaPotato/releases/download/v1.2.6/SigmaPo
 
 # Linux Privilege Escalation
 
-[https://nagasaikiran.com/linux-privilege-escalation/](https://nagasaikiran.com/linux-privilege-escalation/)
+- [https://nagasaikiran.com/linux-privilege-escalation/](https://nagasaikiran.com/linux-privilege-escalation/)
+- [https://www.hackingarticles.in/category/privilege-escalation/](https://www.hackingarticles.in/category/privilege-escalation/)
 
 ## Enumerating Linux
 
