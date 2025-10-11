@@ -110,7 +110,7 @@
 | Tool            | Name          |
 |-----------------|---------------|
 | Memo, Notepad   | CherryTree    |
-| Screenshot      | 픽픽(PicPick) |
+| Screenshot      | 픽픽(PicPick), Lightshot |
 
 - OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
