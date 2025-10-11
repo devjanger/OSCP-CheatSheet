@@ -105,7 +105,12 @@
 
 # Start
 
-## Useful tools & Cheat sheet
+## Useful tools & Cheat sheets
+
+| Tool            | Name          |
+|-----------------|---------------|
+| Memo, Notepad   | CherryTree    |
+| Screenshot tool | 픽픽(PicPick) |
 
 - OSCP Tools [https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md](https://github.com/RajChowdhury240/OSCP-CheatSheet/blob/main/Tools.md)
 - The Cyber Swiss Army Knife [https://gchq.github.io/CyberChef/](https://gchq.github.io/CyberChef/)
@@ -117,6 +122,8 @@
 - [https://github.com/saisathvik1/OSCP-Cheatsheet](https://github.com/saisathvik1/OSCP-Cheatsheet)
 - [https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html](https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html)
 - OSCP Privilege Escalation [https://github.com/C0nd4/OSCP-Priv-Esc](https://github.com/C0nd4/OSCP-Priv-Esc)
+
+
 
 ## Project Folder Layout
 
