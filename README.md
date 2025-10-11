@@ -165,6 +165,9 @@ rustscan -a $target -r 1-20000 -- -sC -sV -oN rust_full.txt
 
 ## Initial Enumeration - Windows
 
+- C:\
+- C:\Users\\%username%\Documents
+
 ~~~ cmd
 Get-ChildItem -Path C:\ -Include proof.txt,local.txt -File -Recurse
 cmd /c dir c:\local.txt /s/b /ah
@@ -180,6 +183,10 @@ type (Get-PSReadLineOption).HistorySavePath
 ~~~
 
 ## Initial Enumeration - Linux
+
+- /opt
+- /usr/share
+- /var
 
 ~~~ bash
 uname -a
