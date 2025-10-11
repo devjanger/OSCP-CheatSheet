@@ -50,7 +50,7 @@
 * [MySQL - 3306](#mysql---3306)
 * [RDP - 3389](#rdp---3389)
 * [PostgreSQL - 5432](#PostgreSQL---5432)
-* [WINRM - 5985 - 5986](#WINRM---5985---5986)
+* [WinRM - 5985, 5986](#WinRM---5985-5986)
 * [Fuzzing](#Fuzzing)
 * [Password Attack](#password-Attack)
   * [Hash identifier](#Hash-identifier)
@@ -766,7 +766,7 @@ with open("/usr/share/wordlists/rockyou.txt", "r", encoding="latin-1") as f:
 COPY cmd_output FROM PROGRAM 'id';
 ~~~
 
-# WINRM - 5985 - 5986
+# WinRM - 5985, 5986
 
 ## Login Brute force
 
