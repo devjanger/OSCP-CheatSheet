@@ -484,7 +484,7 @@ Linux	LISTENING UDP PORTS	1.3.6.1.2.1.7.5.1.2.0.0.0.0
 Linux	LISTENING TCP PORTS	1.3.6.1.2.1.6.13.1.3.0.0.0.0
 ~~~
 
-> Community
+> Community Strings
 
 ~~~
 public
