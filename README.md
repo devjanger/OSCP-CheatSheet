@@ -33,7 +33,7 @@
                                              . 
 ~~~
 
-* [Start](#Start)
+* [Setup](#setup)
 * [Enumeration](#Enumeration)
 	* [Port Scan - Nmap](#port-scan---nmap)
  	* [Port Scan - RustScan](#port-scan---rustscan)
@@ -103,7 +103,7 @@
 * [Enumerating AWS Cloud Infrastructure](#Enumerating-AWS-Cloud-Infrastructure)
 * [Attacking AWS Cloud Infrastructure](#Attacking-AWS-Cloud-Infrastructure)
 
-# Start
+# Setup
 
 ## Useful tools & Cheat sheets
 
