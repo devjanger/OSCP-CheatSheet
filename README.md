@@ -1,5 +1,14 @@
 # OSCP CheatSheet
 
+# 🎉 I Passed OSCP!
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/12a9840f-de92-4cfe-ae13-b1dbbe12d615" width="200" height="200" alt="OSCP Badge 1" />
+  <img src="https://github.com/user-attachments/assets/95c7ec8f-0844-4684-8daf-937b14ae7a42" width="200" height="200" alt="OSCP Badge 2" />
+</p>
+
+**Certified:** 2025-10-10
+
 ~~~
 ..............                                     
             ..,;:ccc,.                             
